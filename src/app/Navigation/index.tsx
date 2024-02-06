@@ -4,6 +4,7 @@ import ThemeSwitcher from './ThemeSwitcher';
 import Share from './Share';
 import Settings from './Settings';
 import { cn } from '~/utils/cn';
+import React from '~/icons/React';
 
 const Navigation: FC = () => (
   <div className={cn(
@@ -12,9 +13,14 @@ const Navigation: FC = () => (
     ['flex', 'flex-col', 'items-center', 'justify-between'],
   )}
   >
-    <img className="w-12" src="/react.svg" />
+    <React
+      className={cn(
+        ['w-12', 'h-12'],
+        ['text-[#387CA0]', 'dark:text-[#499CC6]'],
+      )}
+    />
 
-    <div className={cn(['flex', 'flex-col', 'gap-2'])}>
+    <div className="flex flex-col gap-2">
       <ThemeSwitcher />
       <Share />
       <Settings />
