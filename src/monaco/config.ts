@@ -4,6 +4,7 @@ export const monacoOptions: editor.IStandaloneEditorConstructionOptions = {
   tabSize: 2,
   fontSize: 13,
   folding: false,
+  lineNumbersMinChars: 4,
   insertSpaces: true,
   smoothScrolling: true,
   automaticLayout: true,

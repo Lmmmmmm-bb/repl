@@ -6,7 +6,7 @@ import HtmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker';
 
 export const initEnvWorker = () => {
   window.MonacoEnvironment = {
-    getWorker(_: any, label: string) {
+    getWorker(_workerId: string, label: string) {
       if (['typescript', 'javascript'].includes(label)) {
         return new TsWorker();
       } else if (label === 'css') {
