@@ -1,5 +1,6 @@
 import { type FC, useState } from 'react';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
+import Editor from './Editor';
 import { cn } from '~/utils/cn';
 
 const Playground: FC = () => {
@@ -24,7 +25,9 @@ const Playground: FC = () => {
           ['border', 'rounded-lg'],
           { 'border-0': hiddenPanel === 'left' },
         )}
-      />
+      >
+        <Editor />
+      </Panel>
       <PanelResizeHandle />
       <Panel
         className={cn(

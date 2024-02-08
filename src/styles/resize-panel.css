@@ -3,11 +3,11 @@
 
   @apply before:absolute before:top-1/2 before:left-1/2;
   @apply before:bg-[#8888];
-  @apply hover:before:opacity-0 before:transition-opacity before:duration-300;
+  @apply active:before:opacity-0 hover:before:opacity-0 before:transition-opacity before:duration-300;
 
   @apply after:absolute after:top-1/2 after:left-1/2;
   @apply after:bg-[#8888];
-  @apply hover:after:opacity-0 after:transition-opacity after:duration-300;
+  @apply active:after:opacity-0 hover:after:opacity-0 after:transition-opacity after:duration-300;
 }
 
 [data-resize-handle][data-panel-group-direction=horizontal] {
@@ -32,5 +32,5 @@
 
 [data-resize-handle-active=pointer],
 [data-resize-handle-active=keyboard] {
-  @apply bg-light-400 outline-none;
+  @apply bg-light-400 dark:bg-dark-400 outline-none;
 }
