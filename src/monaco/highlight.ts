@@ -1,6 +1,7 @@
 import * as monaco from 'monaco-editor';
-import { getHighlighter } from 'shiki';
+import { emmetCSS, emmetHTML, emmetJSX } from 'emmet-monaco-es';
 import { shikiToMonaco } from '@shikijs/monaco';
+import { getHighlighter } from 'shiki';
 
 const highlighter = await getHighlighter({
   themes: ['vitesse-dark', 'vitesse-light'],
@@ -8,5 +9,9 @@ const highlighter = await getHighlighter({
 });
 
 export const initHighlight = () => {
+  emmetCSS(monaco, ['css']);
+  emmetHTML(monaco, ['html']);
+  emmetJSX(monaco, ['javascript', 'typescript']);
+
   shikiToMonaco(highlighter, monaco);
 };
