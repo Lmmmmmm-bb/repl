@@ -1,34 +1,34 @@
-import { type FC, useState } from 'react';
-import { files } from './config';
+import type { FC } from 'react';
 import Tabs from '~/components/Tabs';
+import { useVirtualFileContext } from '~/contexts/virtual-file';
 import { cn } from '~/utils/cn';
+import { getVirtualFileExt } from '~/virtual-file';
+import { virtualFileExtIconStrategy } from '~/virtual-file/strategy';
 
 const FileTabs: FC = () => {
-  const [activeLabel, setActiveLabel] = useState('App.tsx');
-
-  const handleTabClick = (nextLabel: string) => {
-    setActiveLabel(nextLabel);
-  };
+  const { files, activeFile, setActiveFile, deleteFile } = useVirtualFileContext();
 
   return (
     <Tabs>
       {
-        files.map((item) => {
-          const isActive = item.label === activeLabel;
+        Object.values(files).map((item) => {
+          const isActive = item.filename === activeFile?.filename;
 
           return (
             <Tabs.Item
-              key={item.label}
-              title={item.label}
+              key={item.filename}
+              title={item.filename}
               active={isActive}
+              closable={item.filename !== 'App.tsx'}
               className={cn(isActive && 'text-brand')}
               onClick={(e) => {
                 e.currentTarget.scrollIntoView();
-                handleTabClick(item.label);
+                setActiveFile(item);
               }}
+              onCloseClick={() => deleteFile(item.filename)}
             >
-              {item.icon}
-              {item.label}
+              {virtualFileExtIconStrategy[getVirtualFileExt(item.filename)]}
+              {item.filename}
             </Tabs.Item>
           );
         })

@@ -1,5 +1,6 @@
 import type { Dispatch, SetStateAction } from 'react';
 import { createContext } from 'react';
+import { noop } from '../contants';
 import type { ThemeModeType } from './types';
 
 interface ThemeContext {
@@ -9,5 +10,5 @@ interface ThemeContext {
 
 export const themeContext = createContext<ThemeContext>({
   theme: 'light',
-  setTheme: () => {},
+  setTheme: noop,
 });
