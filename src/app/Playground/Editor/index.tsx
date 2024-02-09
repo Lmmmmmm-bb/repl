@@ -2,11 +2,11 @@ import type { FC } from 'react';
 import { useEffect, useRef } from 'react';
 import type { editor } from 'monaco-editor';
 import { monaco, monacoOptions } from '~/monaco';
-import { useVirtualFileContext } from '~/contexts/virtual-file';
 import { getOrCreateModel } from '~/monaco/model';
+import { updateFileContent, useVirtualFileStore } from '~/stores/virtual-file';
 
 const Editor: FC = () => {
-  const { activeFile, updateFileContent } = useVirtualFileContext();
+  const { activeFile } = useVirtualFileStore();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<editor.IStandaloneCodeEditor>();
@@ -27,7 +27,6 @@ const Editor: FC = () => {
       editorRef.current && editorRef.current.dispose();
       editorRef.current = undefined;
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
