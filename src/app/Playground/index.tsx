@@ -1,26 +1,24 @@
 import type { FC } from 'react';
-import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import Editor from './Editor';
 import Container from '~/components/Container';
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '~/components/ui/Resizable';
 
 const Playground: FC = () => (
-  <PanelGroup direction="horizontal">
-    <Panel>
+  <ResizablePanelGroup direction="horizontal">
+    <ResizablePanel>
       <Container title="Editor">
         <Editor />
       </Container>
-    </Panel>
+    </ResizablePanel>
 
-    <PanelResizeHandle />
+    <ResizableHandle />
 
-    <Panel>
-      <Container title="Preview">
-        <div className="h-full">
-          123
-        </div>
+    <ResizablePanel>
+      <Container title="Editor">
+        <div className="h-full">123</div>
       </Container>
-    </Panel>
-  </PanelGroup>
+    </ResizablePanel>
+  </ResizablePanelGroup>
 );
 
 export default Playground;
