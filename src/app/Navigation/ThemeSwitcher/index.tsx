@@ -1,12 +1,12 @@
 import type { FC } from 'react';
 
 import Button from '~/components/ui/Button';
-import { useThemeContext } from '~/contexts/theme';
 import Moon from '~/icons/Moon';
 import Sun from '~/icons/Sun';
+import { setTheme, useThemeStore } from '~/stores/theme';
 
 const ThemeSwitcher: FC = () => {
-  const { theme, setTheme } = useThemeContext();
+  const theme = useThemeStore(state => state.theme);
 
   const handleChangeTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
