@@ -13,12 +13,7 @@ const Navigation: FC = () => (
     ['flex', 'flex-col', 'items-center', 'justify-between'],
   )}
   >
-    <React
-      className={cn(
-        ['w-12', 'h-12'],
-        ['text-[#387CA0]', 'dark:text-[#499CC6]'],
-      )}
-    />
+    <React className="w-12 h-12 text-brand" />
 
     <div className="flex flex-col gap-2">
       <ThemeSwitcher />

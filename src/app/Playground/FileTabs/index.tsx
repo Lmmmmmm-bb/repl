@@ -21,7 +21,7 @@ const FileTabs: FC = () => {
               key={item.label}
               title={item.label}
               active={isActive}
-              className={cn(isActive && ['text-[#387CA0]', 'dark:text-[#499CC6]'])}
+              className={cn(isActive && 'text-brand')}
               onClick={(e) => {
                 e.currentTarget.scrollIntoView();
                 handleTabClick(item.label);

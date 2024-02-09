@@ -9,25 +9,11 @@ import { cn } from '~/utils/cn';
 export const files = [
   {
     label: 'App.tsx',
-    icon: (
-      <React
-        className={cn(
-          ['w-4', 'h-4'],
-          ['text-[#387CA0]', 'dark:text-[#499CC6]'],
-        )}
-      />
-    ),
+    icon: <React className="w-4 h-4 text-brand" />,
   },
   {
     label: 'index.tsx',
-    icon: (
-      <TypeScript
-        className={cn(
-          ['w-[14px]', 'h-[14px]'],
-          ['text-[#387CA0]', 'dark:text-[#499CC6]'],
-        )}
-      />
-    ),
+    icon: <TypeScript className="w-[14px] h-[14px] text-brand" />,
   },
   {
     label: 'test.jsx',

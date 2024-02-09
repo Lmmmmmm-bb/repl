@@ -12,3 +12,7 @@
     scrollbar-width: none;
   }
 }
+
+.text-brand {
+  @apply text-[#387CA0] dark:text-[#499CC6];
+}
