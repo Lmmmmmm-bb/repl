@@ -1,8 +1,7 @@
 import type { FC } from 'react';
 import { useEffect, useRef } from 'react';
 import type { editor } from 'monaco-editor';
-import { monaco, monacoOptions } from '~/monaco';
-import { getOrCreateModel } from '~/monaco/model';
+import { getOrCreateModel, monaco, monacoOptions } from '~/monaco';
 import { updateFileContent, useVirtualFileStore } from '~/stores/virtual-file';
 
 const Editor: FC = () => {

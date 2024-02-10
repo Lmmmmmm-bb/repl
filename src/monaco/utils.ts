@@ -1,4 +1,4 @@
-import { monaco } from '.';
+import * as monaco from 'monaco-editor';
 import { type VirtualFile, getVirtualFileLanguage } from '~/virtual-file';
 
 export const getOrCreateModel = (file: VirtualFile) => {
@@ -6,6 +6,7 @@ export const getOrCreateModel = (file: VirtualFile) => {
   const model = monaco.editor.getModel(uri); ;
 
   if (model) {
+    model.setValue(file.code);
     return model;
   }
 
