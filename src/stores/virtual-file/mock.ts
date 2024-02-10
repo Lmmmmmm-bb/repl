@@ -1,9 +1,10 @@
 import type { VirtualFile } from '~/virtual-file';
+import CountRaw from '~/templates/Count?raw';
 
 export const mock: Record<string, VirtualFile> = {
   'App.tsx': {
     filename: 'App.tsx',
-    code: '1',
+    code: CountRaw,
   },
   'index.ts': {
     filename: 'index.ts',
