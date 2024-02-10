@@ -16,7 +16,7 @@ const Container: FC<PropsWithChildren<ContainerProps>> = ({ title, children }) =
     <div
       className={cn(
         ['h-8', 'px-2', 'flex', 'items-center'],
-        ['bg-light-400', 'dark:bg-dark-400'],
+        ['bg-light-200', 'dark:bg-dark-600'],
         ['text-xs', 'border-b-[1px]'],
       )}
     >

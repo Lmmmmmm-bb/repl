@@ -27,7 +27,7 @@ const TabItem: FC<PropsWithChildren<TabItemProps>> = ({
       className={cn(
         ['px-4', 'h-full', 'relative'],
         ['flex', 'items-center', 'gap-1'],
-        ['hover:bg-light-600', 'dark:hover:bg-dark-600'],
+        ['hover:bg-light-600', 'dark:hover:bg-dark-800'],
         ['border-r-[1px]', 'cursor-pointer'],
         active && [
           'after:absolute',
