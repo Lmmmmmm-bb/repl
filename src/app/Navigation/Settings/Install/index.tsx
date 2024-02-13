@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import type { ChangeEvent, FC } from 'react';
 import { fetchPackageList } from './fetch';
-import PackagePreview from './PackagePreview';
 import { setPackages, usePackageStore } from './store';
+import PackagePreview from './PackagePreview';
 import { Input } from '~/components/ui/Input';
 import { Label } from '~/components/ui/Label';
 import Search from '~/icons/Search';
