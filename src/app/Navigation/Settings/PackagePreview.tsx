@@ -18,13 +18,16 @@ const Package: FC<PackageProps> = ({ npmPackage }) => (
   <div
     className={cn(
       ['h-52', 'p-4', 'flex', 'flex-col'],
-      ['border', 'rounded-md'],
+      ['border', 'rounded-md', 'group'],
     )}
   >
     <span className="text-xl">{npmPackage.name}</span>
 
     {npmPackage.description && (
-      <p className="text-sm leading-tight text-gray-500">
+      <p
+        className="text-sm line-clamp-3 leading-tight text-gray-500"
+        title={npmPackage.description}
+      >
         {npmPackage.description}
       </p>
     )}
@@ -96,7 +99,7 @@ const Package: FC<PackageProps> = ({ npmPackage }) => (
         <Button
           size="sm"
           variant="ghost"
-          className="flex gap-2"
+          className="flex gap-2 transition-opacity opacity-0 group-hover:opacity-100"
           title={`Install ${npmPackage.name}`}
         >
           <Download className="w-4 h-4" />
