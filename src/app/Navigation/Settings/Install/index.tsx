@@ -8,22 +8,20 @@ import { Label } from '~/components/ui/Label';
 import Search from '~/icons/Search';
 import { useDebounceFn } from '~/hooks/useDebounceFn';
 import Loading from '~/icons/Loading';
+import { useToggle } from '~/hooks/useToggle';
 
 const Install: FC = () => {
   const packages = usePackageStore(state => state.packages);
 
   const [inputValue, setInputValue] = useState('');
-  const [fetchPackagesLoading, setFetchPackageLoading] = useState(false);
+  const [fetchPackagesLoading, toggleFetchPackagesLoading] = useToggle();
 
   const fetchPackages = useDebounceFn(
-    async (packageName: string) => {
-      try {
-        setFetchPackageLoading(true);
-        const _packages = await fetchPackageList(packageName);
-        setPackages(_packages);
-      } finally {
-        setFetchPackageLoading(false);
-      }
+    (packageName: string) => {
+      toggleFetchPackagesLoading.on();
+      fetchPackageList(packageName)
+        .then(_packages => setPackages(_packages))
+        .finally(() => toggleFetchPackagesLoading.off());
     },
     500,
   );

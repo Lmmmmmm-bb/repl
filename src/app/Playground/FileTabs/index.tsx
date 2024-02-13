@@ -12,6 +12,7 @@ import {
   useVirtualFileStore,
 } from '~/stores/virtual-file';
 import File from '~/icons/File';
+import { useToggle } from '~/hooks/useToggle';
 
 const FileTabs: FC = () => {
   const { files, activeFile } = useVirtualFileStore();
@@ -19,7 +20,7 @@ const FileTabs: FC = () => {
   const addTabItemRef = useRef<HTMLLIElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const [pending, setPending] = useState(false);
+  const [pending, togglePending] = useToggle();
   const [inputValue, setInputValue] = useState('');
 
   const handleDeleteFile = (filename: string) => {
@@ -31,7 +32,7 @@ const FileTabs: FC = () => {
     if (pending) {
       return;
     }
-    setPending(true);
+    togglePending.on();
     addTabItemRef.current && addTabItemRef.current.scrollIntoView();
     setTimeout(() => {
       inputRef.current && inputRef.current.focus();
@@ -40,7 +41,7 @@ const FileTabs: FC = () => {
 
   const resetNewFileState = () => {
     setInputValue('');
-    setPending(false);
+    togglePending.off();
   };
 
   const handleAddFileDone = () => {
@@ -50,7 +51,7 @@ const FileTabs: FC = () => {
     }
     addFile(inputValue);
     setInputValue('');
-    setPending(false);
+    togglePending.off();
     setTimeout(() => {
       addTabItemRef.current && addTabItemRef.current.scrollIntoView();
     });

@@ -1,4 +1,4 @@
-import { type FC, useState } from 'react';
+import type { FC } from 'react';
 import type { NpmPackage } from './types';
 import { cn } from '~/utils/cn';
 import Check from '~/icons/Check';
@@ -6,6 +6,7 @@ import Download from '~/icons/Download';
 import Button from '~/components/ui/Button';
 import { addExtraLib } from '~/stores/extra-lib';
 import Loading from '~/icons/Loading';
+import { useToggle } from '~/hooks/useToggle';
 
 interface PackageInstallProps {
   isInstalled: boolean;
@@ -13,14 +14,14 @@ interface PackageInstallProps {
 }
 
 const PackageInstall: FC<PackageInstallProps> = ({ isInstalled, npmPackage }) => {
-  const [isInstalling, setIsInstalling] = useState(false);
+  const [isInstalling, toggleIsInstalling] = useToggle();
 
   const handleInstallLib = () => {
     if (isInstalled || isInstalling) {
       return;
     }
-    setIsInstalling(true);
-    addExtraLib(npmPackage).finally(() => setIsInstalling(false));
+    toggleIsInstalling.on();
+    addExtraLib(npmPackage).finally(() => toggleIsInstalling.off());
   };
 
   return (
