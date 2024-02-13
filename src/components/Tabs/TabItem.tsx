@@ -1,4 +1,10 @@
-import type { FC, HTMLAttributes, MouseEvent, PropsWithChildren } from 'react';
+import {
+  type HTMLAttributes,
+  type MouseEvent,
+  type PropsWithChildren,
+  forwardRef,
+} from 'react';
+import Button from '../ui/Button';
 import Close from '~/icons/Close';
 import { cn } from '~/utils/cn';
 
@@ -8,24 +14,25 @@ interface TabItemProps extends HTMLAttributes<HTMLLIElement> {
   onCloseClick?: () => void;
 }
 
-const TabItem: FC<PropsWithChildren<TabItemProps>> = ({
+const TabItem = forwardRef<HTMLLIElement, PropsWithChildren<TabItemProps>>(({
   className,
   active,
   closable,
   children,
   onCloseClick,
   ...props
-}) => {
-  const handleClickClose = (e: MouseEvent<SVGSVGElement>) => {
+}, ref) => {
+  const handleClickClose = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     onCloseClick && onCloseClick();
   };
 
   return (
     <li
+      ref={ref}
       {...props}
       className={cn(
-        ['px-4', 'h-full', 'relative'],
+        ['px-4', 'h-full', 'min-w-fit', 'relative'],
         ['flex', 'items-center', 'gap-1'],
         ['hover:bg-light-600', 'dark:hover:bg-dark-800'],
         ['border-r-[1px]', 'cursor-pointer'],
@@ -43,10 +50,19 @@ const TabItem: FC<PropsWithChildren<TabItemProps>> = ({
     >
       {children}
       {closable && (
-        <Close className="w-3 h-3" onClick={handleClickClose} />
+        <Button
+          size="icon"
+          variant="ghost"
+          className="w-4 h-4"
+          onClick={handleClickClose}
+        >
+          <Close />
+        </Button>
       )}
     </li>
   );
-};
+});
+
+TabItem.displayName = 'TabItem';
 
 export default TabItem;
