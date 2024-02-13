@@ -6,15 +6,8 @@ interface ExtraLibStore {
   extraLibs: ExtraLib[];
 }
 
-const initExtraLibs: ExtraLib[] = [
-  { name: 'react', version: 'latest' },
-  { name: '@types/react', version: 'latest' },
-  { name: 'react-dom', version: 'latest' },
-  { name: '@types/react-dom', version: 'latest' },
-];
-
 export const useExtraLibStore = create<ExtraLibStore>(() => ({
-  extraLibs: initExtraLibs,
+  extraLibs: [],
 }));
 
 const esmShBase = 'https://esm.sh';
@@ -36,3 +29,5 @@ export const addExtraLib = async (lib: ExtraLib) => {
     extraLibs: [...extraLibs, lib],
   });
 };
+
+export { ExtraLib };
