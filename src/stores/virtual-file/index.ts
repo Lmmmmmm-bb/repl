@@ -18,7 +18,7 @@ export const setActiveFile = (file: VirtualFile) => {
   useVirtualFileStore.setState({ activeFile: file });
 };
 
-export const createFile = (filename: string) => {
+export const addFile = (filename: string) => {
   const { files } = useVirtualFileStore.getState();
 
   if (files[filename]) {
@@ -28,6 +28,8 @@ export const createFile = (filename: string) => {
   const newFile = createVirtualFile(filename, '');
   const newFiles = { ...files, [filename]: newFile };
   useVirtualFileStore.setState({ files: newFiles });
+
+  setActiveFile(newFile);
 };
 
 export const deleteFile = (filename: string) => {
