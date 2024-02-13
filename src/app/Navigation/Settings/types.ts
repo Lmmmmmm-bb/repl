@@ -3,7 +3,7 @@ export enum SettingPanel {
   Install = 'install',
 }
 
-interface Maintainer {
+interface NpmUser {
   username: string;
   email: string;
 }
@@ -24,11 +24,8 @@ export interface NpmPackage {
     name: string;
     email?: string;
   };
-  publisher: {
-    username: string;
-    email: string;
-  };
-  maintainers?: Maintainer[];
+  publisher: NpmUser;
+  maintainers?: NpmUser[];
 }
 
 export interface NpmObjects {
