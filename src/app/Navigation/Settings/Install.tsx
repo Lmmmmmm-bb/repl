@@ -7,15 +7,25 @@ import { Input } from '~/components/ui/Input';
 import { Label } from '~/components/ui/Label';
 import Search from '~/icons/Search';
 import { useDebounceFn } from '~/hooks/useDebounceFn';
+import Loading from '~/icons/Loading';
 
 const Install: FC = () => {
+  const [fetchPackagesLoading, setFetchPackageLoading] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [packages, setPackages] = useState<NpmPackage[]>([]);
 
-  const fetchPackages = useDebounceFn(async (packageName: string) => {
-    const _packages = await fetchPackageList(packageName);
-    setPackages(_packages);
-  }, 500);
+  const fetchPackages = useDebounceFn(
+    async (packageName: string) => {
+      try {
+        setFetchPackageLoading(true);
+        const _packages = await fetchPackageList(packageName);
+        setPackages(_packages);
+      } finally {
+        setFetchPackageLoading(false);
+      }
+    },
+    500,
+  );
 
   const handleInputValueChange = (e: ChangeEvent<HTMLInputElement>) => {
     const nextInputValue = e.target.value.trim();
@@ -28,7 +38,11 @@ const Install: FC = () => {
       <div className="h-20 px-4 flex items-center">
         <div className="relative w-full">
           <Label htmlFor="search-package">
-            <Search className="w-4 h-4 absolute left-2.5 top-2.5 opacity-80" />
+            {
+              fetchPackagesLoading
+                ? <Loading className="w-4 h-4 absolute left-2.5 top-2.5 opacity-80 animate-spin" />
+                : <Search className="w-4 h-4 absolute left-2.5 top-2.5 opacity-80" />
+            }
           </Label>
           <Input
             id="search-package"
