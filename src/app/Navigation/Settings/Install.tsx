@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import type { ChangeEvent, FC } from 'react';
 import { fetchPackageList } from './fetch';
-import type { NpmPackage } from './types';
 import PackagePreview from './PackagePreview';
+import { setPackages, usePackageStore } from './store';
 import { Input } from '~/components/ui/Input';
 import { Label } from '~/components/ui/Label';
 import Search from '~/icons/Search';
@@ -10,9 +10,10 @@ import { useDebounceFn } from '~/hooks/useDebounceFn';
 import Loading from '~/icons/Loading';
 
 const Install: FC = () => {
-  const [fetchPackagesLoading, setFetchPackageLoading] = useState(false);
+  const packages = usePackageStore(state => state.packages);
+
   const [inputValue, setInputValue] = useState('');
-  const [packages, setPackages] = useState<NpmPackage[]>([]);
+  const [fetchPackagesLoading, setFetchPackageLoading] = useState(false);
 
   const fetchPackages = useDebounceFn(
     async (packageName: string) => {
