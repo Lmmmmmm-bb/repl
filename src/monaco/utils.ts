@@ -6,7 +6,6 @@ export const getOrCreateModel = (file: VirtualFile) => {
   const model = monaco.editor.getModel(uri); ;
 
   if (model) {
-    model.setValue(file.code);
     return model;
   }
 

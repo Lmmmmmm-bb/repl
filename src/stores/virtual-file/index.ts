@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import { mock } from './mock';
 import { type VirtualFile, createVirtualFile } from '~/virtual-file';
-import { getOrCreateModel } from '~/monaco';
 
 interface VirtualFileStore {
   files: Record<string, VirtualFile>;
@@ -14,7 +13,6 @@ export const useVirtualFileStore = create<VirtualFileStore>(() => ({
 }));
 
 export const setActiveFile = (file: VirtualFile) => {
-  getOrCreateModel(file);
   useVirtualFileStore.setState({ activeFile: file });
 };
 
