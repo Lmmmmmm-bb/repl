@@ -32,7 +32,7 @@ const PackageInstall: FC<PackageInstallProps> = ({ isInstalled, npmPackage }) =>
         isInstalling
           ? []
           : isInstalled
-            ? ['text-green-600', 'hover:text-green-600']
+            ? ['text-green-500', 'hover:text-green-500']
             : ['transition-opacity', 'opacity-0', 'group-hover:opacity-100'],
       )}
       title={
