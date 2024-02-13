@@ -1,6 +1,7 @@
 import { type FC, useState } from 'react';
 import { SettingPanel } from './types';
 import Side from './Side';
+import Install from './Install';
 import Button from '~/components/ui/Button';
 import SettingsIcon from '~/icons/Settings';
 import { Dialog, DialogContent, DialogTrigger } from '~/components/ui/Dialog';
@@ -23,11 +24,11 @@ const Settings: FC = () => {
           ['p-0', 'overflow-hidden'],
         )}
       >
-        <div className="flex">
+        <div className="flex overflow-hidden">
           <Side activePanel={activePanel} onPanelChange={setActivePanel} />
 
           <div className="flex-[3]">
-            {activePanel}
+            {activePanel === SettingPanel.Install && <Install />}
           </div>
         </div>
       </DialogContent>
