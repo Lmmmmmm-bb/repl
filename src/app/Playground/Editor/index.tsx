@@ -35,6 +35,7 @@ const Editor: FC = () => {
 
     const model = getOrCreateModel(activeFile);
     editorRef.current.setModel(model);
+    editorRef.current.focus();
   }, [activeFile]);
 
   return (
