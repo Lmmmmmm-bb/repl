@@ -46,7 +46,7 @@ const Install: FC = () => {
           <Input
             id="search-package"
             className="w-full pl-8"
-            placeholder="Search npm package..."
+            placeholder="Search package from npm..."
             value={inputValue}
             onChange={handleInputValueChange}
           />
