@@ -1,29 +1,6 @@
-interface NpmUser {
-  username: string;
-  email: string;
-}
+import type { NpmPackage } from '~/stores/package';
 
-export interface NpmPackage {
-  name: string;
-  version: string;
-  description?: string;
-  keywords?: string[];
-  date?: string;
-  links: {
-    npm: string;
-    homepage?: string;
-    repository?: string;
-    bugs?: string;
-  };
-  author?: {
-    name: string;
-    email?: string;
-  };
-  publisher: NpmUser;
-  maintainers?: NpmUser[];
-}
-
-export interface NpmObjects {
+interface NpmObjects {
   package: NpmPackage;
 }
 

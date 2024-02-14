@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { NpmPackage } from './types';
+import type { NpmPackage } from '~/stores/package';
 
 interface PackageStore {
   packages: NpmPackage[];

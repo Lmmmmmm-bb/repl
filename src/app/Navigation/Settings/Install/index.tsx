@@ -1,29 +1,27 @@
 import { useState } from 'react';
 import type { ChangeEvent, FC } from 'react';
+import PackagePreview from '../PackagePreview';
 import { fetchPackageList } from './fetch';
 import { setPackages, usePackageStore } from './store';
-import PackagePreview from './PackagePreview';
 import { Input } from '~/components/ui/Input';
 import { Label } from '~/components/ui/Label';
 import Search from '~/icons/Search';
-import { useDebounceFn } from '~/hooks/useDebounceFn';
 import Loading from '~/icons/Loading';
+import { useToggle } from '~/hooks/useToggle';
+import { useDebounce } from '~/hooks/useDebounce';
 
 const Install: FC = () => {
   const packages = usePackageStore(state => state.packages);
 
   const [inputValue, setInputValue] = useState('');
-  const [fetchPackagesLoading, setFetchPackageLoading] = useState(false);
+  const [fetchPackagesLoading, toggleFetchPackagesLoading] = useToggle();
 
-  const fetchPackages = useDebounceFn(
-    async (packageName: string) => {
-      try {
-        setFetchPackageLoading(true);
-        const _packages = await fetchPackageList(packageName);
-        setPackages(_packages);
-      } finally {
-        setFetchPackageLoading(false);
-      }
+  const fetchPackages = useDebounce(
+    (packageName: string) => {
+      toggleFetchPackagesLoading.on();
+      fetchPackageList(packageName)
+        .then(_packages => setPackages(_packages))
+        .finally(() => toggleFetchPackagesLoading.off());
     },
     500,
   );
@@ -36,7 +34,7 @@ const Install: FC = () => {
 
   return (
     <div className="h-full pb-4 flex flex-col overflow-hidden">
-      <div className="h-20 px-4 flex items-center">
+      <div className="h-20 px-4 flex flex-shrink-0 items-center">
         <div className="relative w-full">
           <Label htmlFor="search-package">
             {
@@ -48,14 +46,14 @@ const Install: FC = () => {
           <Input
             id="search-package"
             className="w-full pl-8"
-            placeholder="Search npm package..."
+            placeholder="Search package from npm..."
             value={inputValue}
             onChange={handleInputValueChange}
           />
         </div>
       </div>
 
-      <div className="flex-1 px-4 grid grid-cols-2 gap-4 overflow-auto">
+      <div className="px-4 grid grid-cols-2 gap-4 overflow-auto">
         {packages.map(item => (
           <PackagePreview key={item.name} npmPackage={item} />
         ))}

@@ -23,3 +23,10 @@ export const registerLanguages = () => {
     noSyntaxValidation: false,
   });
 };
+
+export const registerTypeScriptLib = (content: string, path: string) => {
+  monaco.languages.typescript.typescriptDefaults.addExtraLib(
+    content,
+    path,
+  );
+};

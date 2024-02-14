@@ -2,6 +2,7 @@ import { type FC, useState } from 'react';
 import Side from './Side';
 import Install from './Install';
 import { SettingPanel } from './types';
+import Packages from './Packages';
 import { cn } from '~/utils/cn';
 import Button from '~/components/ui/Button';
 import SettingsIcon from '~/icons/Settings';
@@ -28,6 +29,7 @@ const Settings: FC = () => {
           <Side activePanel={activePanel} onPanelChange={setActivePanel} />
 
           <div className="flex-[3]">
+            {activePanel === SettingPanel.Package && <Packages />}
             {activePanel === SettingPanel.Install && <Install />}
           </div>
         </div>
