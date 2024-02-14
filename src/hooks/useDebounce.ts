@@ -2,7 +2,7 @@ import { useCallback, useRef } from 'react';
 
 type AnyFunction = (...args: any[]) => any;
 
-export const useDebounceFn = <T extends AnyFunction>(fn: T, delay: number): ((...args: Parameters<T>) => void) => {
+export const useDebounce = <T extends AnyFunction>(fn: T, delay: number): ((...args: Parameters<T>) => void) => {
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const debouncedFn = useCallback((...args: Parameters<T>) => {

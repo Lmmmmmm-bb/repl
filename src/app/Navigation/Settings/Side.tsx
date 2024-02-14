@@ -5,7 +5,7 @@ import Settings from '~/icons/Settings';
 import Package from '~/icons/Package';
 import AddPackage from '~/icons/AddPackage';
 import Badge from '~/components/ui/Badge';
-import { useExtraLibStore } from '~/stores/extra-lib';
+import { usePackageStore } from '~/stores/package';
 
 interface SideProps {
   activePanel: SettingPanel;
@@ -13,7 +13,7 @@ interface SideProps {
 }
 
 const Side: FC<SideProps> = ({ activePanel, onPanelChange }) => {
-  const extraLibs = useExtraLibStore(state => state.extraLibs);
+  const totalPackages = usePackageStore(state => state.initialExtraLibs.length + state.packages.length);
 
   return (
     <div className="flex-1 border-r">
@@ -42,13 +42,13 @@ const Side: FC<SideProps> = ({ activePanel, onPanelChange }) => {
         >
           <Package className="w-5 h-5" />
           Packages
-          {Boolean(extraLibs.length) && (
+          {Boolean(totalPackages) && (
             <Badge
               variant="outline"
               className="ml-auto"
-              title={`${extraLibs.length} dependencies installed`}
+              title={`${totalPackages} dependencies installed`}
             >
-              {extraLibs.length}
+              {totalPackages}
             </Badge>
           )}
         </div>

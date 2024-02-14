@@ -1,6 +1,7 @@
-import type { AnchorHTMLAttributes, FC, PropsWithChildren } from 'react';
-import type { NpmPackage } from './types';
+import type { FC } from 'react';
 import PackageInstall from './PackageInstall';
+import PackageLink from './PackageLink';
+import PackageUninstall from './PackageUninstall';
 import { cn } from '~/utils/cn';
 import Link from '~/icons/Link';
 import GitHub from '~/icons/GitHub';
@@ -8,26 +9,18 @@ import Npm from '~/icons/Npm';
 import Cube from '~/icons/Cube';
 import Bug from '~/icons/Bug';
 import Calendar from '~/icons/Calendar';
-import { useExtraLibStore } from '~/stores/extra-lib';
+import type { NpmPackage } from '~/stores/package';
+import { usePackageStore } from '~/stores/package';
+import Check from '~/icons/Check';
 
 interface PackagePreviewProps {
   npmPackage: NpmPackage;
 }
 
-const PackageLink: FC<PropsWithChildren<AnchorHTMLAttributes<HTMLAnchorElement>>> = ({ children, ...props }) => (
-  <a
-    {...props}
-    target="_blank"
-    rel="noreferrer"
-    className="transition-opacity opacity-40 hover:opacity-80"
-  >
-    {children}
-  </a>
-);
-
 const PackagePreview: FC<PackagePreviewProps> = ({ npmPackage }) => {
-  const extraLibs = useExtraLibStore(state => state.extraLibs);
-  const extraLibsName = extraLibs.map(lib => lib.name);
+  const packages = usePackageStore(state => [...state.initialExtraLibs, ...state.packages]);
+  const packagesName = packages.map(lib => lib.name);
+  const isPackageInstalled = packagesName.includes(npmPackage.name);
 
   return (
     <div
@@ -36,7 +29,17 @@ const PackagePreview: FC<PackagePreviewProps> = ({ npmPackage }) => {
         ['border', 'rounded-md', 'group'],
       )}
     >
-      <span className="text-xl">{npmPackage.name}</span>
+      <span className="flex items-center text-xl">
+        {npmPackage.name}
+        {isPackageInstalled && (
+          <span
+            className="ml-auto text-green-500 opacity-80"
+            title={`${npmPackage.name} has been installed`}
+          >
+            <Check className="w-5 h-5" />
+          </span>
+        )}
+      </span>
 
       {npmPackage.description && (
         <p
@@ -87,10 +90,11 @@ const PackagePreview: FC<PackagePreviewProps> = ({ npmPackage }) => {
             )}
           </div>
 
-          <PackageInstall
-            isInstalled={extraLibsName.includes(npmPackage.name)}
-            npmPackage={npmPackage}
-          />
+          <div className="flex items-center gap-2">
+            {isPackageInstalled
+              ? <PackageUninstall npmPackage={npmPackage} />
+              : <PackageInstall npmPackage={npmPackage} />}
+          </div>
         </div>
       </div>
     </div>

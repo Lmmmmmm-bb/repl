@@ -1,13 +1,15 @@
-import type { ExtraLib } from '~/stores/extra-lib';
-import { addExtraLib } from '~/stores/extra-lib';
+import type { ExtraLib } from '~/stores/package';
+import { addPackage } from '~/stores/package';
 
 const initExtraLibs: ExtraLib[] = [
-  { name: 'react', version: 'latest' },
+  { name: 'react', version: '18.2.0' },
+  { name: 'react-dom', version: '18.2.0' },
   { name: '@types/react', version: 'latest' },
-  { name: 'react-dom', version: 'latest' },
   { name: '@types/react-dom', version: 'latest' },
 ];
 
 export const registerExtraLib = async () => {
-  initExtraLibs.forEach(addExtraLib);
+  for (const extraLib of initExtraLibs) {
+    await addPackage(extraLib);
+  }
 };

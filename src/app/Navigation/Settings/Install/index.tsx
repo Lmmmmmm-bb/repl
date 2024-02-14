@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import type { ChangeEvent, FC } from 'react';
+import PackagePreview from '../PackagePreview';
 import { fetchPackageList } from './fetch';
 import { setPackages, usePackageStore } from './store';
-import PackagePreview from './PackagePreview';
 import { Input } from '~/components/ui/Input';
 import { Label } from '~/components/ui/Label';
 import Search from '~/icons/Search';
-import { useDebounceFn } from '~/hooks/useDebounceFn';
 import Loading from '~/icons/Loading';
 import { useToggle } from '~/hooks/useToggle';
+import { useDebounce } from '~/hooks/useDebounce';
 
 const Install: FC = () => {
   const packages = usePackageStore(state => state.packages);
@@ -16,7 +16,7 @@ const Install: FC = () => {
   const [inputValue, setInputValue] = useState('');
   const [fetchPackagesLoading, toggleFetchPackagesLoading] = useToggle();
 
-  const fetchPackages = useDebounceFn(
+  const fetchPackages = useDebounce(
     (packageName: string) => {
       toggleFetchPackagesLoading.on();
       fetchPackageList(packageName)
@@ -34,7 +34,7 @@ const Install: FC = () => {
 
   return (
     <div className="h-full pb-4 flex flex-col overflow-hidden">
-      <div className="h-20 px-4 flex items-center">
+      <div className="h-20 px-4 flex flex-shrink-0 items-center">
         <div className="relative w-full">
           <Label htmlFor="search-package">
             {
@@ -53,7 +53,7 @@ const Install: FC = () => {
         </div>
       </div>
 
-      <div className="flex-1 px-4 grid grid-cols-2 gap-4 overflow-auto">
+      <div className="px-4 grid grid-cols-2 gap-4 overflow-auto">
         {packages.map(item => (
           <PackagePreview key={item.name} npmPackage={item} />
         ))}
