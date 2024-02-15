@@ -66,27 +66,29 @@ const FileTabs: FC = () => {
 
   return (
     <Tabs>
-      {Object.values(files).map((item) => {
-        const isActive = activeFile && item.filename === activeFile.filename;
+      {Object.values(files)
+        .filter(item => !item.hidden)
+        .map((item) => {
+          const isActive = activeFile && item.filename === activeFile.filename;
 
-        return (
-          <Tabs.Item
-            key={item.filename}
-            title={item.filename}
-            active={isActive}
-            closable={item.filename !== 'App.tsx'}
-            className={cn(isActive && 'text-brand')}
-            onClick={(e) => {
-              e.currentTarget.scrollIntoView();
-              setActiveFile(item);
-            }}
-            onCloseClick={() => handleDeleteFile(item.filename)}
-          >
-            {virtualFileExtIconStrategy[getVirtualFileExt(item.filename)]}
-            {item.filename}
-          </Tabs.Item>
-        );
-      })}
+          return (
+            <Tabs.Item
+              key={item.filename}
+              title={item.filename}
+              active={isActive}
+              closable={item.filename !== 'App.tsx'}
+              className={cn(isActive && 'text-brand')}
+              onClick={(e) => {
+                e.currentTarget.scrollIntoView();
+                setActiveFile(item);
+              }}
+              onCloseClick={() => handleDeleteFile(item.filename)}
+            >
+              {virtualFileExtIconStrategy[getVirtualFileExt(item.filename)]}
+              {item.filename}
+            </Tabs.Item>
+          );
+        })}
 
       <Tabs.Item title="New file" ref={addTabItemRef} onClick={handleAddFile}>
         {pending
