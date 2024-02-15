@@ -2,7 +2,7 @@ import * as monaco from 'monaco-editor';
 import { type VirtualFile, getVirtualFileLanguage } from '~/virtual-file';
 
 export const getOrCreateModel = (file: VirtualFile) => {
-  const uri = monaco.Uri.parse(file.filename);
+  const uri = monaco.Uri.parse(`file:///${file.filename}`);
   const model = monaco.editor.getModel(uri); ;
 
   if (model) {
