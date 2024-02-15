@@ -2,8 +2,8 @@ import type { ExtraLib } from '~/stores/package';
 import { addPackage } from '~/stores/package';
 
 const initExtraLibs: ExtraLib[] = [
-  { name: 'react', version: '18.2.0' },
-  { name: 'react-dom', version: '18.2.0' },
+  { name: 'react', version: 'latest' },
+  { name: 'react-dom', version: 'latest' },
   { name: '@types/react', version: 'latest' },
   { name: '@types/react-dom', version: 'latest' },
 ];
