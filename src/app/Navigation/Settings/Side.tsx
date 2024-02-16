@@ -13,7 +13,7 @@ interface SideProps {
 }
 
 const Side: FC<SideProps> = ({ activePanel, onPanelChange }) => {
-  const totalPackages = usePackageStore(state => state.initialExtraLibs.length + state.packages.length);
+  const totalPackages = usePackageStore(state => state.corePackages.length + state.extraPackages.length);
 
   return (
     <div className="flex-1 border-r">

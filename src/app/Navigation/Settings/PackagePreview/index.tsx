@@ -18,7 +18,7 @@ interface PackagePreviewProps {
 }
 
 const PackagePreview: FC<PackagePreviewProps> = ({ npmPackage }) => {
-  const packages = usePackageStore(state => [...state.initialExtraLibs, ...state.packages]);
+  const packages = usePackageStore(state => [...state.corePackages, ...state.extraPackages]);
   const packagesName = packages.map(lib => lib.name);
   const isPackageInstalled = packagesName.includes(npmPackage.name);
 

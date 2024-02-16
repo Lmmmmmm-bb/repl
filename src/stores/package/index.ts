@@ -4,13 +4,13 @@ import { fetchPackageRaw } from './fetch';
 import { registerTypeScriptLib } from '~/monaco';
 
 interface PackageStore {
-  initialExtraLibs: ExtraLib[];
-  packages: NpmPackage[];
+  corePackages: ExtraLib[];
+  extraPackages: NpmPackage[];
 }
 
 export const usePackageStore = create<PackageStore>(() => ({
-  initialExtraLibs: [],
-  packages: [],
+  corePackages: [],
+  extraPackages: [],
 }));
 
 export const addPackage = async (lib: ExtraLib | NpmPackage) => {
@@ -24,24 +24,24 @@ export const addPackage = async (lib: ExtraLib | NpmPackage) => {
     `file:///node_modules/${lib.name}`,
   );
 
-  const { initialExtraLibs, packages } = usePackageStore.getState();
+  const { corePackages, extraPackages } = usePackageStore.getState();
   if ('links' in lib) {
-    const newExtraLibs = [...packages, lib];
-    usePackageStore.setState({ packages: newExtraLibs });
+    const newExtraLibs = [...extraPackages, lib];
+    usePackageStore.setState({ extraPackages: newExtraLibs });
   } else {
-    const newInitialExtraLibs = [...initialExtraLibs, lib];
-    usePackageStore.setState({ initialExtraLibs: newInitialExtraLibs });
+    const newInitialExtraLibs = [...corePackages, lib];
+    usePackageStore.setState({ corePackages: newInitialExtraLibs });
   }
 };
 
 export const removePackage = (lib: ExtraLib | NpmPackage) => {
-  const { initialExtraLibs, packages } = usePackageStore.getState();
+  const { corePackages, extraPackages } = usePackageStore.getState();
   if ('links' in lib) {
-    const newExtraLibs = packages.filter(item => item.name !== lib.name);
-    usePackageStore.setState({ packages: newExtraLibs });
+    const newExtraLibs = extraPackages.filter(item => item.name !== lib.name);
+    usePackageStore.setState({ extraPackages: newExtraLibs });
   } else {
-    const newInitialExtraLibs = initialExtraLibs.filter(item => item.name !== lib.name);
-    usePackageStore.setState({ initialExtraLibs: newInitialExtraLibs });
+    const newInitialExtraLibs = corePackages.filter(item => item.name !== lib.name);
+    usePackageStore.setState({ corePackages: newInitialExtraLibs });
   }
 };
 
