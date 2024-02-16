@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { initialFiles } from './init';
+import { ENTRY_FILE } from './config';
 import { type VirtualFile, createVirtualFile } from '~/virtual-file';
 
 interface VirtualFileStore {
@@ -9,7 +10,7 @@ interface VirtualFileStore {
 
 export const useVirtualFileStore = create<VirtualFileStore>(() => ({
   files: initialFiles,
-  activeFile: initialFiles['App.tsx'],
+  activeFile: initialFiles[ENTRY_FILE],
 }));
 
 export const setActiveFile = (file: VirtualFile) => {
@@ -37,7 +38,9 @@ export const deleteFile = (filename: string) => {
   delete _files[filename];
   useVirtualFileStore.setState({ files: _files });
 
-  activeFile && activeFile.filename === filename && setActiveFile(initialFiles['App.tsx']);
+  activeFile
+  && activeFile.filename === filename
+  && setActiveFile(initialFiles[ENTRY_FILE]);
 };
 
 export const updateFileContent = (code: string) => {
@@ -51,4 +54,4 @@ export const updateFileContent = (code: string) => {
   useVirtualFileStore.setState(newFiles);
 };
 
-export { initialFiles };
+export { ENTRY_FILE, initialFiles };

@@ -6,6 +6,7 @@ import { cn } from '~/utils/cn';
 import { getVirtualFileExt, isValidFilename } from '~/virtual-file';
 import { virtualFileExtIconStrategy } from '~/virtual-file/strategy';
 import {
+  ENTRY_FILE,
   addFile,
   deleteFile,
   setActiveFile,
@@ -76,7 +77,7 @@ const FileTabs: FC = () => {
               key={item.filename}
               title={item.filename}
               active={isActive}
-              closable={item.filename !== 'App.tsx'}
+              closable={item.filename !== ENTRY_FILE}
               className={cn(isActive && 'text-brand')}
               onClick={(e) => {
                 e.currentTarget.scrollIntoView();
@@ -94,13 +95,13 @@ const FileTabs: FC = () => {
         {pending
           ? (
             <>
-              {
-                (isValidFilename(inputValue) && virtualFileExtIconStrategy[getVirtualFileExt(inputValue)])
-                || <File className="w-4 h-4 opacity-60" />
-              }
+              {isValidFilename(inputValue)
+                ? virtualFileExtIconStrategy[getVirtualFileExt(inputValue)]
+                : <File className="w-4 h-4 opacity-60" />}
               <input
                 spellCheck={false}
                 className="w-24 outline-none bg-transparent"
+                placeholder="input filename..."
                 ref={inputRef}
                 value={inputValue}
                 onBlur={handleAddFileDone}

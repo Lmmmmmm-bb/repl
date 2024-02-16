@@ -1,16 +1,17 @@
+import { ENTRY_FILE, MAIN_FILE } from './config';
 import type { VirtualFile } from '~/virtual-file';
 
 import MainRaw from '~/templates/Main?raw';
 import AppRaw from '~/templates/App?raw';
 
 export const initialFiles: Record<string, VirtualFile> = {
-  'Main.tsx': {
+  [MAIN_FILE]: {
     hidden: true,
-    filename: 'Main.tsx',
+    filename: MAIN_FILE,
     code: MainRaw,
   },
-  'App.tsx': {
-    filename: 'App.tsx',
+  [ENTRY_FILE]: {
+    filename: ENTRY_FILE,
     code: AppRaw,
   },
 };
