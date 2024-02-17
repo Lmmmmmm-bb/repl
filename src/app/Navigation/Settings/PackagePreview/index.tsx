@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import { type FC, useMemo } from 'react';
 import PackageInstall from './PackageInstall';
 import PackageLink from './PackageLink';
 import PackageUninstall from './PackageUninstall';
@@ -9,18 +9,28 @@ import Npm from '~/icons/Npm';
 import Cube from '~/icons/Cube';
 import Bug from '~/icons/Bug';
 import Calendar from '~/icons/Calendar';
-import type { NpmPackage } from '~/stores/package';
+import type { Package } from '~/stores/package';
 import { usePackageStore } from '~/stores/package';
 import Check from '~/icons/Check';
+import CheckFilled from '~/icons/CheckFilled';
 
 interface PackagePreviewProps {
-  npmPackage: NpmPackage;
+  npmPackage: Package;
 }
 
 const PackagePreview: FC<PackagePreviewProps> = ({ npmPackage }) => {
-  const packages = usePackageStore(state => [...state.corePackages, ...state.extraPackages]);
-  const packagesName = packages.map(lib => lib.name);
-  const isPackageInstalled = packagesName.includes(npmPackage.name);
+  const packageStore = usePackageStore(state => ({
+    corePackages: state.corePackages,
+    extraPackages: state.extraPackages,
+  }));
+
+  const [isCorePackage, isPackageInstalled] = useMemo(() => {
+    const corePackagesName = packageStore.corePackages.map(lib => lib.name);
+    const extraPackagesName = packageStore.extraPackages.map(lib => lib.name);
+    const _isCorePackage = corePackagesName.includes(npmPackage.name);
+    const _isPackageInstalled = _isCorePackage || extraPackagesName.includes(npmPackage.name);
+    return [_isCorePackage, _isPackageInstalled] as const;
+  }, [packageStore, npmPackage]);
 
   return (
     <div
@@ -34,9 +44,9 @@ const PackagePreview: FC<PackagePreviewProps> = ({ npmPackage }) => {
         {isPackageInstalled && (
           <span
             className="ml-auto text-green-500 opacity-80"
-            title={`${npmPackage.name} has been installed`}
+            title={`${isCorePackage && '[Core Package] '}${npmPackage.name} has been installed`}
           >
-            <Check className="w-5 h-5" />
+            {isCorePackage ? <CheckFilled className="w-5 h-5" /> : <Check className="w-5 h-5" />}
           </span>
         )}
       </span>
@@ -90,11 +100,10 @@ const PackagePreview: FC<PackagePreviewProps> = ({ npmPackage }) => {
             )}
           </div>
 
-          <div className="flex items-center gap-2">
-            {isPackageInstalled
-              ? <PackageUninstall npmPackage={npmPackage} />
-              : <PackageInstall npmPackage={npmPackage} />}
-          </div>
+          {!isCorePackage
+          && (isPackageInstalled
+            ? <PackageUninstall npmPackage={npmPackage} />
+            : <PackageInstall npmPackage={npmPackage} />)}
         </div>
       </div>
     </div>

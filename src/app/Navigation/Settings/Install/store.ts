@@ -1,10 +1,10 @@
 import { create } from 'zustand';
-import type { NpmPackage } from '~/stores/package';
+import type { Package } from '~/stores/package';
 
 interface PackageStore {
-  packages: NpmPackage[];
+  packages: Package[];
 }
 
 export const usePackageStore = create<PackageStore>(() => ({ packages: [] }));
 
-export const setPackages = (packages: NpmPackage[]) => usePackageStore.setState({ packages });
+export const setPackages = (packages: Package[]) => usePackageStore.setState({ packages });
