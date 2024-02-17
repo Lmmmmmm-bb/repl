@@ -35,7 +35,7 @@ const Packages: FC = () => {
       </div>
 
       <div className="px-4 flex gap-2 flex-wrap">
-        {packageStore.initialExtraLibs.map(lib => (
+        {packageStore.corePackages.map(lib => (
           <Badge variant="secondary" key={lib.name}>
             {`${lib.name}@${lib.version}`}
           </Badge>
@@ -43,7 +43,7 @@ const Packages: FC = () => {
       </div>
 
       <div className="mt-2 px-4 grid grid-cols-2 gap-4 overflow-auto">
-        {packageStore.packages.map(item => (
+        {packageStore.extraPackages.map(item => (
           <PackagePreview key={item.name} npmPackage={item} />
         ))}
       </div>

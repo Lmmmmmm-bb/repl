@@ -1,16 +1,15 @@
-export interface ExtraLib {
+export interface CorePackage {
   name: string;
   version: string;
+  optional?: boolean;
 }
 
-interface NpmUser {
+interface PackageUser {
   username: string;
   email: string;
 }
 
-export interface NpmPackage {
-  name: string;
-  version: string;
+export interface Package extends CorePackage {
   description?: string;
   keywords?: string[];
   date?: string;
@@ -24,6 +23,6 @@ export interface NpmPackage {
     name: string;
     email?: string;
   };
-  publisher: NpmUser;
-  maintainers?: NpmUser[];
+  publisher: PackageUser;
+  maintainers?: PackageUser[];
 }

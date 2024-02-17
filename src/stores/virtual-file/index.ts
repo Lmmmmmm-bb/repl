@@ -1,5 +1,6 @@
 import { create } from 'zustand';
-import { mock } from './mock';
+import { initialFiles } from './init';
+import { ENTRY_FILE } from './config';
 import { type VirtualFile, createVirtualFile } from '~/virtual-file';
 
 interface VirtualFileStore {
@@ -8,8 +9,8 @@ interface VirtualFileStore {
 }
 
 export const useVirtualFileStore = create<VirtualFileStore>(() => ({
-  files: mock,
-  activeFile: mock['App.tsx'],
+  files: initialFiles,
+  activeFile: initialFiles[ENTRY_FILE],
 }));
 
 export const setActiveFile = (file: VirtualFile) => {
@@ -37,15 +38,20 @@ export const deleteFile = (filename: string) => {
   delete _files[filename];
   useVirtualFileStore.setState({ files: _files });
 
-  activeFile && activeFile.filename === filename && setActiveFile(mock['App.tsx']);
+  activeFile
+  && activeFile.filename === filename
+  && setActiveFile(initialFiles[ENTRY_FILE]);
 };
 
 export const updateFileContent = (code: string) => {
   const { files, activeFile } = useVirtualFileStore.getState();
 
+  const updateFile = { ...activeFile, code };
   const newFiles = {
     ...files,
-    [activeFile.filename]: { ...activeFile, code },
+    [activeFile.filename]: updateFile,
   };
   useVirtualFileStore.setState(newFiles);
 };
+
+export { ENTRY_FILE, initialFiles };

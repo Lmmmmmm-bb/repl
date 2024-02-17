@@ -9,7 +9,7 @@ import JavaScript from '~/icons/JavaScript';
 import type { FileExtensionType } from '~/virtual-file';
 import TypeScript from '~/icons/TypeScript';
 
-export const virtualFileLanguageStrategy: Record<string, FileLanguageType> = {
+export const virtualFileLanguageStrategy: Record<FileExtensionType, FileLanguageType> = {
   html: 'html',
   css: 'css',
   json: 'json',

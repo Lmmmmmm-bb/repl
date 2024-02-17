@@ -4,4 +4,4 @@ export const monaco = setupMonaco();
 
 export { getOrCreateModel } from './utils';
 export { monacoOptions } from './config';
-export { registerTypeScriptLib } from './language';
+export { registerExtraLib } from './core-lib';

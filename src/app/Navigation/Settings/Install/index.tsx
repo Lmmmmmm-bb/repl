@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import type { ChangeEvent, FC } from 'react';
 import PackagePreview from '../PackagePreview';
-import { fetchPackageList } from './fetch';
 import { setPackages, usePackageStore } from './store';
 import { Input } from '~/components/ui/Input';
 import { Label } from '~/components/ui/Label';
@@ -9,6 +8,7 @@ import Search from '~/icons/Search';
 import Loading from '~/icons/Loading';
 import { useToggle } from '~/hooks/useToggle';
 import { useDebounce } from '~/hooks/useDebounce';
+import { fetchPackageList } from '~/apis/package-list';
 
 const Install: FC = () => {
   const packages = usePackageStore(state => state.packages);

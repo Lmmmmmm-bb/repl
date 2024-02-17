@@ -3,6 +3,7 @@ import type { ImperativePanelGroupHandle } from 'react-resizable-panels';
 
 import Editor from './Editor';
 import FileTabs from './FileTabs';
+import Sandbox from './Sandbox';
 import Container from '~/components/Container';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '~/components/ui/Resizable';
 
@@ -25,8 +26,8 @@ const Playground: FC = () => {
       <ResizableHandle onDoubleClick={handleResetLayout} />
 
       <ResizablePanel>
-        <Container title="Editor">
-          <div className="h-full">123</div>
+        <Container title="Preview">
+          <Sandbox />
         </Container>
       </ResizablePanel>
     </ResizablePanelGroup>

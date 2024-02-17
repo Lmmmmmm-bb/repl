@@ -1,11 +1,11 @@
 import type { FC } from 'react';
 import Button from '~/components/ui/Button';
 import Close from '~/icons/Close';
-import { type NpmPackage, removePackage } from '~/stores/package';
+import { type Package, removePackage } from '~/stores/package';
 import { cn } from '~/utils/cn';
 
 interface PackageUninstallProps {
-  npmPackage: NpmPackage;
+  npmPackage: Package;
 }
 
 const PackageUninstall: FC<PackageUninstallProps> = ({ npmPackage }) => (

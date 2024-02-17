@@ -3,11 +3,12 @@ import type { editor } from 'monaco-editor';
 export const monacoOptions: editor.IStandaloneEditorConstructionOptions = {
   tabSize: 2,
   fontSize: 13,
-  folding: false,
   lineNumbersMinChars: 4,
+  folding: false,
   insertSpaces: true,
   smoothScrolling: true,
   automaticLayout: true,
+  roundedSelection: true,
   detectIndentation: false,
   fixedOverflowWidgets: true,
   scrollBeyondLastLine: false,

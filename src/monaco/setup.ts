@@ -2,8 +2,11 @@ import * as monaco from 'monaco-editor';
 
 import { initEnvWorker } from './env';
 import { initHighlight } from './highlight';
-import { registerExtraLib } from './extra-lib';
+import { registerCoreLib } from './core-lib';
 import { registerLanguages } from './language';
+import { registerEditorEvent } from './event';
+import { getOrCreateModel } from './utils';
+import { initialFiles } from '~/stores/virtual-file';
 
 let isMonacoInitialized = false;
 export const setupMonaco = () => {
@@ -14,8 +17,10 @@ export const setupMonaco = () => {
   initEnvWorker();
   registerLanguages();
   initHighlight();
+  registerEditorEvent();
+  registerCoreLib();
 
-  registerExtraLib();
+  Object.values(initialFiles).forEach(item => getOrCreateModel(item));
 
   isMonacoInitialized = true;
 

@@ -2,13 +2,13 @@ import type { FC } from 'react';
 import { cn } from '~/utils/cn';
 import Download from '~/icons/Download';
 import Button from '~/components/ui/Button';
-import type { NpmPackage } from '~/stores/package';
-import { addPackage } from '~/stores/package';
+import type { Package } from '~/stores/package';
+import { addExtraPackage } from '~/stores/package';
 import Loading from '~/icons/Loading';
 import { useToggle } from '~/hooks/useToggle';
 
 interface PackageInstallProps {
-  npmPackage: NpmPackage;
+  npmPackage: Package;
 }
 
 const PackageInstall: FC<PackageInstallProps> = ({ npmPackage }) => {
@@ -19,7 +19,7 @@ const PackageInstall: FC<PackageInstallProps> = ({ npmPackage }) => {
       return;
     }
     toggleIsInstalling.on();
-    addPackage(npmPackage).finally(() => toggleIsInstalling.off());
+    addExtraPackage(npmPackage).finally(() => toggleIsInstalling.off());
   };
 
   return (

@@ -1,48 +1,54 @@
 import { create } from 'zustand';
-import type { ExtraLib, NpmPackage } from './types';
-import { fetchPackageRaw } from './fetch';
-import { registerTypeScriptLib } from '~/monaco';
+import type { CorePackage, Package } from './types';
+import { initialCorePackages } from './config';
+import { getImportMap } from './utils';
+import { registerExtraLib } from '~/monaco';
+import { fetchPackageFileRaw } from '~/apis/package-raw';
 
 interface PackageStore {
-  initialExtraLibs: ExtraLib[];
-  packages: NpmPackage[];
+  corePackages: CorePackage[];
+  extraPackages: Package[];
+  extraPackageDisposal: Map<string, () => void>;
 }
 
 export const usePackageStore = create<PackageStore>(() => ({
-  initialExtraLibs: [],
-  packages: [],
+  corePackages: [...initialCorePackages],
+  extraPackages: [],
+  extraPackageDisposal: new Map<string, () => void>(),
 }));
 
-export const addPackage = async (lib: ExtraLib | NpmPackage) => {
-  const dts = await fetchPackageRaw(lib);
+export const addCorePackage = (lib: CorePackage) => {
+  const { corePackages } = usePackageStore.getState();
+  usePackageStore.setState({
+    corePackages: [...corePackages, lib],
+  });
+};
 
-  const moduleName = lib.name.startsWith('@types/') ? lib.name.split('/')[1] : lib.name;
-  registerTypeScriptLib(
+export const addExtraPackage = async (lib: Package) => {
+  const dts = await fetchPackageFileRaw(lib);
+
+  const isDeclareLib = lib.name.startsWith('@types/');
+  const moduleName = isDeclareLib ? lib.name.split('/')[1] : lib.name;
+  const libDisposal = registerExtraLib(
     `declare module '${moduleName}' {
       ${dts}
     }`,
     `file:///node_modules/${lib.name}`,
   );
 
-  const { initialExtraLibs, packages } = usePackageStore.getState();
-  if ('links' in lib) {
-    const newExtraLibs = [...packages, lib];
-    usePackageStore.setState({ packages: newExtraLibs });
-  } else {
-    const newInitialExtraLibs = [...initialExtraLibs, lib];
-    usePackageStore.setState({ initialExtraLibs: newInitialExtraLibs });
-  }
+  const { extraPackages, extraPackageDisposal } = usePackageStore.getState();
+  extraPackageDisposal.set(lib.name, libDisposal);
+  const newExtraLibs = [...extraPackages, lib];
+  usePackageStore.setState({ extraPackages: newExtraLibs });
 };
 
-export const removePackage = (lib: ExtraLib | NpmPackage) => {
-  const { initialExtraLibs, packages } = usePackageStore.getState();
-  if ('links' in lib) {
-    const newExtraLibs = packages.filter(item => item.name !== lib.name);
-    usePackageStore.setState({ packages: newExtraLibs });
-  } else {
-    const newInitialExtraLibs = initialExtraLibs.filter(item => item.name !== lib.name);
-    usePackageStore.setState({ initialExtraLibs: newInitialExtraLibs });
-  }
+export const removePackage = (lib: Package) => {
+  const { extraPackages, extraPackageDisposal } = usePackageStore.getState();
+  const newExtraLibs = extraPackages.filter(item => item.name !== lib.name);
+  usePackageStore.setState({ extraPackages: newExtraLibs });
+
+  const disposeLib = extraPackageDisposal.get(lib.name);
+  disposeLib && disposeLib();
 };
 
-export { ExtraLib, NpmPackage };
+export { CorePackage, Package, getImportMap };
