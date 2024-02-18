@@ -4,6 +4,6 @@ export interface VirtualFile {
   code: string;
 }
 
-export type FileLanguageType = 'html' | 'css' | 'json' | 'typescript' | 'javascript';
+export type FileLanguageType = 'css' | 'json' | 'typescript' | 'javascript';
 
-export type FileExtensionType = 'html' | 'css' | 'json' | 'ts' | 'tsx' | 'js' | 'jsx';
+export type FileExtensionType = 'css' | 'json' | 'ts' | 'tsx' | 'js' | 'jsx';

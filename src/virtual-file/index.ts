@@ -13,7 +13,7 @@ export const createVirtualFile = (
 ): VirtualFile => {
   if (!isValidFileExtension(filename)) {
     throw new Error(
-      'Playground only supports *.html, *.css, *.json, *.js, *.jsx, *.ts, *.tsx files.',
+      'Playground only supports, *.css, *.json, *.js, *.jsx, *.ts, *.tsx files.',
     );
   }
 
