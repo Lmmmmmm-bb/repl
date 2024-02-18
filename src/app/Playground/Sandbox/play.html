@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preview</title>
+    <style>
+      html, body, #root {
+        margin: 0;
+        height: 100%;
+      }
+
+      html.dark {
+        color-scheme: dark;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+  </body>
+
+  <script type="importmap">
+    <!-- IMPORTMAP_PLACEHOLDER -->
+  </script>
+
+  <script>
+    const sandboxRoot = document.documentElement;
+    const sandboxParentRoot = window.parent.document.documentElement;
+
+    const strategy = {
+      THEME_CHANGE: (payload) => sandboxRoot.classList.toggle('dark', payload.data === 'dark'),
+      COMPILER_DONE: (payload) => {
+        const prevModuleScript = document.getElementById('module-script');
+        prevModuleScript && prevModuleScript.remove();
+        const newModuleScript = document.createElement('script');
+        newModuleScript.id = 'module-script';
+        newModuleScript.type = 'module';
+        newModuleScript.textContent = payload.data;
+        document.body.appendChild(newModuleScript);
+      },
+    };
+
+    sandboxRoot.classList.toggle('dark', sandboxParentRoot.className.includes('dark'));
+
+    window.addEventListener('message', ({ data }) => {
+      const payload = typeof data === 'string' ? JSON.parse(data) : data;
+      strategy[payload.type] && strategy[payload.type](payload);
+    })
+  </script>
+</html>

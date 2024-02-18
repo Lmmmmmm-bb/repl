@@ -3,6 +3,7 @@ import type { VirtualFile } from '~/virtual-file';
 
 import MainRaw from '~/templates/Main?raw';
 import AppRaw from '~/templates/App?raw';
+import HelloRaw from '~/templates/Hello?raw';
 
 export const initialFiles: Record<string, VirtualFile> = {
   [MAIN_FILE]: {
@@ -13,5 +14,9 @@ export const initialFiles: Record<string, VirtualFile> = {
   [ENTRY_FILE]: {
     filename: ENTRY_FILE,
     code: AppRaw,
+  },
+  'Hello.tsx': {
+    filename: 'Hello.tsx',
+    code: HelloRaw,
   },
 };

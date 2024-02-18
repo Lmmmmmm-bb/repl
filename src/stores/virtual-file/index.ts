@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { initialFiles } from './init';
-import { ENTRY_FILE } from './config';
+import { ENTRY_FILE, MAIN_FILE } from './config';
 import { type VirtualFile, createVirtualFile } from '~/virtual-file';
 
 interface VirtualFileStore {
@@ -51,7 +51,10 @@ export const updateFileContent = (code: string) => {
     ...files,
     [activeFile.filename]: updateFile,
   };
-  useVirtualFileStore.setState(newFiles);
+  useVirtualFileStore.setState({
+    files: newFiles,
+    activeFile: updateFile,
+  });
 };
 
-export { ENTRY_FILE, initialFiles };
+export { ENTRY_FILE, MAIN_FILE, initialFiles };
