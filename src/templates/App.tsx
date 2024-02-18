@@ -1,16 +1,11 @@
 import type { FC } from 'react';
-import { useState } from 'react';
-import Hello from './Hello';
+import Welcome from './Welcome';
+import './App.css';
 
-const App: FC = () => {
-  const [count, setCount] = useState(0);
-
-  return (
-    <span onClick={() => setCount(count + 1)}>
-      <Hello />
-      {`Click Me: ${count}`}
-    </span>
-  );
-};
+const App: FC = () => (
+  <div className="app">
+    <Welcome />
+  </div>
+);
 
 export default App;
