@@ -26,8 +26,7 @@ const transformCSSImport = (file: VirtualFile) => {
     // remove prev style after new style insert
     document.head.appendChild(newStyle);
     prevStyle && prevStyle.remove();
-  })()
-  `;
+  })()`;
   return URL.createObjectURL(
     new Blob([styleInject], { type: 'application/javascript' }),
   );

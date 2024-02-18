@@ -1,4 +1,5 @@
 import { type FC, useState } from 'react';
+
 import './Welcome.css';
 
 const Hello: FC = () => {
