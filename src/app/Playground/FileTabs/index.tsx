@@ -14,6 +14,7 @@ import {
 } from '~/stores/virtual-file';
 import File from '~/icons/File';
 import { useToggle } from '~/hooks/useToggle';
+import { getOrCreateModel } from '~/monaco';
 
 const FileTabs: FC = () => {
   const { files, activeFile } = useVirtualFileStore();
@@ -26,7 +27,11 @@ const FileTabs: FC = () => {
 
   const handleDeleteFile = (filename: string) => {
     // eslint-disable-next-line no-alert
-    confirm(`Are you sure you want to delete ${filename}?`) && deleteFile(filename);
+    if (confirm(`Are you sure you want to delete ${filename}?`)) {
+      deleteFile(filename);
+      const model = getOrCreateModel(files[filename]);
+      model && model.dispose();
+    };
   };
 
   const handleAddFile = () => {

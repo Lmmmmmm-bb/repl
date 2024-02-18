@@ -31,12 +31,16 @@
     const strategy = {
       THEME_CHANGE: (payload) => sandboxRoot.classList.toggle('dark', payload.data === 'dark'),
       COMPILER_DONE: (payload) => {
+        const allStyle = document.querySelectorAll('style[data-file]');
+        allStyle.forEach(style => style.remove());
+
         const prevModuleScript = document.getElementById('module-script');
         prevModuleScript && prevModuleScript.remove();
         const newModuleScript = document.createElement('script');
         newModuleScript.id = 'module-script';
         newModuleScript.type = 'module';
         newModuleScript.textContent = payload.data;
+
         document.body.appendChild(newModuleScript);
       },
     };

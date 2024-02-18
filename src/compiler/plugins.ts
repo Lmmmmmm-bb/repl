@@ -15,18 +15,15 @@ const getVirtualFileByImportPath = (importValue: string, files: Record<string, V
 };
 
 const transformCSSImport = (file: VirtualFile) => {
-  const randomId = new Date().getTime();
   const styleIIFE = `
   (() => {
-    let stylesheet = document.getElementById('style_${randomId}_${file.filename}');
+    let stylesheet = document.querySelector('style[data-file="${file.filename}"]');
     if (!stylesheet) {
       stylesheet = document.createElement('style')
-      stylesheet.setAttribute('id', 'style_${randomId}_${file.filename}')
+      stylesheet.setAttribute('data-file', '${file.filename}')
       document.head.appendChild(stylesheet)
     }
-    const styles = document.createTextNode(\`${file.code}\`)
-    stylesheet.innerHTML = ''
-    stylesheet.appendChild(styles)
+    stylesheet.innerHTML = \`${file.code}\`
   })()
   `;
   return URL.createObjectURL(
@@ -40,6 +37,14 @@ const transformJsonImport = (file: VirtualFile) => {
     new Blob([jsonIIFE], { type: 'application/javascript' }),
   );
 };
+
+const transformScriptImport = (file: VirtualFile, files: Record<string, VirtualFile>) =>
+  URL.createObjectURL(
+    new Blob(
+      [transform(file, files)],
+      { type: 'application/javascript' },
+    ),
+  );
 
 export const esmImportTransformPlugin = (files: Record<string, VirtualFile>) => ({
   visitor: {
@@ -57,12 +62,7 @@ export const esmImportTransformPlugin = (files: Record<string, VirtualFile>) => 
         } else if (ext === 'json') {
           babel.node.source.value = transformJsonImport(importFile);
         } else {
-          babel.node.source.value = URL.createObjectURL(
-            new Blob(
-              [transform(importFile, files)],
-              { type: 'application/javascript' },
-            ),
-          );
+          babel.node.source.value = transformScriptImport(importFile, files);
         }
       }
     },
