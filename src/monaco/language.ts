@@ -10,6 +10,7 @@ export const registerLanguages = () => {
     noEmit: true,
     allowJs: true,
     esModuleInterop: true,
+    resolveJsonModule: true,
     allowNonTsExtensions: true,
     jsx: monaco.languages.typescript.JsxEmit.Preserve,
     module: monaco.languages.typescript.ModuleKind.ESNext,
