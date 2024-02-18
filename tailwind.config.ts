@@ -6,7 +6,6 @@ const config = {
   darkMode: 'class',
   content: [
     './index.html',
-    './__play.html',
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',

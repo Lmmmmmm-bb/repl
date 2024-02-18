@@ -37,3 +37,5 @@ export const setTheme = (theme: ThemeModeType) => {
   effect(theme);
   useThemeStore.setState({ theme });
 };
+
+export { ThemeModeType };
