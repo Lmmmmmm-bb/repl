@@ -28,20 +28,33 @@
     const sandboxRoot = document.documentElement;
     const sandboxParentRoot = window.parent.document.documentElement;
 
+    const createScript = (scriptId, scriptContent, scriptType) => {
+      const prevScript = document.getElementById(scriptId);
+      prevScript && prevScript.remove();
+      const newScript = document.createElement('script');
+      scriptType && (newScript.type = scriptType);
+      newScript.id = scriptId;
+      newScript.textContent = scriptContent;
+
+      return newScript
+    }
+
     const strategy = {
       THEME_CHANGE: (payload) => sandboxRoot.classList.toggle('dark', payload.data === 'dark'),
       COMPILER_DONE: (payload) => {
-        const allStyle = document.querySelectorAll('style[data-file]');
-        allStyle.forEach(style => style.remove());
+        const moduleScript = createScript('module-script', payload.data, 'module');
+        const beforeModuleScript = createScript(
+          'before-module-script',
+          'allStyles = document.querySelectorAll("style[data-file]");'
+        )
+        const afterModuleScript = createScript(
+          'after-module-script',
+          'allStyles.forEach(style => style.remove())'
+        )
 
-        const prevModuleScript = document.getElementById('module-script');
-        prevModuleScript && prevModuleScript.remove();
-        const newModuleScript = document.createElement('script');
-        newModuleScript.id = 'module-script';
-        newModuleScript.type = 'module';
-        newModuleScript.textContent = payload.data;
-
-        document.body.appendChild(newModuleScript);
+        document.body.appendChild(beforeModuleScript);
+        document.body.appendChild(moduleScript);
+        document.body.appendChild(afterModuleScript);
       },
     };
 

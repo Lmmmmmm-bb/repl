@@ -37,6 +37,14 @@ const fetchAndRegisterLatestPackageTypes = async (packageName: string) => {
 };
 
 const registerCoreLibTypes = () => {
+  registerExtraLib(
+    `declare module "*.json" {
+      const value: any;
+      export default value;
+    }`,
+    'file:///node_modules/client.d.ts',
+  );
+
   Promise.all([
     fetchAndRegisterLatestPackageTypes('@types/react'),
     fetchAndRegisterLatestPackageTypes('@types/react-dom'),

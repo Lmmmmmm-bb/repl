@@ -15,26 +15,27 @@ const getVirtualFileByImportPath = (importValue: string, files: Record<string, V
 };
 
 const transformCSSImport = (file: VirtualFile) => {
-  const styleIIFE = `
+  const styleInject = `
   (() => {
-    let stylesheet = document.querySelector('style[data-file="${file.filename}"]');
-    if (!stylesheet) {
-      stylesheet = document.createElement('style')
-      stylesheet.setAttribute('data-file', '${file.filename}')
-      document.head.appendChild(stylesheet)
-    }
-    stylesheet.innerHTML = \`${file.code}\`
-  })()
-  `;
+    const prevStyle = document.querySelector('style[data-file="${file.filename}"]');
+
+    const newStyle = document.createElement('style');
+    newStyle.setAttribute('data-file', '${file.filename}');
+    newStyle.innerHTML = \`${file.code}\`;
+
+    // remove prev style after new style insert
+    document.head.appendChild(newStyle);
+    prevStyle && prevStyle.remove();
+  })()`;
   return URL.createObjectURL(
-    new Blob([styleIIFE], { type: 'application/javascript' }),
+    new Blob([styleInject], { type: 'application/javascript' }),
   );
 };
 
 const transformJsonImport = (file: VirtualFile) => {
-  const jsonIIFE = `export default ${file.code}`;
+  const jsonInject = `export default ${file.code}`;
   return URL.createObjectURL(
-    new Blob([jsonIIFE], { type: 'application/javascript' }),
+    new Blob([jsonInject], { type: 'application/javascript' }),
   );
 };
 
