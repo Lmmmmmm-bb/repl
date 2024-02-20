@@ -4,8 +4,13 @@ import type { ImperativePanelGroupHandle } from 'react-resizable-panels';
 import Editor from './Editor';
 import FileTabs from './FileTabs';
 import Sandbox from './Sandbox';
+import Format from './Format';
 import Container from '~/components/Container';
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '~/components/ui/Resizable';
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from '~/components/ui/Resizable';
 
 const Playground: FC = () => {
   const resizableRef = useRef<ImperativePanelGroupHandle>(null);
@@ -17,7 +22,7 @@ const Playground: FC = () => {
   return (
     <ResizablePanelGroup direction="horizontal" ref={resizableRef}>
       <ResizablePanel>
-        <Container title="Editor">
+        <Container title="Editor" action={<Format />}>
           <FileTabs />
           <Editor />
         </Container>
