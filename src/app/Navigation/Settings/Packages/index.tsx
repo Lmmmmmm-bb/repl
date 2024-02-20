@@ -43,9 +43,10 @@ const Packages: FC = () => {
       </div>
 
       <div className="mt-2 px-4 grid grid-cols-2 gap-4 overflow-auto">
-        {packageStore.extraPackages.map(item => (
-          <PackagePreview key={item.name} npmPackage={item} />
-        ))}
+        {packageStore
+          .extraPackages
+          .filter(item => item.name.toLowerCase().includes(inputValue.toLowerCase()))
+          .map(item => <PackagePreview key={item.name} npmPackage={item} />)}
       </div>
     </div>
   );
