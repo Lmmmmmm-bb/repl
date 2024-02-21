@@ -25,6 +25,10 @@ const Sandbox: FC = () => {
     compilerWorkerRef.current && compilerWorkerRef.current.postMessage(message);
   };
 
+  const handleSandboxLoad = () => {
+    sendCompilerWorkerMessage({ files });
+  };
+
   useEffect(() => {
     if (compilerWorkerRef.current) {
       return;
@@ -57,6 +61,7 @@ const Sandbox: FC = () => {
       ref={sandboxRef}
       srcDoc={playSrcdoc}
       sandbox={sandboxAttr}
+      onLoad={handleSandboxLoad}
     />
   );
 };
