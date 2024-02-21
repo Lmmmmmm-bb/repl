@@ -1,38 +1,28 @@
-import { type FC, useEffect, useRef } from 'react';
-import { sandboxAttr } from './config';
-import playSrcdoc from './play.html?raw';
-import { getPlaySrcdoc } from './utils';
+import { type FC, useEffect } from 'react';
 import { useCompilerWorker } from './useCompilerWorker';
+import { useSandbox } from './useSandbox';
+import { sandboxAttr } from './config';
 import { useThemeStore } from '~/stores/theme';
 import { useVirtualFileStore } from '~/stores/virtual-file';
 import { usePackageStore } from '~/stores/package';
 
 const Sandbox: FC = () => {
-  const extraPackages = usePackageStore(state => state.extraPackages);
-  const files = useVirtualFileStore(state => state.files);
   const theme = useThemeStore(state => state.theme);
+  const files = useVirtualFileStore(state => state.files);
+  const extraPackages = usePackageStore(state => state.extraPackages);
 
-  const sandboxRef = useRef<HTMLIFrameElement>(null);
-  const sendSandboxMessage = (message: any) => {
-    sandboxRef.current
-    && sandboxRef.current.contentWindow
-    && sandboxRef.current.contentWindow.postMessage(message, location.origin);
-  };
+  const { sandboxRef, refreshSandbox, sendSandboxMessage } = useSandbox();
 
   const { sendWorkerMessage } = useCompilerWorker((event: MessageEvent) => {
     const payload = event.data;
     sendSandboxMessage(payload);
   });
 
-  const handleSandboxLoad = () => {
-    sendWorkerMessage({ files });
-  };
+  const handleSandboxLoad = () => sendWorkerMessage({ files });
 
   useEffect(() => {
-    if (sandboxRef.current) {
-      sandboxRef.current.srcdoc = getPlaySrcdoc();
-    }
-  }, [extraPackages]);
+    refreshSandbox();
+  }, [extraPackages, refreshSandbox]);
 
   useEffect(() => {
     sendWorkerMessage({ files });
@@ -40,16 +30,17 @@ const Sandbox: FC = () => {
 
   useEffect(() => {
     sendSandboxMessage({ type: 'THEME_CHANGE', data: theme });
-  }, [theme]);
+  }, [theme, sendSandboxMessage]);
 
   return (
-    <iframe
-      className="w-full h-full"
-      ref={sandboxRef}
-      srcDoc={playSrcdoc}
-      sandbox={sandboxAttr}
-      onLoad={handleSandboxLoad}
-    />
+    <div className="w-full h-full">
+      <iframe
+        className="w-full h-full"
+        ref={sandboxRef}
+        sandbox={sandboxAttr}
+        onLoad={handleSandboxLoad}
+      />
+    </div>
   );
 };
 

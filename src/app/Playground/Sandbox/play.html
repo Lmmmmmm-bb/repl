@@ -52,9 +52,7 @@
           'setTimeout(() => allStyles.forEach(style => style.remove()), 50)'
         )
 
-        document.body.appendChild(beforeModuleScript);
-        document.body.appendChild(moduleScript);
-        document.body.appendChild(afterModuleScript);
+        document.body.append(...[beforeModuleScript, moduleScript, afterModuleScript]);
       },
     };
 
