@@ -8,6 +8,8 @@ import { useVirtualFileStore } from '~/stores/virtual-file';
 import { usePackageStore } from '~/stores/package';
 import { useElementSize } from '~/hooks/useElementSize';
 import { cn } from '~/utils/cn';
+import { useToggle } from '~/hooks/useToggle';
+import Loading from '~/icons/Loading';
 
 interface SandboxProps {
   sandboxWidth: number;
@@ -18,6 +20,8 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
   const theme = useThemeStore(state => state.theme);
   const files = useVirtualFileStore(state => state.files);
   const extraPackages = usePackageStore(state => state.extraPackages);
+
+  const [sandboxLoaded, toggleSandboxLoaded] = useToggle();
 
   const sandboxContainerRef = useRef<HTMLDivElement>(null);
   const { sandboxRef, refreshSandbox, sendSandboxMessage } = useSandbox();
@@ -48,7 +52,10 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
     sendSandboxMessage(payload);
   });
 
-  const handleSandboxLoad = () => sendWorkerMessage({ files });
+  const handleSandboxLoad = () => {
+    toggleSandboxLoaded.on();
+    sendWorkerMessage({ files });
+  };
 
   useEffect(() => {
     refreshSandbox();
@@ -66,10 +73,15 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
     <div
       ref={sandboxContainerRef}
       className={cn(
-        ['w-full', 'h-full'],
+        ['relative', 'w-full', 'h-full'],
         !isDefaultDevice && ['p-8', 'grid', 'place-content-center'],
       )}
     >
+      {!sandboxLoaded && (
+        <div className="absolute inset-0 backdrop-blur grid place-content-center">
+          <Loading className="w-6 h-6 animate-spin" />
+        </div>
+      )}
       <iframe
         style={sandboxStyle}
         ref={sandboxRef}
