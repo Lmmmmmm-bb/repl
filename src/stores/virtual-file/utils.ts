@@ -25,7 +25,7 @@ export const atou = (base64: string) => {
   return decodeURIComponent(escape(binary));
 };
 
-export const restoreVirtualFileStoreFromHash = (): VirtualFileStore => {
+export const restoreVirtualFileStore = (): VirtualFileStore => {
   const hash = location.hash.slice(1);
   const initialStore: VirtualFileStore = {
     files: initialFiles,

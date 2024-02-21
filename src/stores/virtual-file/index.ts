@@ -1,6 +1,7 @@
 import { create } from 'zustand';
+import { subscribeWithSelector } from 'zustand/middleware';
 import { ENTRY_FILE, MAIN_FILE } from './config';
-import { restoreVirtualFileStoreFromHash, utoa } from './utils';
+import { restoreVirtualFileStore, utoa } from './utils';
 import { type VirtualFile, createVirtualFile } from '~/virtual-file';
 
 export interface VirtualFileStore {
@@ -8,14 +9,21 @@ export interface VirtualFileStore {
   activeFile: VirtualFile;
 }
 
-export const initVirtualFileStore = restoreVirtualFileStoreFromHash();
+export const initVirtualFileStore = restoreVirtualFileStore();
 
-export const useVirtualFileStore = create<VirtualFileStore>(() => ({ ...initVirtualFileStore }));
+export const useVirtualFileStore = create(
+  subscribeWithSelector<VirtualFileStore>(
+    () => ({ ...initVirtualFileStore }),
+  ),
+);
 
-useVirtualFileStore.subscribe((state) => {
-  const hash = `#${utoa(JSON.stringify(state.files))}`;
-  history.replaceState({}, '', hash);
-});
+useVirtualFileStore.subscribe(
+  state => state.files,
+  (files) => {
+    const hash = `#${utoa(JSON.stringify(files))}`;
+    history.replaceState({}, '', hash);
+  },
+);
 
 export const setActiveFile = (file: VirtualFile) => {
   useVirtualFileStore.setState({ activeFile: file });
