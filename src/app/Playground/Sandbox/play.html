@@ -49,7 +49,7 @@
         )
         const afterModuleScript = createScript(
           'after-module-script',
-          'allStyles.forEach(style => style.remove())'
+          'setTimeout(() => allStyles.forEach(style => style.remove()), 50)'
         )
 
         document.body.appendChild(beforeModuleScript);
