@@ -19,6 +19,10 @@ const Editor: FC = () => {
     monacoInstance.onDidChangeModelContent(() => {
       updateFileContent(monacoInstance.getValue());
     });
+    monacoInstance.addCommand(
+      monaco.KeyMod.Shift | monaco.KeyMod.Alt | monaco.KeyCode.KeyF,
+      () => monacoInstance.trigger('format-code', 'format-code', null),
+    );
 
     editorRef.current = monacoInstance;
 

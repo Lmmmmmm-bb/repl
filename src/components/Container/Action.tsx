@@ -1,0 +1,21 @@
+import type { FC, PropsWithChildren } from 'react';
+import type { ButtonProps } from '../ui/Button';
+import Button from '../ui/Button';
+import { cn } from '~/utils/cn';
+
+const Action: FC<PropsWithChildren<ButtonProps>> = ({ children, className, ...props }) => (
+  <Button
+    variant="ghost"
+    className={cn(
+      ['h-full', 'p-2', 'border-l'],
+      ['opacity-60', 'hover:opacity-80'],
+      ['rounded-none', 'transition-opacity'],
+      className,
+    )}
+    {...props}
+  >
+    {children}
+  </Button>
+);
+
+export default Action;
