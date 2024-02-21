@@ -21,8 +21,10 @@ const DeviceSelect: FC<DeviceSelectProps> = ({ value, onChange }) => (
       title="Select device"
       className={cn(
         ['h-full', 'w-fit'],
+        ['hover:bg-accent', 'hover:text-accent-foreground'],
         ['border-0', 'border-l', 'rounded-none'],
-        ['opacity-60', 'hover:opacity-80', 'transition-opacity'],
+        ['opacity-60', 'hover:opacity-80'],
+        ['transition-opacity'],
         value !== 'Default' && ['opacity-80'],
       )}
     >

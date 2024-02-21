@@ -9,7 +9,7 @@ export const prettierConfig: Partial<RequiredOptions> = {
   useTabs: false,
   singleQuote: true,
   bracketSpacing: true,
-  jsxSingleQuote: true,
+  jsxSingleQuote: false,
   bracketSameLine: false,
 };
 
