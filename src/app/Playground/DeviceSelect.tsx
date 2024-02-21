@@ -20,7 +20,7 @@ const DeviceSelect: FC<DeviceSelectProps> = ({ value, onChange }) => (
       hiddenIcon
       title="Select device"
       className={cn(
-        ['h-full', 'w-fit'],
+        ['h-full', 'w-fit', 'p-2'],
         ['hover:bg-accent', 'hover:text-accent-foreground'],
         ['border-0', 'border-l', 'rounded-none'],
         ['opacity-60', 'hover:opacity-80'],
