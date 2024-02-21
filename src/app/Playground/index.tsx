@@ -6,7 +6,7 @@ import FileTabs from './FileTabs';
 import Sandbox from './Sandbox';
 import Format from './Format';
 import DeviceSelect from './DeviceSelect';
-import type { DEVICE_SIZE } from './config';
+import { DEVICE_SIZE } from './config';
 import Container from '~/components/Container';
 import {
   ResizableHandle,
@@ -16,11 +16,11 @@ import {
 
 const Playground: FC = () => {
   const resizableRef = useRef<ImperativePanelGroupHandle>(null);
-  const [deviceName, setDeviceName] = useState<keyof typeof DEVICE_SIZE>('Default');
 
-  const handleResetLayout = () => {
-    resizableRef.current && resizableRef.current.setLayout([50, 50]);
-  };
+  const [deviceName, setDeviceName] = useState<keyof typeof DEVICE_SIZE>('Default');
+  const [sandboxWidth, sandboxHeight] = DEVICE_SIZE[deviceName];
+
+  const handleResetLayout = () => resizableRef.current && resizableRef.current.setLayout([50, 50]);
 
   return (
     <ResizablePanelGroup direction="horizontal" ref={resizableRef}>
@@ -38,7 +38,7 @@ const Playground: FC = () => {
           title="Preview"
           action={<DeviceSelect value={deviceName} onChange={setDeviceName} />}
         >
-          <Sandbox />
+          <Sandbox sandboxWidth={sandboxWidth} sandboxHeight={sandboxHeight} />
         </Container>
       </ResizablePanel>
     </ResizablePanelGroup>
