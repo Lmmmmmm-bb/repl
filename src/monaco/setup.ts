@@ -6,7 +6,7 @@ import { registerCoreLib } from './core-lib';
 import { registerLanguages } from './language';
 import { registerEditorEvent } from './event';
 import { getOrCreateModel } from './utils';
-import { initialFiles } from '~/stores/virtual-file';
+import { initVirtualFileStore } from '~/stores/virtual-file';
 
 let isMonacoInitialized = false;
 export const setupMonaco = () => {
@@ -20,7 +20,7 @@ export const setupMonaco = () => {
   registerEditorEvent();
   registerCoreLib();
 
-  Object.values(initialFiles).forEach(item => getOrCreateModel(item));
+  Object.values(initVirtualFileStore.files).forEach(item => getOrCreateModel(item));
 
   isMonacoInitialized = true;
 

@@ -1,17 +1,21 @@
 import { create } from 'zustand';
-import { initialFiles } from './init';
 import { ENTRY_FILE, MAIN_FILE } from './config';
+import { restoreVirtualFileStoreFromHash, utoa } from './utils';
 import { type VirtualFile, createVirtualFile } from '~/virtual-file';
 
-interface VirtualFileStore {
+export interface VirtualFileStore {
   files: Record<string, VirtualFile>;
   activeFile: VirtualFile;
 }
 
-export const useVirtualFileStore = create<VirtualFileStore>(() => ({
-  files: initialFiles,
-  activeFile: initialFiles[ENTRY_FILE],
-}));
+export const initVirtualFileStore = restoreVirtualFileStoreFromHash();
+
+export const useVirtualFileStore = create<VirtualFileStore>(() => ({ ...initVirtualFileStore }));
+
+useVirtualFileStore.subscribe((state) => {
+  const hash = `#${utoa(JSON.stringify(state.files))}`;
+  history.replaceState({}, '', hash);
+});
 
 export const setActiveFile = (file: VirtualFile) => {
   useVirtualFileStore.setState({ activeFile: file });
@@ -40,7 +44,7 @@ export const deleteFile = (filename: string) => {
 
   activeFile
   && activeFile.filename === filename
-  && setActiveFile(initialFiles[ENTRY_FILE]);
+  && setActiveFile(files[ENTRY_FILE]);
 };
 
 export const updateFileContent = (code: string) => {
@@ -57,4 +61,4 @@ export const updateFileContent = (code: string) => {
   });
 };
 
-export { ENTRY_FILE, MAIN_FILE, initialFiles };
+export { ENTRY_FILE, MAIN_FILE };
