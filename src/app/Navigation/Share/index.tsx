@@ -1,11 +1,37 @@
 import type { FC } from 'react';
 import Button from '~/components/ui/Button';
+import { useToggle } from '~/hooks/useToggle';
+import Check from '~/icons/Check';
 import ShareIcon from '~/icons/Share';
 
-const Share: FC = () => (
-  <Button title="Copy sharable URL" variant="ghost" size="icon">
-    <ShareIcon className="w-5 h-5" />
-  </Button>
-);
+const Share: FC = () => {
+  const [copied, toggleCopied] = useToggle();
+
+  const handleCopy = async () => {
+    if (copied) {
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(location.href);
+      toggleCopied.on();
+    } finally {
+      setTimeout(() => toggleCopied.off(), 2000);
+    }
+  };
+
+  return (
+    <Button
+      size="icon"
+      variant="ghost"
+      title="Copy sharable URL"
+      onClick={handleCopy}
+    >
+      {copied
+        ? <Check className="w-5 h-5 text-green-600" />
+        : <ShareIcon className="w-5 h-5" />}
+    </Button>
+  );
+};
 
 export default Share;
