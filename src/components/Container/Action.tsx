@@ -7,7 +7,7 @@ const Action: FC<PropsWithChildren<ButtonProps>> = ({ children, className, ...pr
   <Button
     variant="ghost"
     className={cn(
-      ['h-full', 'p-2', 'border-l'],
+      ['h-full', 'p-2', 'border-l', 'text-xs'],
       ['opacity-60', 'hover:opacity-80'],
       ['rounded-none', 'transition-opacity'],
       className,

@@ -1,63 +1,98 @@
-import { type FC, useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
+import type { CSSProperties, FC } from 'react';
+import { useCompilerWorker } from './useCompilerWorker';
+import { useSandbox } from './useSandbox';
 import { sandboxAttr } from './config';
-import CompilerWorker from './compiler.worker?worker&inline';
-import playSrcdoc from './play.html?raw';
-import { getPlaySrcdoc } from './utils';
 import { useThemeStore } from '~/stores/theme';
 import { useVirtualFileStore } from '~/stores/virtual-file';
 import { usePackageStore } from '~/stores/package';
+import { useElementSize } from '~/hooks/useElementSize';
+import { cn } from '~/utils/cn';
+import { useToggle } from '~/hooks/useToggle';
+import Loading from '~/icons/Loading';
 
-const Sandbox: FC = () => {
-  const extraPackages = usePackageStore(state => state.extraPackages);
-  const files = useVirtualFileStore(state => state.files);
+interface SandboxProps {
+  sandboxWidth: number;
+  sandboxHeight: number;
+}
+
+const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
   const theme = useThemeStore(state => state.theme);
+  const files = useVirtualFileStore(state => state.files);
+  const extraPackages = usePackageStore(state => state.extraPackages);
 
-  const sandboxRef = useRef<HTMLIFrameElement>(null);
-  const compilerWorkerRef = useRef<Worker | null>(null);
+  const [sandboxLoaded, toggleSandboxLoaded] = useToggle();
 
-  const sendSandboxMessage = (message: any) => {
-    sandboxRef.current
-    && sandboxRef.current.contentWindow
-    && sandboxRef.current.contentWindow.postMessage(message, location.origin);
+  const sandboxContainerRef = useRef<HTMLDivElement>(null);
+  const { sandboxRef, refreshSandbox, sendSandboxMessage } = useSandbox();
+
+  const { width, height } = useElementSize(sandboxContainerRef);
+  const isDefaultDevice = !sandboxWidth && !sandboxHeight;
+  const sandboxStyle = useMemo<CSSProperties>(
+    () => {
+      if (isDefaultDevice) {
+        return {};
+      }
+
+      const scaleValue = isDefaultDevice
+        ? 1
+        : Math.min(width / sandboxWidth, height / sandboxHeight);
+      return {
+        width: sandboxWidth,
+        height: sandboxHeight,
+        transform: `scale(${scaleValue})`,
+        transformOrigin: 'center center',
+      };
+    },
+    [height, isDefaultDevice, sandboxHeight, sandboxWidth, width],
+  );
+
+  const { sendWorkerMessage } = useCompilerWorker((event: MessageEvent) => {
+    const payload = event.data;
+    sendSandboxMessage(payload);
+  });
+
+  const handleSandboxLoad = () => {
+    toggleSandboxLoaded.on();
+    sendWorkerMessage({ files });
   };
 
-  const sendCompilerWorkerMessage = (message: any) => {
-    compilerWorkerRef.current && compilerWorkerRef.current.postMessage(message);
-  };
+  useEffect(() => {
+    refreshSandbox();
+  }, [extraPackages, refreshSandbox]);
 
   useEffect(() => {
-    if (compilerWorkerRef.current) {
-      return;
-    }
-
-    compilerWorkerRef.current = new CompilerWorker();
-    compilerWorkerRef.current.addEventListener('message', (event: MessageEvent) => {
-      const payload = event.data;
-      sendSandboxMessage(payload);
-    });
-  }, []);
-
-  useEffect(() => {
-    if (sandboxRef.current) {
-      sandboxRef.current.srcdoc = getPlaySrcdoc();
-    }
-  }, [extraPackages]);
-
-  useEffect(() => {
-    sendCompilerWorkerMessage({ files });
-  }, [files]);
+    sendWorkerMessage({ files });
+  }, [files, sendWorkerMessage]);
 
   useEffect(() => {
     sendSandboxMessage({ type: 'THEME_CHANGE', data: theme });
-  }, [theme]);
+  }, [theme, sendSandboxMessage]);
 
   return (
-    <iframe
-      className="w-full h-full"
-      ref={sandboxRef}
-      srcDoc={playSrcdoc}
-      sandbox={sandboxAttr}
-    />
+    <div
+      ref={sandboxContainerRef}
+      className={cn(
+        ['relative', 'w-full', 'h-full'],
+        !isDefaultDevice && ['p-8', 'grid', 'place-content-center'],
+      )}
+    >
+      {!sandboxLoaded && (
+        <div className="absolute inset-0 backdrop-blur grid place-content-center">
+          <Loading className="w-6 h-6 animate-spin" />
+        </div>
+      )}
+      <iframe
+        style={sandboxStyle}
+        ref={sandboxRef}
+        sandbox={sandboxAttr}
+        className={cn(
+          ['w-full', 'h-full'],
+          !isDefaultDevice && ['border', 'rounded-md', 'overflow-hidden'],
+        )}
+        onLoad={handleSandboxLoad}
+      />
+    </div>
   );
 };
 
