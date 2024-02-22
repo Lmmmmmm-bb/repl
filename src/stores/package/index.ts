@@ -1,9 +1,7 @@
 import { create } from 'zustand';
-import type { CorePackage, Package } from './types';
-import { initialCorePackages } from './config';
 import { getImportMap } from './utils';
-import { registerExtraLib } from '~/monaco';
-import { fetchPackageFileRaw } from '~/apis/package-raw';
+import { initialCorePackages } from './config';
+import type { CorePackage, Package } from './types';
 
 interface PackageStore {
   corePackages: CorePackage[];
@@ -22,24 +20,6 @@ export const addCorePackage = (lib: CorePackage) => {
   usePackageStore.setState({
     corePackages: [...corePackages, lib],
   });
-};
-
-export const addExtraPackage = async (lib: Package) => {
-  const dts = await fetchPackageFileRaw(lib);
-
-  const isDeclareLib = lib.name.startsWith('@types/');
-  const moduleName = isDeclareLib ? lib.name.split('/')[1] : lib.name;
-  const libDisposal = registerExtraLib(
-    `declare module '${moduleName}' {
-      ${dts}
-    }`,
-    `file:///node_modules/${lib.name}`,
-  );
-
-  const { extraPackages, extraPackageDisposal } = usePackageStore.getState();
-  extraPackageDisposal.set(lib.name, libDisposal);
-  const newExtraLibs = [...extraPackages, lib];
-  usePackageStore.setState({ extraPackages: newExtraLibs });
 };
 
 export const removePackage = (lib: Package) => {

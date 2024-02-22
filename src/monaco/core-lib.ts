@@ -1,19 +1,9 @@
-import * as monaco from 'monaco-editor';
+import { registerExtraLib } from './extra-lib';
 import { fetchPackageFiles } from '~/apis/package-metadata';
 import { fetchPackageFileRaw } from '~/apis/package-raw';
 import { fetchPackageVersionList } from '~/apis/package-version-list';
 import type { CorePackage } from '~/stores/package';
 import { addCorePackage } from '~/stores/package';
-
-export const registerExtraLib = (content: string, path: string) => {
-  const tsDisposal = monaco.languages.typescript.typescriptDefaults.addExtraLib(content, path);
-  const jsDisposal = monaco.languages.typescript.javascriptDefaults.addExtraLib(content, path);
-
-  return () => {
-    tsDisposal.dispose();
-    jsDisposal.dispose();
-  };
-};
 
 const fetchAndRegisterLatestPackageTypes = async (packageName: string) => {
   const versions = await fetchPackageVersionList(packageName);

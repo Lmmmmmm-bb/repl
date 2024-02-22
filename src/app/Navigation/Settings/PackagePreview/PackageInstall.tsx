@@ -3,9 +3,9 @@ import { cn } from '~/utils/cn';
 import Download from '~/icons/Download';
 import Button from '~/components/ui/Button';
 import type { Package } from '~/stores/package';
-import { addExtraPackage } from '~/stores/package';
 import Loading from '~/icons/Loading';
 import { useToggle } from '~/hooks/useToggle';
+import { addExtraPackage } from '~/monaco';
 
 interface PackageInstallProps {
   npmPackage: Package;
