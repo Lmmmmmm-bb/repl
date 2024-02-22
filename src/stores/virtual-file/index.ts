@@ -1,14 +1,11 @@
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
+import { usePackageStore } from '../package';
 import { ENTRY_FILE, MAIN_FILE } from './config';
 import { restoreVirtualFileStore } from './init';
+import type { VirtualFileStore } from './types';
 import { type VirtualFile, createVirtualFile } from '~/virtual-file';
 import { compress } from '~/utils/compress';
-
-export interface VirtualFileStore {
-  files: Record<string, VirtualFile>;
-  activeFile: VirtualFile;
-}
 
 export const initVirtualFileStore = restoreVirtualFileStore();
 
@@ -21,7 +18,9 @@ export const useVirtualFileStore = create(
 useVirtualFileStore.subscribe(
   state => state.files,
   (files) => {
-    const hash = `#${compress(JSON.stringify(files))}`;
+    const { corePackages, extraPackages } = usePackageStore.getState();
+    const store = { corePackages, extraPackages, files };
+    const hash = `#${compress(JSON.stringify(store))}`;
     history.replaceState({}, '', hash);
   },
 );

@@ -5,7 +5,7 @@ import {
   WELCOME_FILE,
   WELCOME_STYLE,
 } from './config';
-import type { VirtualFileStore } from '.';
+import type { VirtualFileStore } from './types';
 import type { VirtualFile } from '~/virtual-file';
 
 import MainRaw from '~/templates/Main?raw';
@@ -54,8 +54,8 @@ export const restoreVirtualFileStore = (): VirtualFileStore => {
     const restoreFiles = JSON.parse(decompress(hash));
 
     return {
-      files: restoreFiles,
-      activeFile: restoreFiles[ENTRY_FILE],
+      files: restoreFiles.files,
+      activeFile: restoreFiles.files[ENTRY_FILE],
     };
   } catch (error) {
     return initialStore;

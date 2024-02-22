@@ -26,3 +26,9 @@ export interface Package extends CorePackage {
   publisher: PackageUser;
   maintainers?: PackageUser[];
 }
+
+export interface PackageStore {
+  corePackages: CorePackage[];
+  extraPackages: Package[];
+  extraPackageDisposal: Map<string, () => void>;
+}

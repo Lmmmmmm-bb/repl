@@ -2,16 +2,16 @@ import { registerExtraLib } from './extra-lib';
 import { fetchPackageFiles } from '~/apis/package-metadata';
 import { fetchPackageFileRaw } from '~/apis/package-raw';
 import { fetchPackageVersionList } from '~/apis/package-version-list';
-import type { CorePackage } from '~/stores/package';
-import { addCorePackage } from '~/stores/package';
+import { type CorePackage, initPackageStore } from '~/stores/package';
 
-const fetchAndRegisterLatestPackageTypes = async (packageName: string) => {
+const registerCorePackage = async (lib: CorePackage) => {
+  const packageName = lib.name;
   const versions = await fetchPackageVersionList(packageName);
-  const latestVersion = versions.tags.latest || versions.versions[0];
+  const packageVersion = versions.tags[lib.version] || lib.version;
   const corePackage: CorePackage = {
     optional: true,
     name: packageName,
-    version: latestVersion,
+    version: packageVersion,
   };
 
   const packageFiles = await fetchPackageFiles(corePackage);
@@ -19,28 +19,16 @@ const fetchAndRegisterLatestPackageTypes = async (packageName: string) => {
   packageFiles
     .filter(item => declareFileRegex.test(item.name))
     .forEach(async (item) => {
-      const raw = await fetchPackageFileRaw({ name: packageName, version: latestVersion }, item.name);
+      const raw = await fetchPackageFileRaw({ name: packageName, version: packageVersion }, item.name);
       registerExtraLib(raw, `file:///node_modules/${packageName}${item.name}`);
     });
 
-  addCorePackage(corePackage);
+  return corePackage;
 };
 
-const registerCoreLibTypes = () => {
-  registerExtraLib(
-    `declare module "*.json" {
-      const value: any;
-      export default value;
-    }`,
-    'file:///node_modules/client.d.ts',
-  );
-
-  Promise.all([
-    fetchAndRegisterLatestPackageTypes('@types/react'),
-    fetchAndRegisterLatestPackageTypes('@types/react-dom'),
-  ]);
-};
-
-export const registerCoreLib = () => {
-  registerCoreLibTypes();
+export const initCoreLib = () => {
+  const EXCLUDE_PACKAGE_NAME = ['react', 'react-dom'];
+  initPackageStore.corePackages
+    .filter(item => !EXCLUDE_PACKAGE_NAME.includes(item.name))
+    .forEach(item => registerCorePackage(item));
 };

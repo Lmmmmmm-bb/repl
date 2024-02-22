@@ -1,19 +1,28 @@
 import { create } from 'zustand';
+import { subscribeWithSelector } from 'zustand/middleware';
+import { useVirtualFileStore } from '../virtual-file';
 import { getImportMap } from './utils';
-import { initialCorePackages } from './config';
-import type { CorePackage, Package } from './types';
+import { restorePackageStore } from './init';
+import type { CorePackage, Package, PackageStore } from './types';
+import { compress } from '~/utils/compress';
 
-interface PackageStore {
-  corePackages: CorePackage[];
-  extraPackages: Package[];
-  extraPackageDisposal: Map<string, () => void>;
-}
+export const initPackageStore = restorePackageStore();
 
-export const usePackageStore = create<PackageStore>(() => ({
-  corePackages: [...initialCorePackages],
-  extraPackages: [],
-  extraPackageDisposal: new Map<string, () => void>(),
-}));
+export const usePackageStore = create(
+  subscribeWithSelector<PackageStore>(
+    () => ({ ...initPackageStore }),
+  ),
+);
+
+usePackageStore.subscribe(
+  state => ({ corePackages: state.corePackages, extraPackages: state.extraPackages }),
+  (state) => {
+    const { files } = useVirtualFileStore.getState();
+    const store = { ...state, files };
+    const hash = `#${compress(JSON.stringify(store))}`;
+    history.replaceState({}, '', hash);
+  },
+);
 
 export const addCorePackage = (lib: CorePackage) => {
   const { corePackages } = usePackageStore.getState();
