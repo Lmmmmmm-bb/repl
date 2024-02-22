@@ -35,11 +35,19 @@ const DeviceSelect: FC<DeviceSelectProps> = ({ value, onChange }) => (
     </SelectTrigger>
 
     <SelectContent>
-      {Object.keys(DEVICE_SIZE).map(deviceName => (
-        <SelectItem key={deviceName} value={deviceName}>
-          {deviceName}
-        </SelectItem>
-      ))}
+      {Object.keys(DEVICE_SIZE).map((deviceName) => {
+        const [deviceWidth, deviceHeight] = DEVICE_SIZE[deviceName as keyof typeof DEVICE_SIZE];
+        const isDefaultDevice = deviceName === 'Default';
+        return (
+          <SelectItem
+            key={deviceName}
+            value={deviceName}
+            title={!isDefaultDevice ? `${deviceWidth} x ${deviceHeight}` : undefined}
+          >
+            {deviceName}
+          </SelectItem>
+        );
+      })}
     </SelectContent>
   </Select>
 );
