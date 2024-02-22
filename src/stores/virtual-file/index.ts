@@ -1,8 +1,9 @@
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import { ENTRY_FILE, MAIN_FILE } from './config';
-import { restoreVirtualFileStore, utoa } from './utils';
+import { restoreVirtualFileStore } from './init';
 import { type VirtualFile, createVirtualFile } from '~/virtual-file';
+import { compress } from '~/utils/compress';
 
 export interface VirtualFileStore {
   files: Record<string, VirtualFile>;
@@ -20,7 +21,7 @@ export const useVirtualFileStore = create(
 useVirtualFileStore.subscribe(
   state => state.files,
   (files) => {
-    const hash = `#${utoa(JSON.stringify(files))}`;
+    const hash = `#${compress(JSON.stringify(files))}`;
     history.replaceState({}, '', hash);
   },
 );

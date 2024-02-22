@@ -1,4 +1,11 @@
-import { ENTRY_FILE, ENTRY_STYLE, MAIN_FILE, WELCOME_FILE, WELCOME_STYLE } from './config';
+import {
+  ENTRY_FILE,
+  ENTRY_STYLE,
+  MAIN_FILE,
+  WELCOME_FILE,
+  WELCOME_STYLE,
+} from './config';
+import type { VirtualFileStore } from '.';
 import type { VirtualFile } from '~/virtual-file';
 
 import MainRaw from '~/templates/Main?raw';
@@ -6,6 +13,7 @@ import AppRaw from '~/templates/App?raw';
 import AppCSSRaw from '~/templates/App.css?raw';
 import WelcomeRaw from '~/templates/Welcome?raw';
 import WelcomeCSSRaw from '~/templates/Welcome.css?raw';
+import { decompress } from '~/utils/compress';
 
 export const initialFiles: Record<string, VirtualFile> = {
   [MAIN_FILE]: {
@@ -29,4 +37,27 @@ export const initialFiles: Record<string, VirtualFile> = {
     filename: WELCOME_STYLE,
     code: WelcomeCSSRaw,
   },
+};
+
+export const restoreVirtualFileStore = (): VirtualFileStore => {
+  const hash = location.hash.slice(1);
+  const initialStore: VirtualFileStore = {
+    files: initialFiles,
+    activeFile: initialFiles[ENTRY_FILE],
+  };
+
+  if (!hash.length) {
+    return initialStore;
+  }
+
+  try {
+    const restoreFiles = JSON.parse(decompress(hash));
+
+    return {
+      files: restoreFiles,
+      activeFile: restoreFiles[ENTRY_FILE],
+    };
+  } catch (error) {
+    return initialStore;
+  }
 };
