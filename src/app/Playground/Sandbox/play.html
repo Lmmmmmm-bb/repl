@@ -28,31 +28,24 @@
     const sandboxRoot = document.documentElement;
     const sandboxParentRoot = window.parent.document.documentElement;
 
-    const createScript = (scriptId, scriptContent, scriptType) => {
-      const prevScript = document.getElementById(scriptId);
-      prevScript && prevScript.remove();
-      const newScript = document.createElement('script');
-      scriptType && (newScript.type = scriptType);
-      newScript.id = scriptId;
-      newScript.textContent = scriptContent;
-
-      return newScript
-    }
-
     const strategy = {
+      REACT_MOUNT: (payload) => window.parent.postMessage(payload),
       THEME_CHANGE: (payload) => sandboxRoot.classList.toggle('dark', payload.data === 'dark'),
       COMPILER_DONE: (payload) => {
-        const moduleScript = createScript('module-script', payload.data, 'module');
-        const beforeModuleScript = createScript(
-          'before-module-script',
-          'allStyles = document.querySelectorAll("style[data-file]");'
-        )
-        const afterModuleScript = createScript(
-          'after-module-script',
-          'setTimeout(() => allStyles.forEach(style => style.remove()), 50)'
-        )
+        const prevAllStyles = document.querySelectorAll("style[data-file]");
+        const prevModuleScript = document.getElementById("module-script");
+        prevModuleScript && prevModuleScript.remove();
 
-        document.body.append(...[beforeModuleScript, moduleScript, afterModuleScript]);
+        const moduleScript = document.createElement('script');
+        moduleScript.type = 'module';
+        moduleScript.id = 'module-script';
+        moduleScript.src = URL.createObjectURL(
+          new Blob([payload.data], { type: 'application/javascript' })
+        );
+        moduleScript.onload = () => prevAllStyles.forEach(style => style.remove());
+
+        prevModuleScript && URL.revokeObjectURL(prevModuleScript.src);
+        document.body.appendChild(moduleScript);
       },
     };
 
