@@ -21,7 +21,7 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
   const files = useVirtualFileStore(state => state.files);
   const extraPackages = usePackageStore(state => state.extraPackages);
 
-  const [sandboxLoaded, toggleSandboxLoaded] = useToggle();
+  const [isSandboxMounting, toggleIsSandboxMounting] = useToggle();
 
   const sandboxContainerRef = useRef<HTMLDivElement>(null);
   const { sandboxRef, refreshSandbox, sendSandboxMessage } = useSandbox();
@@ -52,14 +52,12 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
     sendSandboxMessage(payload);
   });
 
-  const handleSandboxLoad = () => {
-    toggleSandboxLoaded.on();
-    sendWorkerMessage({ files });
-  };
+  const handleSandboxLoad = () => sendWorkerMessage({ files });
 
   useEffect(() => {
+    toggleIsSandboxMounting.on();
     refreshSandbox();
-  }, [extraPackages, refreshSandbox]);
+  }, [extraPackages, refreshSandbox, toggleIsSandboxMounting]);
 
   useEffect(() => {
     sendWorkerMessage({ files });
@@ -69,6 +67,18 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
     sendSandboxMessage({ type: 'THEME_CHANGE', data: theme });
   }, [theme, sendSandboxMessage]);
 
+  useEffect(() => {
+    const handleMessageEvent = (event: MessageEvent) => {
+      const payload = event.data;
+      payload.type === 'REACT_MOUNT' && toggleIsSandboxMounting.off();
+    };
+    window.addEventListener('message', handleMessageEvent);
+
+    return () => {
+      window.removeEventListener('message', handleMessageEvent);
+    };
+  }, [toggleIsSandboxMounting]);
+
   return (
     <div
       ref={sandboxContainerRef}
@@ -77,9 +87,16 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
         !isDefaultDevice && ['p-8', 'grid', 'place-content-center'],
       )}
     >
-      {!sandboxLoaded && (
-        <div className="absolute inset-0 backdrop-blur grid place-content-center">
+      {isSandboxMounting && (
+        <div
+          className={cn(
+            ['absolute', 'inset-0'],
+            ['flex', 'flex-col', 'items-center', 'justify-center', 'gap-2'],
+            ['backdrop-blur'],
+          )}
+        >
           <Loading className="w-6 h-6 animate-spin" />
+          Mounting Playground
         </div>
       )}
       <iframe

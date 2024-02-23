@@ -1,9 +1,9 @@
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
 
 export default defineConfig({
-  // react refresh is not compatible with web workers
-  // plugins: [react()],
+  plugins: [react()],
   resolve: {
     alias: {
       '~': resolve(__dirname, 'src'),
