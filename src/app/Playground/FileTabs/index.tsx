@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react';
 import type { FC, KeyboardEvent } from 'react';
+import { virtualFileExtIconStrategy } from './strategy';
 import Tabs from '~/components/Tabs';
 import Plus from '~/icons/Plus';
 import { cn } from '~/utils/cn';
 import { getVirtualFileExt, isValidFilename } from '~/virtual-file';
-import { virtualFileExtIconStrategy } from '~/virtual-file/strategy';
 import {
   ENTRY_FILE,
   addFile,

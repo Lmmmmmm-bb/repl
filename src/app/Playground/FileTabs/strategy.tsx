@@ -1,21 +1,10 @@
 import type { ReactNode } from 'react';
-import type { FileLanguageType } from './types';
-
 import Css from '~/icons/Css';
 import Json from '~/icons/Json';
 import ReactIcon from '~/icons/React';
 import JavaScript from '~/icons/JavaScript';
-import type { FileExtensionType } from '~/virtual-file';
 import TypeScript from '~/icons/TypeScript';
-
-export const virtualFileLanguageStrategy: Record<FileExtensionType, FileLanguageType> = {
-  css: 'css',
-  json: 'json',
-  js: 'javascript',
-  jsx: 'javascript',
-  ts: 'typescript',
-  tsx: 'typescript',
-};
+import type { FileExtensionType } from '~/virtual-file';
 
 export const virtualFileExtIconStrategy: Record<FileExtensionType, ReactNode> = {
   css: <Css className="w-[13px] h-[13px] text-[#0288d1]" />,
