@@ -14,7 +14,7 @@ export default defineConfig({
   },
   define: {
     __BUILD_TIME__: JSON.stringify(
-      new Date().toLocaleDateString(),
+      new Date().toLocaleString(),
     ),
   },
   build: {

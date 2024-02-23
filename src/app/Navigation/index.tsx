@@ -4,6 +4,7 @@ import ThemeSwitcher from './ThemeSwitcher';
 import Share from './Share';
 import Settings from './Settings';
 import Reset from './Reset';
+import Information from './Information';
 import { cn } from '~/utils/cn';
 import React from '~/icons/React';
 
@@ -17,6 +18,7 @@ const Navigation: FC = () => (
     <React title="React Playground" className="w-12 h-12 text-brand" />
 
     <div className="flex flex-col gap-2">
+      <Information />
       <ThemeSwitcher />
       <Reset />
       <Share />
