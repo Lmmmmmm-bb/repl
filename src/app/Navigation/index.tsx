@@ -17,7 +17,7 @@ const Navigation: FC = () => (
   >
     <React title="React Playground" className="w-12 h-12 text-brand" />
 
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-1">
       <Information />
       <ThemeSwitcher />
       <Reset />
