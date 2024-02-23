@@ -6,7 +6,7 @@ import InformationIcon from '~/icons/Information';
 
 const Information: FC = () => (
   <Popover>
-    <PopoverTrigger>
+    <PopoverTrigger asChild>
       <Button title="Playground information" variant="ghost" size="icon">
         <InformationIcon className="w-5 h-5" />
       </Button>
