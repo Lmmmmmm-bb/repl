@@ -15,9 +15,13 @@ export const useEditor = () => {
     }
 
     const monacoInstance = monaco.editor.create(containerRef.current, monacoOptions);
-    monacoInstance.onDidChangeModelContent(() => {
-      updateFileContent(monacoInstance.getValue());
-    });
+    monacoInstance.onDidChangeModelContent(
+      () => updateFileContent(monacoInstance.getValue()),
+    );
+    monacoInstance.addCommand(
+      monaco.KeyMod.Shift | monaco.KeyMod.Alt | monaco.KeyCode.KeyF,
+      () => monacoInstance.trigger('format-code', 'format-code', null),
+    );
 
     editorRef.current = monacoInstance;
 

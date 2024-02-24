@@ -1,18 +1,3 @@
-import type { RequiredOptions } from 'prettier';
-
-export const prettierConfig: Partial<RequiredOptions> = {
-  tabWidth: 2,
-  endOfLine: 'lf',
-  trailingComma: 'all',
-  arrowParens: 'always',
-  semi: true,
-  useTabs: false,
-  singleQuote: true,
-  bracketSpacing: true,
-  jsxSingleQuote: false,
-  bracketSameLine: false,
-};
-
 export const DEVICE_SIZE = {
   'Default': [0, 0] as const,
   'iPhone SE': [375, 667] as const,
