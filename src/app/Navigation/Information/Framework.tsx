@@ -5,7 +5,7 @@ import Tailwind from '~/icons/Tailwind';
 
 const Framework: FC = () => (
   <div className="flex items-center gap-1">
-    Made with
+    Built with
     <a
       target="_blank"
       rel="noreferrer"
