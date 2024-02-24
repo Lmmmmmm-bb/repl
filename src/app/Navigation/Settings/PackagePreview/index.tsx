@@ -43,7 +43,7 @@ const PackagePreview: FC<PackagePreviewProps> = ({ npmPackage }) => {
         {npmPackage.name}
         {isPackageInstalled && (
           <span
-            className="ml-auto text-green-500 opacity-80"
+            className="ml-auto text-green-600"
             title={`${isCorePackage && '[Core Package] '}${npmPackage.name} has been installed`}
           >
             {isCorePackage ? <CheckFilled className="w-5 h-5" /> : <Check className="w-5 h-5" />}

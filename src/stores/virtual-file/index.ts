@@ -1,17 +1,29 @@
 import { create } from 'zustand';
-import { initialFiles } from './init';
+import { subscribeWithSelector } from 'zustand/middleware';
+import { usePackageStore } from '../package';
 import { ENTRY_FILE, MAIN_FILE } from './config';
+import { restoreVirtualFileStore } from './init';
+import type { VirtualFileStore } from './types';
 import { type VirtualFile, createVirtualFile } from '~/virtual-file';
+import { compress } from '~/utils/compress';
 
-interface VirtualFileStore {
-  files: Record<string, VirtualFile>;
-  activeFile: VirtualFile;
-}
+export const initVirtualFileStore = restoreVirtualFileStore();
 
-export const useVirtualFileStore = create<VirtualFileStore>(() => ({
-  files: initialFiles,
-  activeFile: initialFiles[ENTRY_FILE],
-}));
+export const useVirtualFileStore = create(
+  subscribeWithSelector<VirtualFileStore>(
+    () => ({ ...initVirtualFileStore }),
+  ),
+);
+
+useVirtualFileStore.subscribe(
+  state => state.files,
+  (files) => {
+    const { corePackages, extraPackages } = usePackageStore.getState();
+    const store = { corePackages, extraPackages, files };
+    const hash = `#${compress(JSON.stringify(store))}`;
+    history.replaceState({}, '', hash);
+  },
+);
 
 export const setActiveFile = (file: VirtualFile) => {
   useVirtualFileStore.setState({ activeFile: file });
@@ -40,7 +52,7 @@ export const deleteFile = (filename: string) => {
 
   activeFile
   && activeFile.filename === filename
-  && setActiveFile(initialFiles[ENTRY_FILE]);
+  && setActiveFile(files[ENTRY_FILE]);
 };
 
 export const updateFileContent = (code: string) => {
@@ -57,4 +69,4 @@ export const updateFileContent = (code: string) => {
   });
 };
 
-export { ENTRY_FILE, MAIN_FILE, initialFiles };
+export { ENTRY_FILE, MAIN_FILE };

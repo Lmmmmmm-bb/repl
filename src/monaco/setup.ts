@@ -1,12 +1,12 @@
 import * as monaco from 'monaco-editor';
 
+import { initModel } from './model';
 import { initEnvWorker } from './env';
+import { initEditorEvent } from './event';
+import { initLanguages } from './language';
+import { initCoreLib } from './core-lib';
+import { initExtraLib } from './extra-lib';
 import { initHighlight } from './highlight';
-import { registerCoreLib } from './core-lib';
-import { registerLanguages } from './language';
-import { registerEditorEvent } from './event';
-import { getOrCreateModel } from './utils';
-import { initialFiles } from '~/stores/virtual-file';
 
 let isMonacoInitialized = false;
 export const setupMonaco = () => {
@@ -15,12 +15,12 @@ export const setupMonaco = () => {
   }
 
   initEnvWorker();
-  registerLanguages();
+  initLanguages();
   initHighlight();
-  registerEditorEvent();
-  registerCoreLib();
-
-  Object.values(initialFiles).forEach(item => getOrCreateModel(item));
+  initEditorEvent();
+  initCoreLib();
+  initExtraLib();
+  initModel();
 
   isMonacoInitialized = true;
 

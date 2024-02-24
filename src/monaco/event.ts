@@ -1,7 +1,7 @@
 import * as monaco from 'monaco-editor';
 import { setActiveFile, useVirtualFileStore } from '~/stores/virtual-file';
 
-export const registerEditorEvent = () => {
+export const initEditorEvent = () => {
   monaco.editor.registerEditorOpener({
     openCodeEditor: (_, resource) => {
       if (/^\/(?!node_modules)/.test(resource.path)) {
