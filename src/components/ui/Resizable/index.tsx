@@ -72,8 +72,7 @@ const ResizableHandle = ({
       className,
     )}
     {...props}
-  >
-  </ResizablePrimitive.PanelResizeHandle>
+  />
 );
 
 export {

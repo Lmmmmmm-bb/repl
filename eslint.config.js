@@ -8,6 +8,7 @@ export default antfu(
     files: ['**/*.tsx'],
     rules: {
       'react/prop-types': 'off',
+      'react/self-closing-comp': 'error',
     },
   },
   {
