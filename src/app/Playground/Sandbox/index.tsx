@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef } from 'react';
 import type { CSSProperties, FC } from 'react';
+import { appendMessage, clearMessage } from '../store';
 import { useCompilerWorker } from './useCompilerWorker';
 import { useSandbox } from './useSandbox';
 import { sandboxAttr } from './config';
@@ -48,13 +49,19 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
   );
 
   const { sendWorkerMessage } = useCompilerWorker((event: MessageEvent) => {
+    clearMessage();
     const payload = event.data;
-    sendSandboxMessage(payload);
+    if (payload.type === 'COMPILER_ERROR') {
+      appendMessage({ type: 'error', message: payload.data });
+    } else if (payload.type === 'COMPILER_DONE') {
+      sendSandboxMessage(payload);
+    }
   });
 
   const handleSandboxLoad = () => sendWorkerMessage({ files });
 
   useEffect(() => {
+    clearMessage();
     toggleIsSandboxMounting.on();
     refreshSandbox();
   }, [extraPackages, refreshSandbox, toggleIsSandboxMounting]);
@@ -83,7 +90,7 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
     <div
       ref={sandboxContainerRef}
       className={cn(
-        ['relative', 'w-full', 'h-full'],
+        ['relative', 'w-full', 'flex-grow', 'overflow-auto'],
         !isDefaultDevice && ['p-8', 'grid', 'place-content-center'],
       )}
     >
@@ -99,6 +106,7 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
           Mounting Playground
         </div>
       )}
+
       <iframe
         style={sandboxStyle}
         ref={sandboxRef}
