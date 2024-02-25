@@ -12,6 +12,11 @@ export default defineConfig({
   worker: {
     format: 'es',
   },
+  define: {
+    __BUILD_TIME__: JSON.stringify(
+      new Date().toLocaleString(),
+    ),
+  },
   build: {
     target: 'esnext',
     rollupOptions: {
