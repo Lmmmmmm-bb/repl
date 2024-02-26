@@ -90,7 +90,7 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
     <div
       ref={sandboxContainerRef}
       className={cn(
-        ['relative', 'w-full', 'flex-grow', 'overflow-auto'],
+        ['relative', 'w-full', 'flex-grow', 'overflow-hidden'],
         !isDefaultDevice && ['p-8', 'grid', 'place-content-center'],
       )}
     >
