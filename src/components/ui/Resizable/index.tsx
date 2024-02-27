@@ -32,7 +32,7 @@ const ResizableHandle = ({
 }: ComponentProps<typeof ResizablePrimitive.PanelResizeHandle>) => (
   <ResizablePrimitive.PanelResizeHandle
     className={cn(
-      ['relative', 'flex', 'items-center', 'justify-center', 'w-2', 'transition-colors', 'rounded-lg'],
+      ['relative', 'flex', 'items-center', 'justify-center', 'transition-colors', 'rounded-lg'],
       ['before:absolute', 'before:top-1/2', 'before:left-1/2', 'before:bg-[#8888]'],
       ['active:before:opacity-0', 'hover:before:opacity-0', 'before:transition-opacity', 'before:duration-300'],
       ['after:absolute', 'after:top-1/2', 'after:left-1/2', 'after:bg-[#8888]'],

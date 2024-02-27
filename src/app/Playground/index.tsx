@@ -13,8 +13,10 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from '~/components/ui/Resizable';
+import { useMediaQuery } from '~/hooks/useMediaQuery';
 
 const Playground: FC = () => {
+  const isDesktopScreen = useMediaQuery('(min-width: 1024px)');
   const resizableRef = useRef<ImperativePanelGroupHandle>(null);
 
   const [deviceName, setDeviceName] = useState<keyof typeof DEVICE_SIZE>('Default');
@@ -23,7 +25,10 @@ const Playground: FC = () => {
   const handleResetLayout = () => resizableRef.current && resizableRef.current.setLayout([50, 50]);
 
   return (
-    <ResizablePanelGroup direction="horizontal" ref={resizableRef}>
+    <ResizablePanelGroup
+      ref={resizableRef}
+      direction={isDesktopScreen ? 'horizontal' : 'vertical'}
+    >
       <ResizablePanel>
         <Container title="Editor" action={<Format />}>
           <FileTabs />

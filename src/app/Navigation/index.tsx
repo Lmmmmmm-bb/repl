@@ -11,13 +11,14 @@ import React from '~/icons/React';
 const Navigation: FC = () => (
   <div className={cn(
     ['fixed', 'left-0', 'top-0', 'bottom-0'],
-    ['px-2', 'py-4', 'w-20'],
-    ['flex', 'flex-col', 'items-center', 'justify-between'],
+    ['w-full', 'h-12', 'lg:w-20', 'lg:h-full'],
+    ['px-4', 'lg:px-2', 'py-2', 'lg:py-4'],
+    ['flex', 'lg:flex-col', 'items-center', 'justify-between'],
   )}
   >
-    <React title="React Playground" className="w-12 h-12 text-brand" />
+    <React title="React Playground" className="w-8 h-8 lg:w-12 lg:h-12 text-brand" />
 
-    <div className="flex flex-col gap-1">
+    <div className="flex lg:flex-col gap-2">
       <Information />
       <ThemeSwitcher />
       <Reset />
