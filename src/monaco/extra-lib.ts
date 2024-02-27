@@ -1,24 +1,14 @@
-import * as monaco from 'monaco-editor';
+import { registerLib } from './utils';
 import type { Package } from '~/stores/package';
 import { initPackageStore, usePackageStore } from '~/stores/package';
 import { fetchPackageFileRaw } from '~/apis/package-raw';
-
-export const registerExtraLib = (content: string, path: string) => {
-  const tsDisposal = monaco.languages.typescript.typescriptDefaults.addExtraLib(content, path);
-  const jsDisposal = monaco.languages.typescript.javascriptDefaults.addExtraLib(content, path);
-
-  return () => {
-    tsDisposal.dispose();
-    jsDisposal.dispose();
-  };
-};
 
 export const registerExtraPackage = async (lib: Package) => {
   const dts = await fetchPackageFileRaw(lib);
 
   const isDeclareLib = lib.name.startsWith('@types/');
   const moduleName = isDeclareLib ? lib.name.split('/')[1] : lib.name;
-  const libDisposal = registerExtraLib(
+  const libDisposal = registerLib(
     `declare module '${moduleName}' {
       ${dts}
     }`,
@@ -38,7 +28,7 @@ export const addExtraPackage = async (lib: Package) => {
 };
 
 export const initExtraLib = () => {
-  registerExtraLib(
+  registerLib(
     `declare module "*.json" {
       const value: any;
       export default value;

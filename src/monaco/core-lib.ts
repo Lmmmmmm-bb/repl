@@ -1,4 +1,4 @@
-import { registerExtraLib } from './extra-lib';
+import { registerLib } from './utils';
 import { fetchPackageFiles } from '~/apis/package-metadata';
 import { fetchPackageFileRaw } from '~/apis/package-raw';
 import { fetchPackageVersionList } from '~/apis/package-version-list';
@@ -32,7 +32,7 @@ const registerCorePackage = async (lib: CorePackage) => {
     .filter(item => declareFileRegex.test(item.name))
     .forEach(async (item) => {
       const raw = await fetchPackageFileRaw({ name: packageName, version: packageVersion }, item.name);
-      registerExtraLib(raw, `file:///node_modules/${packageName}${item.name}`);
+      registerLib(raw, `file:///node_modules/${packageName}${item.name}`);
     });
 
   return corePackage;
