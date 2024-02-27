@@ -2,6 +2,7 @@ import { setupMonaco } from './setup';
 
 export const monaco = setupMonaco();
 
-export { getOrCreateModel } from './utils';
+export { getOrCreateMonacoModel } from './utils';
 export { monacoOptions } from './config';
-export { addExtraPackage } from './extra-lib';
+export { registerCorePackageToMonaco } from './core-lib';
+export { registerExtraPackageToMonaco } from './extra-lib';

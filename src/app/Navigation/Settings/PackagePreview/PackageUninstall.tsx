@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import Button from '~/components/ui/Button';
 import Close from '~/icons/Close';
-import { type Package, removePackage } from '~/stores/package';
+import { type Package, removeExtraPackage } from '~/stores/package';
 import { cn } from '~/utils/cn';
 
 interface PackageUninstallProps {
@@ -18,7 +18,7 @@ const PackageUninstall: FC<PackageUninstallProps> = ({ npmPackage }) => (
       ['text-red-500', 'hover:text-red-500'],
       ['transition-opacity', 'opacity-0', 'group-hover:opacity-100'],
     )}
-    onClick={() => removePackage(npmPackage)}
+    onClick={() => removeExtraPackage(npmPackage)}
   >
     <Close className="w-4 h-4" />
     Uninstall

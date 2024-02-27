@@ -10,7 +10,7 @@ import {
   setActiveFile,
   useVirtualFileStore,
 } from '~/stores/virtual-file';
-import { getOrCreateModel } from '~/monaco';
+import { getOrCreateMonacoModel } from '~/monaco';
 
 const FileTabs: FC = () => {
   const { files, activeFile } = useVirtualFileStore();
@@ -19,7 +19,7 @@ const FileTabs: FC = () => {
     // eslint-disable-next-line no-alert
     if (confirm(`Are you sure you want to delete ${filename}?`)) {
       deleteFile(filename);
-      const model = getOrCreateModel(files[filename]);
+      const model = getOrCreateMonacoModel(files[filename]);
       model && model.dispose();
     };
   };

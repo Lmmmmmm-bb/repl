@@ -20,7 +20,10 @@ interface SandboxProps {
 const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
   const theme = useThemeStore(state => state.theme);
   const files = useVirtualFileStore(state => state.files);
-  const extraPackages = usePackageStore(state => state.extraPackages);
+  const { corePackages, extraPackages } = usePackageStore(state => ({
+    corePackages: state.corePackages,
+    extraPackages: state.extraPackages,
+  }));
 
   const [isSandboxMounting, toggleIsSandboxMounting] = useToggle();
 
@@ -64,7 +67,12 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
     clearMessage();
     toggleIsSandboxMounting.on();
     refreshSandbox();
-  }, [extraPackages, refreshSandbox, toggleIsSandboxMounting]);
+  }, [
+    extraPackages,
+    corePackages,
+    refreshSandbox,
+    toggleIsSandboxMounting,
+  ]);
 
   useEffect(() => {
     sendWorkerMessage({ files });

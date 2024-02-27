@@ -30,5 +30,6 @@ export interface Package extends CorePackage {
 export interface PackageStore {
   corePackages: CorePackage[];
   extraPackages: Package[];
+  corePackageDisposal: Map<string, () => void>;
   extraPackageDisposal: Map<string, () => void>;
 }

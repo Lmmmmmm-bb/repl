@@ -2,7 +2,7 @@ import { type FC, useCallback, useEffect } from 'react';
 import FormatIcon from '~/icons/Format';
 import { formatCode } from '~/utils/prettier';
 import Container from '~/components/Container';
-import { getOrCreateModel, monaco } from '~/monaco';
+import { getOrCreateMonacoModel, monaco } from '~/monaco';
 import { updateFileContent, useVirtualFileStore } from '~/stores/virtual-file';
 
 const { Action } = Container;
@@ -14,7 +14,7 @@ const Format: FC = () => {
     const formattedCode = await formatCode(activeFile);
 
     updateFileContent(formattedCode);
-    const model = getOrCreateModel(activeFile);
+    const model = getOrCreateMonacoModel(activeFile);
     model.setValue(formattedCode);
   }, [activeFile]);
 

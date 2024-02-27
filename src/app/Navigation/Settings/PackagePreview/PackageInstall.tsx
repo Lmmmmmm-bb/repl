@@ -2,10 +2,10 @@ import type { FC } from 'react';
 import { cn } from '~/utils/cn';
 import Download from '~/icons/Download';
 import Button from '~/components/ui/Button';
-import type { Package } from '~/stores/package';
+import { type Package, addExtraPackage } from '~/stores/package';
 import Loading from '~/icons/Loading';
 import { useToggle } from '~/hooks/useToggle';
-import { addExtraPackage } from '~/monaco';
+import { registerExtraPackageToMonaco } from '~/monaco';
 
 interface PackageInstallProps {
   npmPackage: Package;
@@ -19,7 +19,9 @@ const PackageInstall: FC<PackageInstallProps> = ({ npmPackage }) => {
       return;
     }
     toggleIsInstalling.on();
-    addExtraPackage(npmPackage).finally(() => toggleIsInstalling.off());
+    registerExtraPackageToMonaco(npmPackage)
+      .then(() => addExtraPackage(npmPackage))
+      .finally(() => toggleIsInstalling.off());
   };
 
   return (

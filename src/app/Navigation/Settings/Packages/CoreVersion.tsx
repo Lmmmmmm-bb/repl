@@ -3,7 +3,8 @@ import { fetchPackageVersionList } from '~/apis/package-version-list';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '~/components/ui/Select';
 import { useToggle } from '~/hooks/useToggle';
 import Loading from '~/icons/Loading';
-import type { CorePackage } from '~/stores/package';
+import { registerCorePackageToMonaco } from '~/monaco';
+import { type CorePackage, addCorePackage } from '~/stores/package';
 
 interface CoreVersionProps {
   lib: CorePackage;
@@ -29,11 +30,23 @@ const CoreVersion: FC<CoreVersionProps> = ({ lib }) => {
       .finally(() => toggleLoading.off());
   };
 
+  const handleVersionChange = async (version: string) => {
+    const corePackage: CorePackage = { ...lib, version };
+
+    const isDeclarePackage = lib.name.startsWith('@types/');
+    isDeclarePackage
+      ? registerCorePackageToMonaco(corePackage)
+        .then(() => addCorePackage(corePackage))
+        .finally(() => toggleLoading.off())
+      : addCorePackage(corePackage);
+  };
+
   return (
     <Select
       key={lib.name}
-      value={lib.version}
+      value={lib.version === 'latest' ? versionList[0] : lib.version}
       onOpenChange={handleOpenChange}
+      onValueChange={handleVersionChange}
     >
       <SelectTrigger
         hiddenIcon
@@ -47,7 +60,11 @@ const CoreVersion: FC<CoreVersionProps> = ({ lib }) => {
       <SelectContent>
         {versionList.length
           ? versionList.map((item, index) => (
-            <SelectItem key={item} value={item}>
+            <SelectItem
+              className="font-mono text-xs"
+              key={item}
+              value={item}
+            >
               {index === 0 ? `${item} (latest)` : item}
             </SelectItem>
           ))

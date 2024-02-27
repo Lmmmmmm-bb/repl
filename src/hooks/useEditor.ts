@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import type { editor } from 'monaco-editor';
-import { getOrCreateModel, monaco, monacoOptions } from '~/monaco';
+import { getOrCreateMonacoModel, monaco, monacoOptions } from '~/monaco';
 import { updateFileContent, useVirtualFileStore } from '~/stores/virtual-file';
 
 export const useEditor = () => {
@@ -36,7 +36,7 @@ export const useEditor = () => {
       return;
     }
 
-    const model = getOrCreateModel(activeFile);
+    const model = getOrCreateMonacoModel(activeFile);
     editorRef.current.setModel(model);
     editorRef.current.focus();
   }, [activeFile]);

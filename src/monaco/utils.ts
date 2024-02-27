@@ -11,7 +11,7 @@ export const registerLib = (content: string, path: string) => {
   };
 };
 
-export const getOrCreateModel = (file: VirtualFile) => {
+export const getOrCreateMonacoModel = (file: VirtualFile) => {
   const uri = monaco.Uri.parse(`file:///${file.filename}`);
   const model = monaco.editor.getModel(uri); ;
 
