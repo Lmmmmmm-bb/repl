@@ -19,26 +19,27 @@ const CoreVersion: FC<CoreVersionProps> = ({ lib }) => {
       return;
     }
 
-    toggleLoading.on();
     fetchPackageVersionList(lib.name)
       .then((response) => {
         const versions = response
           .versions
-          .filter(version => /^(\d+)\.(\d+)\.(\d+)$/.test(version));
-        setVersionList(versions.slice(0, 30));
-      })
-      .finally(() => toggleLoading.off());
+          .filter(version => /^(17|18)\.(\d+)\.(\d+)$/.test(version));
+        setVersionList(versions);
+      });
   };
 
   const handleVersionChange = async (version: string) => {
     const corePackage: CorePackage = { ...lib, version };
 
     const isDeclarePackage = lib.name.startsWith('@types/');
-    isDeclarePackage
-      ? registerCorePackageToMonaco(corePackage)
+    if (isDeclarePackage) {
+      toggleLoading.on();
+      registerCorePackageToMonaco(corePackage)
         .then(() => addCorePackage(corePackage))
-        .finally(() => toggleLoading.off())
-      : addCorePackage(corePackage);
+        .finally(() => toggleLoading.off());
+    } else {
+      addCorePackage(corePackage);
+    }
   };
 
   return (
