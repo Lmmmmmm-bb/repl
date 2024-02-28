@@ -44,7 +44,7 @@ const PackagePreview: FC<PackagePreviewProps> = ({ npmPackage }) => {
         {isPackageInstalled && (
           <span
             className="ml-auto text-green-600"
-            title={`${isCorePackage && '[Core Package] '}${npmPackage.name} has been installed`}
+            title={`${isCorePackage ? '[Core Package] ' : ''}${npmPackage.name} has been installed`}
           >
             {isCorePackage ? <CheckFilled className="w-5 h-5" /> : <Check className="w-5 h-5" />}
           </span>
@@ -53,7 +53,7 @@ const PackagePreview: FC<PackagePreviewProps> = ({ npmPackage }) => {
 
       {npmPackage.description && (
         <p
-          className="text-sm line-clamp-3 leading-tight text-gray-500"
+          className="text-sm line-clamp-3 leading-tight opacity-40"
           title={npmPackage.description}
         >
           {npmPackage.description}
