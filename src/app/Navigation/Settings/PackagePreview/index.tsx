@@ -24,12 +24,16 @@ const PackagePreview: FC<PackagePreviewProps> = ({ npmPackage }) => {
     extraPackages: state.extraPackages,
   }));
 
-  const [isCorePackage, isPackageInstalled] = useMemo(() => {
-    const corePackagesName = packageStore.corePackages.map(lib => lib.name);
-    const extraPackagesName = packageStore.extraPackages.map(lib => lib.name);
-    const _isCorePackage = corePackagesName.includes(npmPackage.name);
-    const _isPackageInstalled = _isCorePackage || extraPackagesName.includes(npmPackage.name);
-    return [_isCorePackage, _isPackageInstalled] as const;
+  const { isCorePackage, storePackage, isPackageInstalled } = useMemo(() => {
+    const [corePackage] = packageStore.corePackages.filter(lib => lib.name === npmPackage.name);
+    const [extraPackage] = packageStore.extraPackages.filter(lib => lib.name === npmPackage.name);
+    const isCorePackage = Boolean(corePackage);
+    const isExtraPackage = Boolean(extraPackage);
+    return {
+      isCorePackage,
+      storePackage: corePackage || extraPackage,
+      isPackageInstalled: isCorePackage || isExtraPackage,
+    };
   }, [packageStore, npmPackage]);
 
   return (
@@ -61,13 +65,21 @@ const PackagePreview: FC<PackagePreviewProps> = ({ npmPackage }) => {
       )}
 
       <div className="mt-auto flex flex-col gap-1 opacity-80 text-sm">
-        <span title="Latest version" className="flex items-center gap-2">
+        <span
+          title="Latest version"
+          className="flex items-center gap-2 font-mono"
+        >
           <Cube className="w-5 h-5" />
-          {npmPackage.version}
+          {storePackage && storePackage.version !== npmPackage.version
+            ? `${npmPackage.version} (installed ${storePackage.version})`
+            : npmPackage.version}
         </span>
 
         {npmPackage.date && (
-          <span title="Latest version publish date" className="flex items-center gap-2">
+          <span
+            title="Latest version publish date"
+            className="flex items-center gap-2 font-mono"
+          >
             <Calendar className="w-5 h-5" />
             {new Date(npmPackage.date).toLocaleString()}
           </span>
