@@ -4,13 +4,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger } from '~/components/u
 import { useToggle } from '~/hooks/useToggle';
 import Loading from '~/icons/Loading';
 import { registerCorePackageToMonaco } from '~/monaco';
-import { type CorePackage, addCorePackage } from '~/stores/package';
+import { type CorePackage as CorePackageType, addCorePackage } from '~/stores/package';
 
-interface CoreVersionProps {
-  lib: CorePackage;
+interface CorePackageProps {
+  lib: CorePackageType;
 }
 
-const CoreVersion: FC<CoreVersionProps> = ({ lib }) => {
+const CorePackage: FC<CorePackageProps> = ({ lib }) => {
   const [loading, toggleLoading] = useToggle();
   const [versionList, setVersionList] = useState<string[]>([]);
 
@@ -29,7 +29,7 @@ const CoreVersion: FC<CoreVersionProps> = ({ lib }) => {
   };
 
   const handleVersionChange = async (version: string) => {
-    const corePackage: CorePackage = { ...lib, version };
+    const corePackage: CorePackageType = { ...lib, version };
 
     const isDeclarePackage = lib.name.startsWith('@types/');
     if (isDeclarePackage) {
@@ -75,4 +75,4 @@ const CoreVersion: FC<CoreVersionProps> = ({ lib }) => {
   );
 };
 
-export default CoreVersion;
+export default CorePackage;

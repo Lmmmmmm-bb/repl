@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { ChangeEvent, FC } from 'react';
 import PackagePreview from '../PackagePreview';
-import CoreVersion from './CoreVersion';
+import CorePackage from './CorePackage';
 import { Input } from '~/components/ui/Input';
 import { Label } from '~/components/ui/Label';
 import Search from '~/icons/Search';
@@ -36,7 +36,7 @@ const Packages: FC = () => {
 
       <div className="px-4 flex gap-2 flex-wrap">
         {packageStore.corePackages.map(lib => (
-          <CoreVersion key={lib.name} lib={lib} />
+          <CorePackage key={lib.name} lib={lib} />
         ))}
       </div>
 
