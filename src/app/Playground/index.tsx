@@ -7,6 +7,7 @@ import Sandbox from './Sandbox';
 import Format from './Format';
 import DeviceSelect from './DeviceSelect';
 import { DEVICE_SIZE } from './config';
+import Console from './Console';
 import Container from '~/components/Container';
 import {
   ResizableHandle,
@@ -39,12 +40,24 @@ const Playground: FC = () => {
       <ResizableHandle onDoubleClick={handleResetLayout} />
 
       <ResizablePanel>
-        <Container
-          title="Preview"
-          action={<DeviceSelect value={deviceName} onChange={setDeviceName} />}
-        >
-          <Sandbox sandboxWidth={sandboxWidth} sandboxHeight={sandboxHeight} />
-        </Container>
+        <ResizablePanelGroup direction="vertical">
+          <ResizablePanel>
+            <Container
+              title="Preview"
+              action={<DeviceSelect value={deviceName} onChange={setDeviceName} />}
+            >
+              <Sandbox sandboxWidth={sandboxWidth} sandboxHeight={sandboxHeight} />
+            </Container>
+          </ResizablePanel>
+
+          <ResizableHandle />
+
+          <ResizablePanel defaultSize={25}>
+            <Container title="Console">
+              <Console />
+            </Container>
+          </ResizablePanel>
+        </ResizablePanelGroup>
       </ResizablePanel>
     </ResizablePanelGroup>
   );
