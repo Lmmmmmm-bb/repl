@@ -15,7 +15,10 @@ export const usePackageStore = create(
 );
 
 usePackageStore.subscribe(
-  state => ({ corePackages: state.corePackages, extraPackages: state.extraPackages }),
+  state => ({
+    corePackages: state.corePackages,
+    extraPackages: state.extraPackages,
+  }),
   (state) => {
     const { files } = useVirtualFileStore.getState();
     const store = { ...state, files };
@@ -26,6 +29,7 @@ usePackageStore.subscribe(
 
 export const addCorePackage = (lib: CorePackage) => {
   const { corePackages } = usePackageStore.getState();
+
   const newCorePackages = corePackages
     .reduce<CorePackage[]>(
       (packages, currentPackages) => {
@@ -36,9 +40,8 @@ export const addCorePackage = (lib: CorePackage) => {
       },
       [],
     );
-  usePackageStore.setState({
-    corePackages: newCorePackages,
-  });
+
+  usePackageStore.setState({ corePackages: newCorePackages });
 };
 
 export const addExtraPackage = (lib: Package) => {

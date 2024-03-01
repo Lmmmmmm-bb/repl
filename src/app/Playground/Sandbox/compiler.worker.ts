@@ -1,14 +1,15 @@
 /// <reference lib="WebWorker" />
 
 import { transform } from '~/compiler/transform';
-import { MAIN_FILE } from '~/stores/virtual-file';
+import { MAIN_FILE, MAIN_LEGACY_FILE } from '~/stores/virtual-file';
 
 globalThis.addEventListener('message', (event: MessageEvent) => {
   try {
     const payload = event.data;
+    const entryFile = payload.isLegacy ? MAIN_LEGACY_FILE : MAIN_FILE;
     globalThis.postMessage({
       type: 'COMPILER_DONE',
-      data: transform(payload.files[MAIN_FILE], payload.files),
+      data: transform(payload.files[entryFile], payload.files),
     });
   } catch (error) {
     if (error instanceof Error) {

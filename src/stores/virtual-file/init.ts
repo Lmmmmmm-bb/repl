@@ -2,13 +2,15 @@ import {
   ENTRY_FILE,
   ENTRY_STYLE,
   MAIN_FILE,
+  MAIN_LEGACY_FILE,
   WELCOME_FILE,
   WELCOME_STYLE,
 } from './config';
 import type { VirtualFileStore } from './types';
 import type { VirtualFile } from '~/virtual-file';
 
-import MainRaw from '~/templates/Main?raw';
+import MainRaw from '~/templates/main?raw';
+import MainLegacyRaw from '~/templates/main-legacy?raw';
 import AppRaw from '~/templates/App?raw';
 import AppCSSRaw from '~/templates/App.css?raw';
 import WelcomeRaw from '~/templates/Welcome?raw';
@@ -20,6 +22,11 @@ export const initialFiles: Record<string, VirtualFile> = {
     hidden: true,
     filename: MAIN_FILE,
     code: MainRaw,
+  },
+  [MAIN_LEGACY_FILE]: {
+    hidden: true,
+    filename: MAIN_LEGACY_FILE,
+    code: MainLegacyRaw,
   },
   [ENTRY_FILE]: {
     filename: ENTRY_FILE,

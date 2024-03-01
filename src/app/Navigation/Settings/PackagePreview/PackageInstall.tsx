@@ -67,7 +67,7 @@ const PackageInstall: FC<PackageInstallProps> = ({ npmPackage }) => {
       </SelectTrigger>
 
       <SelectContent>
-        <SelectItem value={npmPackage.version}>
+        <SelectItem className="font-mono" value={npmPackage.version}>
           {`${npmPackage.version} (latest)`}
         </SelectItem>
         <SelectSeparator />
@@ -75,7 +75,13 @@ const PackageInstall: FC<PackageInstallProps> = ({ npmPackage }) => {
         {versionList.length
           ? (
               versionList.map(version => (
-                <SelectItem key={version} value={version}>{version}</SelectItem>
+                <SelectItem
+                  className="font-mono"
+                  key={version}
+                  value={version}
+                >
+                  {version}
+                </SelectItem>
               ))
             )
           : (

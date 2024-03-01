@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import { usePackageStore } from '../package';
-import { ENTRY_FILE, MAIN_FILE } from './config';
+import { ENTRY_FILE, MAIN_FILE, MAIN_LEGACY_FILE } from './config';
 import { restoreVirtualFileStore } from './init';
 import type { VirtualFileStore } from './types';
 import { type VirtualFile, createVirtualFile } from '~/virtual-file';
@@ -69,4 +69,4 @@ export const updateFileContent = (code: string) => {
   });
 };
 
-export { ENTRY_FILE, MAIN_FILE };
+export { ENTRY_FILE, MAIN_FILE, MAIN_LEGACY_FILE };

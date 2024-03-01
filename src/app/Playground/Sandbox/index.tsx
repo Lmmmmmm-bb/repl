@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import type { CSSProperties, FC } from 'react';
 import { appendMessage, clearMessage } from '../store';
 import { useCompilerWorker } from './useCompilerWorker';
@@ -11,6 +11,7 @@ import { useElementSize } from '~/hooks/useElementSize';
 import { cn } from '~/utils/cn';
 import { useToggle } from '~/hooks/useToggle';
 import Loading from '~/icons/Loading';
+import { isLegacyReactDOM } from '~/stores/package/utils';
 
 interface SandboxProps {
   sandboxWidth: number;
@@ -61,7 +62,10 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
     }
   });
 
-  const handleSandboxLoad = () => sendWorkerMessage({ files });
+  const compiler = useCallback(
+    () => sendWorkerMessage({ files, isLegacy: isLegacyReactDOM() }),
+    [files, sendWorkerMessage],
+  );
 
   useEffect(() => {
     clearMessage();
@@ -75,8 +79,8 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
   ]);
 
   useEffect(() => {
-    sendWorkerMessage({ files });
-  }, [files, sendWorkerMessage]);
+    compiler();
+  }, [compiler]);
 
   useEffect(() => {
     sendSandboxMessage({ type: 'THEME_CHANGE', data: theme });
@@ -123,7 +127,7 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
           ['w-full', 'h-full'],
           !isDefaultDevice && ['border', 'rounded-md', 'overflow-hidden'],
         )}
-        onLoad={handleSandboxLoad}
+        onLoad={compiler}
       />
     </div>
   );
