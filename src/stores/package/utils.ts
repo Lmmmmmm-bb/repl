@@ -9,21 +9,20 @@ export const isLegacyReactDOM = () => {
 };
 
 export const getImportMap = () => {
+  const isLegacy = isLegacyReactDOM();
   const { corePackages, extraPackages } = usePackageStore.getState();
   const packages = [...corePackages, ...extraPackages].filter(item => !item.optional);
 
-  const packagesConfig = packages.reduce<Record<string, string>>((prev, current) => {
-    const isLegacy = isLegacyReactDOM();
+  const imports: Record<string, string> = {};
+  for (const currentPackage of packages) {
     const packageName = isLegacy
-      ? current.name
-      : (packageRenameStrategy[current.name] || current.name);
+      ? currentPackage.name
+      : (packageRenameStrategy[currentPackage.name] || currentPackage.name);
+
     const packagePath = packagePathStrategy[packageName] || '';
+    const packageWithVersion = `${currentPackage.name}@${currentPackage.version}`;
+    imports[packageName] = `https://esm.sh/${packageWithVersion}${packagePath}`;
+  }
 
-    return {
-      ...prev,
-      [packageName]: `https://esm.sh/${current.name}@${current.version}${packagePath}`,
-    };
-  }, {});
-
-  return { imports: packagesConfig };
+  return { imports };
 };
