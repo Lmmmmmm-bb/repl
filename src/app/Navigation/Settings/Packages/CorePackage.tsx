@@ -1,6 +1,6 @@
 import { type FC, useState } from 'react';
 import { fetchPackageVersionList } from '~/apis/package-version-list';
-import { Select, SelectContent, SelectItem, SelectTrigger } from '~/components/ui/Select';
+import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger } from '~/components/ui/Select';
 import { useToggle } from '~/hooks/useToggle';
 import Loading from '~/icons/Loading';
 import { registerCorePackageToMonaco } from '~/monaco';
@@ -60,15 +60,22 @@ const CorePackage: FC<CorePackageProps> = ({ lib }) => {
 
       <SelectContent>
         {versionList.length
-          ? versionList.map((item, index) => (
-            <SelectItem
-              className="font-mono text-xs"
-              key={item}
-              value={item}
-            >
-              {index === 0 ? `${item} (latest)` : item}
-            </SelectItem>
-          ))
+          ? versionList.map((item, index) => {
+            const isLatest = index === 0;
+
+            return (
+              <>
+                <SelectItem
+                  className="font-mono"
+                  key={item}
+                  value={item}
+                >
+                  {isLatest ? `${item} (latest)` : item}
+                </SelectItem>
+                {isLatest && <SelectSeparator />}
+              </>
+            );
+          })
           : <SelectItem disabled value="empty">No version</SelectItem>}
       </SelectContent>
     </Select>

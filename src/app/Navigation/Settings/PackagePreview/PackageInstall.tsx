@@ -88,7 +88,7 @@ const PackageInstall: FC<PackageInstallProps> = ({ npmPackage }) => {
             <Button
               size="sm"
               variant="ghost"
-              className="w-full"
+              className="w-full text-sm opacity-50"
               onClick={handleLoadVersion}
             >
               {loading && <Loading className="h-4 w-4 mr-1 animate-spin" />}
