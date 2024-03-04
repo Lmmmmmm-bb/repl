@@ -102,7 +102,7 @@ const NewFile: FC = () => {
 
       <PopoverContent
         className={cn(
-          ['p-2 text-white text-xs font-mono'],
+          ['p-2', 'text-white', 'text-xs', 'font-mono', 'transition-colors'],
           errorMessage.type === 'error' && ['bg-destructive'],
           errorMessage.type === 'warning' && ['bg-orange-500', 'dark:bg-orange-800'],
         )}
