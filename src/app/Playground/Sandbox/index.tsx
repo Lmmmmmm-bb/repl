@@ -4,6 +4,7 @@ import { appendMessage, clearMessage } from '../store';
 import { useCompilerWorker } from './useCompilerWorker';
 import { useSandbox } from './useSandbox';
 import { sandboxAttr } from './config';
+import type { ConsolePayload } from './types';
 import { useThemeStore } from '~/stores/theme';
 import { useVirtualFileStore } from '~/stores/virtual-file';
 import { usePackageStore } from '~/stores/package';
@@ -12,6 +13,7 @@ import { cn } from '~/utils/cn';
 import { useToggle } from '~/hooks/useToggle';
 import Loading from '~/icons/Loading';
 import { isLegacyReactDOM } from '~/stores/package/utils';
+import { useDebounce } from '~/hooks/useDebounce';
 
 interface SandboxProps {
   sandboxWidth: number;
@@ -21,7 +23,7 @@ interface SandboxProps {
 const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
   const theme = useThemeStore(state => state.theme);
   const files = useVirtualFileStore(state => state.files);
-  const { corePackages, extraPackages } = usePackageStore(state => ({
+  const packageStore = usePackageStore(state => ({
     corePackages: state.corePackages,
     extraPackages: state.extraPackages,
   }));
@@ -53,18 +55,18 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
   );
 
   const { sendWorkerMessage } = useCompilerWorker((event: MessageEvent) => {
-    clearMessage();
     const payload = event.data;
-    if (payload.type === 'COMPILER_ERROR') {
-      appendMessage({ type: 'error', message: payload.data });
-    } else if (payload.type === 'COMPILER_DONE') {
-      sendSandboxMessage(payload);
-    }
+    payload.type === 'COMPILER_ERROR'
+    && appendMessage({ type: 'error', data: [payload.data] });
+    payload.type === 'COMPILER_DONE' && sendSandboxMessage(payload);
   });
 
-  const compiler = useCallback(
-    () => sendWorkerMessage({ files, isLegacy: isLegacyReactDOM() }),
-    [files, sendWorkerMessage],
+  const compiler = useDebounce(
+    useCallback(
+      () => sendWorkerMessage({ files, isLegacy: isLegacyReactDOM() }),
+      [files, sendWorkerMessage],
+    ),
+    100,
   );
 
   useEffect(() => {
@@ -72,8 +74,8 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
     toggleIsSandboxMounting.on();
     refreshSandbox();
   }, [
-    extraPackages,
-    corePackages,
+    packageStore.extraPackages,
+    packageStore.corePackages,
     refreshSandbox,
     toggleIsSandboxMounting,
   ]);
@@ -90,6 +92,10 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
     const handleMessageEvent = (event: MessageEvent) => {
       const payload = event.data;
       payload.type === 'REACT_MOUNT' && toggleIsSandboxMounting.off();
+      if (payload.type === 'CONSOLE') {
+        const consolePayload: ConsolePayload = payload.data;
+        appendMessage({ type: consolePayload.level, data: consolePayload.data });
+      }
     };
     window.addEventListener('message', handleMessageEvent);
 
