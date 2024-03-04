@@ -52,7 +52,7 @@ const Playground: FC = () => {
 
           <ResizableHandle />
 
-          <ResizablePanel defaultSize={25}>
+          <ResizablePanel defaultSize={isDesktopScreen ? 25 : 0}>
             <Container title="Console">
               <Console />
             </Container>

@@ -8,6 +8,7 @@ import {
 } from '~/components/ui/Select';
 import Devices from '~/icons/Devices';
 import { cn } from '~/utils/cn';
+import { buttonVariants } from '~/components/ui/Button/config';
 
 interface DeviceSelectProps {
   value: keyof typeof DEVICE_SIZE;
@@ -20,8 +21,8 @@ const DeviceSelect: FC<DeviceSelectProps> = ({ value, onChange }) => (
       hiddenIcon
       title="Select device"
       className={cn(
+        buttonVariants({ variant: 'ghost' }),
         ['h-full', 'w-fit', 'p-2'],
-        ['hover:bg-accent', 'hover:text-accent-foreground'],
         ['border-0', 'border-l', 'rounded-none'],
         ['opacity-60', 'hover:opacity-80'],
         ['transition-opacity'],

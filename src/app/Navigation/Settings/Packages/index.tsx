@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { ChangeEvent, FC } from 'react';
 import PackagePreview from '../PackagePreview';
-import Badge from '~/components/ui/Badge';
+import CorePackage from './CorePackage';
 import { Input } from '~/components/ui/Input';
 import { Label } from '~/components/ui/Label';
 import Search from '~/icons/Search';
@@ -36,13 +36,11 @@ const Packages: FC = () => {
 
       <div className="px-4 flex gap-2 flex-wrap">
         {packageStore.corePackages.map(lib => (
-          <Badge variant="secondary" key={lib.name}>
-            {`${lib.name}@${lib.version}`}
-          </Badge>
+          <CorePackage key={lib.name} lib={lib} />
         ))}
       </div>
 
-      <div className="mt-2 px-4 grid grid-cols-2 gap-4 overflow-auto">
+      <div className="mt-4 px-4 grid grid-cols-2 gap-4 overflow-auto">
         {packageStore
           .extraPackages
           .filter(item => item.name.toLowerCase().includes(inputValue.toLowerCase()))

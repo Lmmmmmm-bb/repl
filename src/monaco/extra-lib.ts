@@ -1,44 +1,26 @@
-import * as monaco from 'monaco-editor';
+import { registerLib } from './utils';
 import type { Package } from '~/stores/package';
-import { initPackageStore, usePackageStore } from '~/stores/package';
 import { fetchPackageFileRaw } from '~/apis/package-raw';
+import { initPackageStore, usePackageStore } from '~/stores/package';
 
-export const registerExtraLib = (content: string, path: string) => {
-  const tsDisposal = monaco.languages.typescript.typescriptDefaults.addExtraLib(content, path);
-  const jsDisposal = monaco.languages.typescript.javascriptDefaults.addExtraLib(content, path);
+export const registerExtraPackageToMonaco = async (lib: Package) => {
+  const { extraPackageDisposal } = usePackageStore.getState();
 
-  return () => {
-    tsDisposal.dispose();
-    jsDisposal.dispose();
-  };
-};
-
-export const registerExtraPackage = async (lib: Package) => {
   const dts = await fetchPackageFileRaw(lib);
-
   const isDeclareLib = lib.name.startsWith('@types/');
   const moduleName = isDeclareLib ? lib.name.split('/')[1] : lib.name;
-  const libDisposal = registerExtraLib(
+
+  const libDisposal = registerLib(
     `declare module '${moduleName}' {
       ${dts}
     }`,
     `file:///node_modules/${lib.name}`,
   );
-
-  return libDisposal;
-};
-
-export const addExtraPackage = async (lib: Package) => {
-  const libDisposal = await registerExtraPackage(lib);
-
-  const { extraPackages, extraPackageDisposal } = usePackageStore.getState();
   extraPackageDisposal.set(lib.name, libDisposal);
-  const newExtraLibs = [...extraPackages, lib];
-  usePackageStore.setState({ extraPackages: newExtraLibs });
 };
 
 export const initExtraLib = () => {
-  registerExtraLib(
+  registerLib(
     `declare module "*.json" {
       const value: any;
       export default value;
@@ -46,5 +28,7 @@ export const initExtraLib = () => {
     'file:///node_modules/client.d.ts',
   );
 
-  initPackageStore.extraPackages.forEach(item => registerExtraPackage(item));
+  initPackageStore
+    .extraPackages
+    .forEach(item => registerExtraPackageToMonaco(item));
 };

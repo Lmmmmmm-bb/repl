@@ -13,6 +13,7 @@ export const restorePackageStore = (): PackageStore => {
   const initialStore: PackageStore = {
     corePackages: [...initialCorePackages],
     extraPackages: [],
+    corePackageDisposal: new Map(),
     extraPackageDisposal: new Map(),
   };
 
@@ -26,6 +27,7 @@ export const restorePackageStore = (): PackageStore => {
     return {
       corePackages: restore.corePackages,
       extraPackages: restore.extraPackages,
+      corePackageDisposal: new Map(),
       extraPackageDisposal: new Map(),
     };
   } catch (error) {
