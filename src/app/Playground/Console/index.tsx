@@ -13,7 +13,10 @@ const Console: FC = () => {
   }, [messages]);
 
   return (
-    <div ref={ref} className="h-full dark:bg-dark-800/60 overflow-auto">
+    <div
+      ref={ref}
+      className="h-full dark:bg-dark-800/60 overflow-auto scrollbar-hidden"
+    >
       {messages.map(message => (
         <Message key={message.id} message={message} />
       ))}

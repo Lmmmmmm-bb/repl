@@ -38,20 +38,18 @@
       const originalConsole = console[level];
 
       console[level] = (...args) => {
-        const stringifiedArgs = safeJSONStringify(args) || [];
+        const stringifiedArgs = safeJSONStringify(args);
+        const data = args.map(
+          (arg) => arg instanceof Error ? arg.message : String(arg)
+        );
 
         if (previous.level === level && previous.data && previous.data === stringifiedArgs) {
-          // TODO: handle console duplicate message
-          // parent.postMessage({
-          //   type: 'CONSOLE',
-          //   data: { level, data: [], duplicate: true }
-          // });
+          parent.postMessage({
+            type: 'CONSOLE',
+            data: { level, data, duplicate: true }
+          });
         } else {
-          previous = { level, data: stringifiedArgs };
-
-          const data = args.map(
-            (arg) => arg instanceof Error ? arg.message : String(arg)
-          );
+          previous = { level, data: stringifiedArgs || [] };
           parent.postMessage({
             type: 'CONSOLE',
             data: { level, data, duplicate: false }
@@ -71,6 +69,9 @@
       REACT_MOUNT: (payload) => window.parent.postMessage(payload),
       THEME_CHANGE: (payload) => sandboxRoot.classList.toggle('dark', payload.data === 'dark'),
       COMPILER_DONE: (payload) => {
+        // reset console previous
+        previous = { level: null, data: null, duplicate: false };
+
         const prevAllStyles = document.querySelectorAll("style[data-file]");
         const prevModuleScript = document.getElementById("module-script");
         prevModuleScript && prevModuleScript.remove();

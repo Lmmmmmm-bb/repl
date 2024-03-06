@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import type { CSSProperties, FC } from 'react';
-import { appendMessage, clearMessage } from '../store';
+import { addDuplicateMessage, appendMessage, clearMessage } from '../store';
 import { useCompilerWorker } from './useCompilerWorker';
 import { useSandbox } from './useSandbox';
 import { sandboxAttr } from './config';
@@ -94,7 +94,13 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
       payload.type === 'REACT_MOUNT' && toggleIsSandboxMounting.off();
       if (payload.type === 'CONSOLE') {
         const consolePayload: ConsolePayload = payload.data;
-        appendMessage({ type: consolePayload.level, data: consolePayload.data });
+        const message = {
+          type: consolePayload.level,
+          data: consolePayload.data,
+        };
+        consolePayload.duplicate
+          ? addDuplicateMessage(message)
+          : appendMessage(message);
       }
     };
     window.addEventListener('message', handleMessageEvent);

@@ -23,19 +23,37 @@ const Message: FC<MessageProps> = ({ message }) => (
       {message.type}
     </Badge>
 
-    <div className="w-full flex-1 flex gap-2 flex-wrap overflow-hidden">
-      {message.data.map(item => (
+    <div
+      className={cn(
+        ['w-full'],
+        ['flex-1', 'flex', 'gap-2', 'flex-wrap'],
+        ['text-sm', 'overflow-hidden'],
+      )}
+    >
+      {message.data.map((item, index) => (
         <span
-          key={item}
+          key={index}
           className={cn(
             ['break-words', 'overflow-hidden'],
-            ['text-sm', 'text-wrap', 'leading-[22px]', 'whitespace-pre', 'font-mono'],
+            ['text-wrap', 'leading-[22px]', 'whitespace-pre', 'font-mono'],
           )}
         >
           {item}
         </span>
       ))}
     </div>
+
+    {message.count > 1 && (
+      <span
+        title="Duplicate message"
+        className={cn(
+          ['text-xs', 'leading-[22px]', 'select-none'],
+          ['opacity-40'],
+        )}
+      >
+        {message.count}
+      </span>
+    )}
   </div>
 );
 
