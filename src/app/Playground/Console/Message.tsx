@@ -1,8 +1,8 @@
 import type { FC } from 'react';
 import type { ConsoleMessage } from '../types';
-import { consoleBadgeVariantStrategy } from './strategy';
+import Level from './Level';
+import Duplicate from './Duplicate';
 import { cn } from '~/utils/cn';
-import Badge from '~/components/ui/Badge';
 
 interface MessageProps {
   message: ConsoleMessage;
@@ -16,12 +16,7 @@ const Message: FC<MessageProps> = ({ message }) => (
       ['border-b'],
     )}
   >
-    <Badge
-      className="capitalize w-14 justify-center"
-      variant={consoleBadgeVariantStrategy[message.type]}
-    >
-      {message.type}
-    </Badge>
+    <Level level={message.type} />
 
     <div
       className={cn(
@@ -43,17 +38,7 @@ const Message: FC<MessageProps> = ({ message }) => (
       ))}
     </div>
 
-    {message.count > 1 && (
-      <span
-        title="Duplicate message"
-        className={cn(
-          ['text-xs', 'leading-[22px]', 'select-none'],
-          ['opacity-40'],
-        )}
-      >
-        {message.count}
-      </span>
-    )}
+    {message.count > 1 && <Duplicate count={message.count} />}
   </div>
 );
 
