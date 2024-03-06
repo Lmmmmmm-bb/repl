@@ -17,7 +17,7 @@ const Message: FC<MessageProps> = ({ message }) => (
     )}
   >
     <Badge
-      className="capitalize"
+      className="capitalize w-14 justify-center"
       variant={consoleBadgeVariantStrategy[message.type]}
     >
       {message.type}
