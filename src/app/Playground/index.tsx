@@ -8,6 +8,7 @@ import Format from './Format';
 import DeviceSelect from './DeviceSelect';
 import { DEVICE_SIZE } from './config';
 import Console from './Console';
+import Clear from './Clear';
 import Container from '~/components/Container';
 import {
   ResizableHandle,
@@ -53,7 +54,7 @@ const Playground: FC = () => {
           <ResizableHandle />
 
           <ResizablePanel defaultSize={isDesktopScreen ? 25 : 0}>
-            <Container title="Console">
+            <Container title="Console" action={<Clear />}>
               <Console />
             </Container>
           </ResizablePanel>

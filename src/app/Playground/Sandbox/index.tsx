@@ -56,9 +56,8 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
 
   const { sendWorkerMessage } = useCompilerWorker((event: MessageEvent) => {
     const payload = event.data;
-    payload.type === 'COMPILER_ERROR'
-    && appendMessage({ type: 'error', data: [payload.data] });
     payload.type === 'COMPILER_DONE' && sendSandboxMessage(payload);
+    payload.type === 'COMPILER_ERROR' && appendMessage({ type: 'error', data: [payload.data] });
   });
 
   const compiler = useDebounce(
@@ -81,6 +80,7 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
   ]);
 
   useEffect(() => {
+    // will run twice in dev mode
     compiler();
   }, [compiler]);
 
