@@ -78,7 +78,7 @@ const DialogContent = forwardRef<
           ['data-[state=open]:bg-accent', 'data-[state=open]:text-muted-foreground'],
         )}
       >
-        <Close className="h-4 w-4" />
+        <Close className="size-4" />
         <span className="sr-only">Close</span>
       </DialogPrimitive.Close> */}
     </DialogPrimitive.Content>

@@ -126,7 +126,7 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
             ['backdrop-blur'],
           )}
         >
-          <Loading className="w-6 h-6 animate-spin" />
+          <Loading className="size-6 animate-spin" />
           Mounting Playground
         </div>
       )}
@@ -136,7 +136,7 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
         ref={sandboxRef}
         sandbox={sandboxAttr}
         className={cn(
-          ['w-full', 'h-full'],
+          ['size-full'],
           !isDefaultDevice && ['border', 'rounded-md', 'overflow-hidden'],
         )}
         onLoad={compiler}

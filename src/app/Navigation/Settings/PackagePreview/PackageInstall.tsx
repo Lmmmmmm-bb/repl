@@ -60,8 +60,8 @@ const PackageInstall: FC<PackageInstallProps> = ({ npmPackage }) => {
           title={`${isInstalling ? 'Installing' : 'Install'} ${npmPackage.name}`}
         >
           {isInstalling
-            ? <Loading className="w-4 h-4 animate-spin" />
-            : <Download className="w-4 h-4" />}
+            ? <Loading className="size-4 animate-spin" />
+            : <Download className="size-4" />}
           {isInstalling ? 'Installing' : 'Install'}
         </Button>
       </SelectTrigger>
@@ -91,7 +91,7 @@ const PackageInstall: FC<PackageInstallProps> = ({ npmPackage }) => {
               className="w-full text-sm opacity-50"
               onClick={handleLoadVersion}
             >
-              {loading && <Loading className="h-4 w-4 mr-1 animate-spin" />}
+              {loading && <Loading className="size-4 mr-1 animate-spin" />}
               Load more
             </Button>
             )}

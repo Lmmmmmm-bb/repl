@@ -14,7 +14,7 @@ const ResizablePanelGroup = forwardRef<
     <ResizablePrimitive.PanelGroup
       ref={ref}
       className={cn(
-        ['h-full', 'w-full'],
+        ['size-full'],
         ['flex', 'data-[panel-group-direction=vertical]:flex-col'],
         className,
       )}

@@ -83,7 +83,7 @@ const NewFile: FC = () => {
               <>
                 {isValidFilename(inputValue)
                   ? virtualFileExtIconStrategy[getVirtualFileExt(inputValue)]
-                  : <File className="w-4 h-4 opacity-60" />}
+                  : <File className="size-4 opacity-60" />}
                 <input
                   spellCheck={false}
                   placeholder="input filename..."
@@ -96,7 +96,7 @@ const NewFile: FC = () => {
                 />
               </>
               )
-            : <Plus className="w-4 h-4" />}
+            : <Plus className="size-4" />}
         </Tabs.Item>
       </PopoverTrigger>
 

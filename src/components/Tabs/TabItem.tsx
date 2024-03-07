@@ -53,7 +53,7 @@ const TabItem = forwardRef<HTMLLIElement, PropsWithChildren<TabItemProps>>(({
         <Button
           size="icon"
           variant="ghost"
-          className="w-4 h-4"
+          className="size-4"
           onClick={handleClickClose}
         >
           <Close />

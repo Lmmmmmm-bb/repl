@@ -39,8 +39,8 @@ const Install: FC = () => {
           <Label htmlFor="search-package">
             {
               fetchPackagesLoading
-                ? <Loading className="w-4 h-4 absolute left-2.5 top-2.5 opacity-80 animate-spin" />
-                : <Search className="w-4 h-4 absolute left-2.5 top-2.5 opacity-80" />
+                ? <Loading className="size-4 absolute left-2.5 top-2.5 opacity-80 animate-spin" />
+                : <Search className="size-4 absolute left-2.5 top-2.5 opacity-80" />
             }
           </Label>
           <Input

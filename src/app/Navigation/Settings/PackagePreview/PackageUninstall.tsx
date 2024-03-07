@@ -20,7 +20,7 @@ const PackageUninstall: FC<PackageUninstallProps> = ({ npmPackage }) => (
     )}
     onClick={() => removeExtraPackage(npmPackage)}
   >
-    <Close className="w-4 h-4" />
+    <Close className="size-4" />
     Uninstall
   </Button>
 );

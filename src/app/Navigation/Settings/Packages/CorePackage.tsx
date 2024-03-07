@@ -54,7 +54,7 @@ const CorePackage: FC<CorePackageProps> = ({ lib }) => {
         className="w-fit cursor-pointer font-mono"
         title={`${lib.name} version is ${lib.version}`}
       >
-        {loading && <Loading className="h-4 w-4 mr-1 animate-spin" />}
+        {loading && <Loading className="size-4 mr-1 animate-spin" />}
         {lib.name}
       </SelectTrigger>
 

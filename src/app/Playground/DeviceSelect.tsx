@@ -30,7 +30,7 @@ const DeviceSelect: FC<DeviceSelectProps> = ({ value, onChange }) => (
       )}
     >
       <div className="text-xs flex items-center gap-1">
-        <Devices className="w-5 h-5" />
+        <Devices className="size-5" />
         {value !== 'Default' && value}
       </div>
     </SelectTrigger>

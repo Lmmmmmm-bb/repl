@@ -25,7 +25,7 @@ const Side: FC<SideProps> = ({ activePanel, onPanelChange }) => {
           ['border-b'],
         )}
       >
-        <Settings className="w-5 h-5" />
+        <Settings className="size-5" />
         Settings
       </header>
 
@@ -40,7 +40,7 @@ const Side: FC<SideProps> = ({ activePanel, onPanelChange }) => {
           )}
           onClick={() => onPanelChange(SettingPanel.Package)}
         >
-          <Package className="w-5 h-5" />
+          <Package className="size-5" />
           Packages
           {Boolean(totalPackages) && (
             <Badge
@@ -63,7 +63,7 @@ const Side: FC<SideProps> = ({ activePanel, onPanelChange }) => {
           )}
           onClick={() => onPanelChange(SettingPanel.Install)}
         >
-          <AddPackage className="w-5 h-5" />
+          <AddPackage className="size-5" />
           Install
         </div>
       </div>

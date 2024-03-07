@@ -28,25 +28,25 @@ const PackageLink: FC<PackageLinkProps> = ({ npmPackage }) => (
         title={`Open ${npmPackage.name} homepage`}
         href={npmPackage.links.homepage}
       >
-        <Link className="w-5 h-5" />
+        <Link className="size-5" />
       </ExternalLink>
     )}
 
     {npmPackage.links.npm && (
       <ExternalLink title="Open in npm" href={npmPackage.links.npm}>
-        <Npm className="w-5 h-5" />
+        <Npm className="size-5" />
       </ExternalLink>
     )}
 
     {npmPackage.links.repository && (
       <ExternalLink title="Open in GitHub" href={npmPackage.links.repository}>
-        <GitHub className="w-5 h-5" />
+        <GitHub className="size-5" />
       </ExternalLink>
     )}
 
     {npmPackage.links.bugs && (
       <ExternalLink title="Report issue" href={npmPackage.links.bugs}>
-        <Bug className="w-5 h-5" />
+        <Bug className="size-5" />
       </ExternalLink>
     )}
   </div>

@@ -13,7 +13,7 @@ const Framework: FC = () => (
       href="https://react.dev/"
       className="flex items-center gap-0.5 font-semibold hover:underline"
     >
-      <React className="w-4 h-4 text-brand" />
+      <React className="size-4 text-brand" />
       React
     </a>
     ·
@@ -24,7 +24,7 @@ const Framework: FC = () => (
       href="https://vitejs.dev/"
       className="flex items-center gap-0.5 font-semibold hover:underline"
     >
-      <Vite className="w-4 h-4" />
+      <Vite className="size-4" />
       Vite
     </a>
     ·
@@ -35,7 +35,7 @@ const Framework: FC = () => (
       href="https://tailwindcss.com/"
       className="flex items-center gap-0.5 font-semibold hover:underline"
     >
-      <Tailwind className="w-4 h-4" />
+      <Tailwind className="size-4" />
       Tailwind
     </a>
   </div>

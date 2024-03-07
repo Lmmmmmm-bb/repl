@@ -22,7 +22,7 @@ const Packages: FC = () => {
       <div className="h-20 px-4 flex flex-shrink-0 items-center">
         <div className="relative w-full">
           <Label htmlFor="filter-package">
-            <Search className="w-4 h-4 absolute left-2.5 top-2.5 opacity-80" />
+            <Search className="size-4 absolute left-2.5 top-2.5 opacity-80" />
           </Label>
           <Input
             id="filter-package"

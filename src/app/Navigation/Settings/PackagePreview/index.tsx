@@ -46,7 +46,7 @@ const PackagePreview: FC<PackagePreviewProps> = ({ npmPackage }) => {
             className="ml-auto text-green-600"
             title={`${isCorePackage ? '[Core Package] ' : ''}${npmPackage.name} has been installed`}
           >
-            {isCorePackage ? <CheckFilled className="w-5 h-5" /> : <Check className="w-5 h-5" />}
+            {isCorePackage ? <CheckFilled className="size-5" /> : <Check className="size-5" />}
           </span>
         )}
       </span>
@@ -65,7 +65,7 @@ const PackagePreview: FC<PackagePreviewProps> = ({ npmPackage }) => {
           title="Latest version"
           className="flex items-center gap-2 font-mono"
         >
-          <Cube className="w-5 h-5" />
+          <Cube className="size-5" />
           {storePackage && storePackage.version !== npmPackage.version
             ? `${npmPackage.version} (installed ${storePackage.version})`
             : npmPackage.version}
@@ -76,7 +76,7 @@ const PackagePreview: FC<PackagePreviewProps> = ({ npmPackage }) => {
             title="Latest version publish date"
             className="flex items-center gap-2 font-mono"
           >
-            <Calendar className="w-5 h-5" />
+            <Calendar className="size-5" />
             {new Date(npmPackage.date).toLocaleString()}
           </span>
         )}

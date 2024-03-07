@@ -31,7 +31,7 @@ const Format: FC = () => {
 
   return (
     <Action title="[⌥⇧F] Format Code" onClick={handleFormat}>
-      <FormatIcon className="w-5 h-5" />
+      <FormatIcon className="size-5" />
     </Action>
   );
 };

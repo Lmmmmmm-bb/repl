@@ -15,7 +15,7 @@ const Settings: FC = () => {
     <Dialog>
       <DialogTrigger asChild>
         <Button title="Open playground settings" variant="ghost" size="icon">
-          <SettingsIcon className="w-5 h-5" />
+          <SettingsIcon className="size-5" />
         </Button>
       </DialogTrigger>
 
