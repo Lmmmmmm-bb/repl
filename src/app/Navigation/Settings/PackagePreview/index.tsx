@@ -3,11 +3,7 @@ import PackageInstall from './PackageInstall';
 import PackageLink from './PackageLink';
 import PackageUninstall from './PackageUninstall';
 import { cn } from '~/utils/cn';
-import Link from '~/icons/Link';
-import GitHub from '~/icons/GitHub';
-import Npm from '~/icons/Npm';
 import Cube from '~/icons/Cube';
-import Bug from '~/icons/Bug';
 import Calendar from '~/icons/Calendar';
 import type { Package } from '~/stores/package';
 import { usePackageStore } from '~/stores/package';
@@ -86,31 +82,7 @@ const PackagePreview: FC<PackagePreviewProps> = ({ npmPackage }) => {
         )}
 
         <div className="flex gap-2 items-center justify-between">
-          <div className="flex gap-2">
-            {npmPackage.links.homepage && (
-              <PackageLink title="Open package homepage" href={npmPackage.links.homepage}>
-                <Link className="w-5 h-5" />
-              </PackageLink>
-            )}
-
-            {npmPackage.links.npm && (
-              <PackageLink title="Open in npm" href={npmPackage.links.npm}>
-                <Npm className="w-5 h-5" />
-              </PackageLink>
-            )}
-
-            {npmPackage.links.repository && (
-              <PackageLink title="Open in GitHub" href={npmPackage.links.repository}>
-                <GitHub className="w-5 h-5" />
-              </PackageLink>
-            )}
-
-            {npmPackage.links.bugs && (
-              <PackageLink title="Report issue" href={npmPackage.links.bugs}>
-                <Bug className="w-5 h-5" />
-              </PackageLink>
-            )}
-          </div>
+          <PackageLink npmPackage={npmPackage} />
 
           {!isCorePackage
           && (isPackageInstalled
