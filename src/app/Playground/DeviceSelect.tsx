@@ -29,7 +29,7 @@ const DeviceSelect: FC<DeviceSelectProps> = ({ value, onChange }) => (
         value !== 'Default' && ['opacity-80'],
       )}
     >
-      <div className="text-xs flex items-center gap-1">
+      <div className="text-xs flex items-center gap-1 select-none">
         <Devices className="size-5" />
         {value !== 'Default' && value}
       </div>
