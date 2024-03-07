@@ -10,6 +10,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     <input
       ref={ref}
       type={type}
+      spellCheck={false}
       autoComplete="off"
       className={cn(
         ['w-full', 'h-9', 'px-3', 'py-1', 'flex'],
