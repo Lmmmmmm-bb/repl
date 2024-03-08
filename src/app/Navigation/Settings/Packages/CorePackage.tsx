@@ -1,5 +1,6 @@
 import { type FC, useState } from 'react';
 import { fetchPackageVersionList } from '~/apis/package-version-list';
+import Button from '~/components/ui/Button';
 import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger } from '~/components/ui/Select';
 import { useToggle } from '~/hooks/useToggle';
 import Loading from '~/icons/Loading';
@@ -50,12 +51,14 @@ const CorePackage: FC<CorePackageProps> = ({ lib }) => {
       onValueChange={handleVersionChange}
     >
       <SelectTrigger
-        hiddenIcon
+        asChild
         className="w-fit cursor-pointer font-mono"
         title={`${lib.name} version is ${lib.version}`}
       >
-        {loading && <Loading className="size-4 mr-1 animate-spin" />}
-        {lib.name}
+        <Button variant="outline">
+          {loading && <Loading className="size-4 mr-1 animate-spin" />}
+          {lib.name}
+        </Button>
       </SelectTrigger>
 
       <SelectContent>

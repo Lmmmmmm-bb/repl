@@ -12,8 +12,9 @@ import { cn } from '~/utils/cn';
 const Select = SelectPrimitive.Root;
 const SelectGroup = SelectPrimitive.Group;
 const SelectValue = SelectPrimitive.Value;
+const SelectTrigger = SelectPrimitive.Trigger;
 
-const SelectTrigger = forwardRef<
+const SelectTriggerWithIcon = forwardRef<
   ElementRef<typeof SelectPrimitive.Trigger>,
   ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & {
     hiddenIcon?: boolean;
@@ -41,7 +42,7 @@ const SelectTrigger = forwardRef<
     )}
   </SelectPrimitive.Trigger>
 ));
-SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
+SelectTriggerWithIcon.displayName = `${SelectPrimitive.Trigger.displayName}WithIcon`;
 
 const SelectScrollUpButton = forwardRef<
   ElementRef<typeof SelectPrimitive.ScrollUpButton>,
@@ -177,6 +178,7 @@ export {
   SelectGroup,
   SelectValue,
   SelectTrigger,
+  SelectTriggerWithIcon,
   SelectContent,
   SelectLabel,
   SelectItem,
