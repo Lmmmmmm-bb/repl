@@ -69,10 +69,13 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
 
   const compiler = useDebounce(
     useCallback(
-      () => sendWorkerMessage({ files, isLegacy: isLegacyReactDOM() }),
+      () => {
+        clearMessage();
+        sendWorkerMessage({ files, isLegacy: isLegacyReactDOM() });
+      },
       [files, sendWorkerMessage],
     ),
-    100,
+    150,
   );
 
   useEffect(() => {
@@ -82,8 +85,8 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
   }, [
     extraPackages,
     corePackages,
-    refreshSandbox,
     toggleIsSandboxMounting,
+    refreshSandbox,
   ]);
 
   useEffect(() => {
