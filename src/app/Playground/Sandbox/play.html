@@ -25,6 +25,43 @@
   </script>
 
   <script>
+    const safeJSONStringify = (o) => {
+      try {
+        return JSON.stringify(o);
+      } catch (error) {
+        return null;
+      }
+    }
+
+    let previous = { level: null, data: null, duplicate: false };
+    ['log', 'info', 'warn', 'error'].forEach(level => {
+      const originalConsole = console[level];
+
+      console[level] = (...args) => {
+        const stringifiedArgs = safeJSONStringify(args);
+        const data = args.map(
+          (arg) => arg instanceof Error ? arg.message : String(arg)
+        );
+
+        if (previous.level === level && previous.data && previous.data === stringifiedArgs) {
+          parent.postMessage({
+            type: 'CONSOLE',
+            data: { level, data, duplicate: true }
+          });
+        } else {
+          previous = { level, data: stringifiedArgs || [] };
+          parent.postMessage({
+            type: 'CONSOLE',
+            data: { level, data, duplicate: false }
+          });
+        }
+
+        originalConsole(...args);
+      }
+    })
+  </script>
+
+  <script>
     const sandboxRoot = document.documentElement;
     const sandboxParentRoot = window.parent.document.documentElement;
 
@@ -32,6 +69,9 @@
       REACT_MOUNT: (payload) => window.parent.postMessage(payload),
       THEME_CHANGE: (payload) => sandboxRoot.classList.toggle('dark', payload.data === 'dark'),
       COMPILER_DONE: (payload) => {
+        // reset console previous
+        previous = { level: null, data: null, duplicate: false };
+
         const prevAllStyles = document.querySelectorAll("style[data-file]");
         const prevModuleScript = document.getElementById("module-script");
         prevModuleScript && prevModuleScript.remove();
@@ -40,7 +80,10 @@
         moduleScript.type = 'module';
         moduleScript.id = 'module-script';
         moduleScript.src = URL.createObjectURL(
-          new Blob([payload.data], { type: 'application/javascript' })
+          new Blob(
+            [payload.data],
+            { type: 'application/javascript' }
+          )
         );
         moduleScript.onload = () => prevAllStyles.forEach(style => style.remove());
 
@@ -53,7 +96,8 @@
 
     window.addEventListener('message', ({ data }) => {
       const payload = typeof data === 'string' ? JSON.parse(data) : data;
-      strategy[payload.type] && strategy[payload.type](payload);
+      const handler = strategy[payload.type];
+      handler && handler(payload);
     })
   </script>
 </html>

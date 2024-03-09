@@ -1,7 +1,8 @@
 import type { FC } from 'react';
 import type { ConsoleMessage } from '../types';
+import Level from './Level';
+import Duplicate from './Duplicate';
 import { cn } from '~/utils/cn';
-import Badge from '~/components/ui/Badge';
 
 interface MessageProps {
   message: ConsoleMessage;
@@ -15,20 +16,29 @@ const Message: FC<MessageProps> = ({ message }) => (
       ['border-b'],
     )}
   >
-    <Badge
-      variant="destructive"
-      className="capitalize"
+    <Level level={message.type} />
+
+    <div
+      className={cn(
+        ['w-full'],
+        ['flex-1', 'flex', 'gap-2', 'flex-wrap'],
+        ['text-sm', 'overflow-hidden'],
+      )}
     >
-      {message.type}
-    </Badge>
-    <span className={cn(
-      ['flex-1'],
-      ['break-words', 'overflow-hidden'],
-      ['text-sm', 'text-wrap', 'leading-[22px]', 'whitespace-pre', 'font-mono'],
-    )}
-    >
-      {message.message}
-    </span>
+      {message.data.map((item, index) => (
+        <span
+          key={index}
+          className={cn(
+            ['break-words', 'overflow-hidden'],
+            ['text-wrap', 'leading-[22px]', 'whitespace-pre', 'font-mono'],
+          )}
+        >
+          {item}
+        </span>
+      ))}
+    </div>
+
+    {message.count > 1 && <Duplicate count={message.count} />}
   </div>
 );
 
