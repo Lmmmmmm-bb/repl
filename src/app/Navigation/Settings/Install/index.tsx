@@ -34,14 +34,12 @@ const Install: FC = () => {
 
   return (
     <div className="h-full pb-4 flex flex-col overflow-hidden">
-      <div className="h-20 px-4 flex flex-shrink-0 items-center">
+      <div className="h-16 lg:h-20 px-4 flex flex-shrink-0 items-center">
         <div className="relative w-full">
           <Label htmlFor="search-package">
-            {
-              fetchPackagesLoading
-                ? <Loading className="size-4 absolute left-2.5 top-2.5 opacity-80 animate-spin" />
-                : <Search className="size-4 absolute left-2.5 top-2.5 opacity-80" />
-            }
+            {fetchPackagesLoading
+              ? <Loading className="size-4 absolute left-2.5 top-2.5 opacity-80 animate-spin" />
+              : <Search className="size-4 absolute left-2.5 top-2.5 opacity-80" />}
           </Label>
           <Input
             id="search-package"
@@ -53,7 +51,7 @@ const Install: FC = () => {
         </div>
       </div>
 
-      <div className="px-4 grid grid-cols-2 gap-4 overflow-auto">
+      <div className="px-4 grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4 overflow-auto">
         {packages.map(item => (
           <PackagePreview key={item.name} npmPackage={item} />
         ))}

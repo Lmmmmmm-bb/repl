@@ -16,10 +16,10 @@ const Side: FC<SideProps> = ({ activePanel, onPanelChange }) => {
   const totalPackages = usePackageStore(state => state.corePackages.length + state.extraPackages.length);
 
   return (
-    <div className="flex-1 border-r">
+    <div className="lg:flex-1 border-b lg:border-r lg:border-b-0">
       <header
         className={cn(
-          ['h-20', 'px-4'],
+          ['h-16', 'lg:h-20', 'px-4'],
           ['flex', 'items-center', 'gap-2'],
           ['bg-light-200', 'dark:bg-dark-900'],
           ['border-b'],
@@ -29,11 +29,12 @@ const Side: FC<SideProps> = ({ activePanel, onPanelChange }) => {
         Settings
       </header>
 
-      <div className="flex flex-col">
+      <div className="flex lg:flex-col">
         <div
           className={cn(
-            ['w-full', 'h-12', 'px-4', ''],
+            ['w-fit', 'lg:w-full', 'h-12', 'px-4'],
             ['flex', 'items-center', 'gap-2'],
+            ['border-r', 'lg:border-r-0', 'border-b-0', 'lg:border-b'],
             ['hover:bg-light-300', 'dark:hover:bg-dark-800'],
             ['transition-colors', 'cursor-pointer'],
             activePanel === SettingPanel.Package && ['bg-light-300', 'dark:bg-dark-800'],
@@ -55,8 +56,9 @@ const Side: FC<SideProps> = ({ activePanel, onPanelChange }) => {
 
         <div
           className={cn(
-            ['w-full', 'h-12', 'px-4'],
+            ['w-fit', 'lg:w-full', 'h-12', 'px-4'],
             ['flex', 'items-center', 'gap-2'],
+            ['border-r', 'lg:border-r-0', 'border-b-0', 'lg:border-b'],
             ['hover:bg-light-300', 'dark:hover:bg-dark-800'],
             ['transition-colors', 'cursor-pointer'],
             activePanel === SettingPanel.Install && ['bg-light-300', 'dark:bg-dark-800'],

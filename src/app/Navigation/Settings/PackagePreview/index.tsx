@@ -53,7 +53,7 @@ const PackagePreview: FC<PackagePreviewProps> = ({ npmPackage }) => {
 
       {npmPackage.description && (
         <p
-          className="text-sm line-clamp-3 leading-tight opacity-40"
+          className="text-sm line-clamp-2 lg:line-clamp-3 leading-tight opacity-40"
           title={npmPackage.description}
         >
           {npmPackage.description}

@@ -6,6 +6,7 @@ import { Input } from '~/components/ui/Input';
 import { Label } from '~/components/ui/Label';
 import Search from '~/icons/Search';
 import { usePackageStore } from '~/stores/package';
+import { cn } from '~/utils/cn';
 
 const Packages: FC = () => {
   const extraPackages = usePackageStore(state => state.extraPackages);
@@ -19,7 +20,7 @@ const Packages: FC = () => {
 
   return (
     <div className="h-full pb-4 flex flex-col overflow-hidden">
-      <div className="h-20 px-4 flex flex-shrink-0 items-center">
+      <div className="h-16 lg:h-20 px-4 flex flex-shrink-0 items-center">
         <div className="relative w-full">
           <Label htmlFor="filter-package">
             <Search className="size-4 absolute left-2.5 top-2.5 opacity-80" />
@@ -36,7 +37,13 @@ const Packages: FC = () => {
 
       <CorePackages />
 
-      <div className="mt-4 px-4 grid grid-cols-2 gap-4 overflow-auto">
+      <div
+        className={cn(
+          ['mt-2', 'lg:mt-4', 'px-4'],
+          ['grid', 'grid-cols-1', 'lg:grid-cols-2', 'gap-2', 'lg:gap-4'],
+          ['overflow-auto'],
+        )}
+      >
         {extraPackages
           .filter(item => item.name.toLowerCase().includes(inputValue.toLowerCase()))
           .map(item => <PackagePreview key={item.name} npmPackage={item} />)}
