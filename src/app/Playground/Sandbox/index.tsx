@@ -5,13 +5,14 @@ import { useCompilerWorker } from './useCompilerWorker';
 import { useSandbox } from './useSandbox';
 import { sandboxAttr } from './config';
 import type { ConsolePayload } from './types';
+import Mounting from './Mounting';
+import VersionNotMatch from './VersionNotMatch';
 import { useThemeStore } from '~/stores/theme';
 import { useVirtualFileStore } from '~/stores/virtual-file';
 import { usePackageStore } from '~/stores/package';
 import { useElementSize } from '~/hooks/useElementSize';
 import { cn } from '~/utils/cn';
 import { useToggle } from '~/hooks/useToggle';
-import Loading from '~/icons/Loading';
 import { isLegacyReactDOM } from '~/stores/package/utils';
 import { useDebounce } from '~/hooks/useDebounce';
 
@@ -23,10 +24,16 @@ interface SandboxProps {
 const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
   const theme = useThemeStore(state => state.theme);
   const files = useVirtualFileStore(state => state.files);
-  const packageStore = usePackageStore(state => ({
-    corePackages: state.corePackages,
-    extraPackages: state.extraPackages,
-  }));
+  const { isVersionMatch, corePackages, extraPackages } = usePackageStore((state) => {
+    const [react] = state.corePackages.filter(item => item.name === 'react');
+    const [reactDOM] = state.corePackages.filter(item => item.name === 'react-dom');
+    const isVersionMatch = react.version === reactDOM.version;
+    return {
+      isVersionMatch,
+      corePackages: state.corePackages,
+      extraPackages: state.extraPackages,
+    };
+  });
 
   const [isSandboxMounting, toggleIsSandboxMounting] = useToggle();
 
@@ -73,8 +80,8 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
     toggleIsSandboxMounting.on();
     refreshSandbox();
   }, [
-    packageStore.extraPackages,
-    packageStore.corePackages,
+    extraPackages,
+    corePackages,
     refreshSandbox,
     toggleIsSandboxMounting,
   ]);
@@ -118,18 +125,8 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
         !isDefaultDevice && ['p-8', 'grid', 'place-content-center'],
       )}
     >
-      {isSandboxMounting && (
-        <div
-          className={cn(
-            ['absolute', 'inset-0'],
-            ['flex', 'flex-col', 'items-center', 'justify-center', 'gap-2'],
-            ['backdrop-blur'],
-          )}
-        >
-          <Loading className="size-6 animate-spin" />
-          Mounting Playground
-        </div>
-      )}
+      {isSandboxMounting && isVersionMatch && <Mounting />}
+      {!isVersionMatch && <VersionNotMatch />}
 
       <iframe
         style={sandboxStyle}
@@ -137,7 +134,9 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
         sandbox={sandboxAttr}
         className={cn(
           ['size-full'],
-          !isDefaultDevice && ['border', 'rounded-md', 'overflow-hidden'],
+          !isDefaultDevice
+          && isVersionMatch
+          && ['border', 'rounded-md', 'overflow-hidden'],
         )}
         onLoad={compiler}
       />
