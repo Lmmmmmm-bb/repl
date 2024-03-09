@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import type { ChangeEvent, FC } from 'react';
 import PackagePreview from '../PackagePreview';
-import CorePackage from './CorePackage';
+import CorePackages from './CorePackages';
 import { Input } from '~/components/ui/Input';
 import { Label } from '~/components/ui/Label';
 import Search from '~/icons/Search';
 import { usePackageStore } from '~/stores/package';
 
 const Packages: FC = () => {
-  const packageStore = usePackageStore();
+  const extraPackages = usePackageStore(state => state.extraPackages);
 
   const [inputValue, setInputValue] = useState('');
 
@@ -34,15 +34,10 @@ const Packages: FC = () => {
         </div>
       </div>
 
-      <div className="px-4 flex gap-2 flex-wrap">
-        {packageStore.corePackages.map(lib => (
-          <CorePackage key={lib.name} lib={lib} />
-        ))}
-      </div>
+      <CorePackages />
 
       <div className="mt-4 px-4 grid grid-cols-2 gap-4 overflow-auto">
-        {packageStore
-          .extraPackages
+        {extraPackages
           .filter(item => item.name.toLowerCase().includes(inputValue.toLowerCase()))
           .map(item => <PackagePreview key={item.name} npmPackage={item} />)}
       </div>
