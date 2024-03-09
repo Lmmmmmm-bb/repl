@@ -5,7 +5,7 @@ import Moon from '~/icons/Moon';
 import Sun from '~/icons/Sun';
 import { setTheme, useThemeStore } from '~/stores/theme';
 
-const ThemeSwitcher: FC = () => {
+const Theme: FC = () => {
   const theme = useThemeStore(state => state.theme);
 
   const handleChangeTheme = () => {
@@ -19,4 +19,4 @@ const ThemeSwitcher: FC = () => {
   );
 };
 
-export default ThemeSwitcher;
+export default Theme;

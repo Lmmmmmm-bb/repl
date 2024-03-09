@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import ThemeSwitcher from './ThemeSwitcher';
+import Theme from './Theme';
 import Share from './Share';
 import Settings from './Settings';
 import Reset from './Reset';
@@ -20,7 +20,7 @@ const Navigation: FC = () => (
 
     <div className="flex lg:flex-col gap-2">
       <Information />
-      <ThemeSwitcher />
+      <Theme />
       <Reset />
       <Share />
       <Settings />
