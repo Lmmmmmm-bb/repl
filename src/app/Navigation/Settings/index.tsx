@@ -21,14 +21,8 @@ const Settings: FC = () => {
 
       <DialogContent
         className={cn(
-          [
-            'w-full',
-            'max-w-[90vw]',
-            'lg:max-w-screen-lg',
-            'h-full',
-            'max-h-[90vh]',
-            'lg:max-h-[70vh]',
-          ],
+          ['w-full', 'max-w-[90vw]', 'lg:max-w-screen-lg'],
+          ['h-full', 'max-h-[90vh]', 'lg:max-h-[70vh]'],
           ['p-0', 'overflow-hidden'],
         )}
       >

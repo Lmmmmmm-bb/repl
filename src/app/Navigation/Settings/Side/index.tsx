@@ -1,5 +1,6 @@
 import type { FC } from 'react';
-import { SettingPanel } from './types';
+import { SettingPanel } from '../types';
+import SideItem from './SideItem';
 import { cn } from '~/utils/cn';
 import Settings from '~/icons/Settings';
 import Package from '~/icons/Package';
@@ -29,16 +30,9 @@ const Side: FC<SideProps> = ({ activePanel, onPanelChange }) => {
         Settings
       </header>
 
-      <div className="flex lg:flex-col">
-        <div
-          className={cn(
-            ['w-fit', 'lg:w-full', 'h-12', 'px-4'],
-            ['flex', 'items-center', 'gap-2'],
-            ['border-r', 'lg:border-r-0', 'border-b-0', 'lg:border-b'],
-            ['hover:bg-light-300', 'dark:hover:bg-dark-800'],
-            ['transition-colors', 'cursor-pointer'],
-            activePanel === SettingPanel.Package && ['bg-light-300', 'dark:bg-dark-800'],
-          )}
+      <nav className="flex lg:flex-col">
+        <SideItem
+          active={activePanel === SettingPanel.Package}
           onClick={() => onPanelChange(SettingPanel.Package)}
         >
           <Package className="size-5" />
@@ -52,23 +46,16 @@ const Side: FC<SideProps> = ({ activePanel, onPanelChange }) => {
               {totalPackages}
             </Badge>
           )}
-        </div>
+        </SideItem>
 
-        <div
-          className={cn(
-            ['w-fit', 'lg:w-full', 'h-12', 'px-4'],
-            ['flex', 'items-center', 'gap-2'],
-            ['border-r', 'lg:border-r-0', 'border-b-0', 'lg:border-b'],
-            ['hover:bg-light-300', 'dark:hover:bg-dark-800'],
-            ['transition-colors', 'cursor-pointer'],
-            activePanel === SettingPanel.Install && ['bg-light-300', 'dark:bg-dark-800'],
-          )}
+        <SideItem
+          active={activePanel === SettingPanel.Install}
           onClick={() => onPanelChange(SettingPanel.Install)}
         >
           <AddPackage className="size-5" />
           Install
-        </div>
-      </div>
+        </SideItem>
+      </nav>
     </div>
   );
 };
