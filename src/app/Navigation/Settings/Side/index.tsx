@@ -40,7 +40,7 @@ const Side: FC<SideProps> = ({ activePanel, onPanelChange }) => {
           {Boolean(totalPackages) && (
             <Badge
               variant="outline"
-              className="ml-auto"
+              className="ml-auto px-2"
               title={`${totalPackages} dependencies installed`}
             >
               {totalPackages}

@@ -7,41 +7,43 @@ import Shadcn from '~/icons/Shadcn';
 const Framework: FC = () => (
   <div className="flex items-center gap-1">
     Built with
-    <a
-      target="_blank"
-      rel="noreferrer"
-      title="React"
-      href="https://react.dev/"
-    >
-      <React className="size-4 text-brand" />
-    </a>
-    ·
-    <a
-      target="_blank"
-      rel="noreferrer"
-      title="Vite"
-      href="https://vitejs.dev/"
-    >
-      <Vite className="size-4" />
-    </a>
-    ·
-    <a
-      target="_blank"
-      rel="noreferrer"
-      title="Tailwind"
-      href="https://tailwindcss.com/"
-    >
-      <Tailwind className="size-4" />
-    </a>
-    ·
-    <a
-      target="_blank"
-      rel="noreferrer"
-      title="Shadcn"
-      href="https://ui.shadcn.com/"
-    >
-      <Shadcn className="size-3" />
-    </a>
+    <div className="flex items-center gap-1 select-none">
+      <a
+        target="_blank"
+        rel="noreferrer"
+        title="React"
+        href="https://react.dev/"
+      >
+        <React className="size-4 text-brand" />
+      </a>
+      ·
+      <a
+        target="_blank"
+        rel="noreferrer"
+        title="Vite"
+        href="https://vitejs.dev/"
+      >
+        <Vite className="size-4" />
+      </a>
+      ·
+      <a
+        target="_blank"
+        rel="noreferrer"
+        title="Tailwind"
+        href="https://tailwindcss.com/"
+      >
+        <Tailwind className="size-4" />
+      </a>
+      ·
+      <a
+        target="_blank"
+        rel="noreferrer"
+        title="Shadcn"
+        href="https://ui.shadcn.com/"
+      >
+        <Shadcn className="size-3" />
+      </a>
+    </div>
   </div>
 );
 

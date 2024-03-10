@@ -65,9 +65,9 @@ const ResizableHandle = ({
       ],
       [
         'data-[resize-handle-active=pointer]:bg-light-400',
-        'data-[resize-handle-active=pointer]:dark:bg-dark-400',
+        'data-[resize-handle-active=pointer]:dark:bg-dark-800',
         'data-[resize-handle-active=keyboard]:bg-light-400',
-        'data-[resize-handle-active=keyboard]:dark:bg-dark-400',
+        'data-[resize-handle-active=keyboard]:dark:bg-dark-800',
       ],
       className,
     )}

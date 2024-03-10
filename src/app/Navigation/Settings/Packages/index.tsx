@@ -41,7 +41,7 @@ const Packages: FC = () => {
         className={cn(
           ['mt-2', 'lg:mt-4', 'px-4'],
           ['grid', 'grid-cols-1', 'lg:grid-cols-2', 'gap-2', 'lg:gap-4'],
-          ['overflow-auto'],
+          ['overflow-auto', 'scrollbar-hidden'],
         )}
       >
         {extraPackages

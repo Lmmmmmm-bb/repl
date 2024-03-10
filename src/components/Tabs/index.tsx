@@ -14,7 +14,7 @@ const Tabs: FC<PropsWithChildren<TabsProps>> & TabsComponent = ({ className, chi
   <ul
     className={cn(
       ['h-8', 'flex', 'items-center'],
-      ['bg-light-200', 'dark:bg-dark-600'],
+      ['bg-light-200', 'dark:bg-dark-800'],
       ['text-xs', 'border-b-[1px]'],
       ['overflow-auto', 'scrollbar-hidden'],
       className,

@@ -12,9 +12,9 @@ const SideItem: FC<PropsWithChildren<SideItemProps>> = ({ active, children, ...p
       ['w-fit', 'lg:w-full', 'h-10', 'lg:h-12', 'px-4'],
       ['flex', 'items-center', 'gap-2'],
       ['border-r', 'lg:border-r-0', 'border-b-0', 'lg:border-b'],
-      ['hover:bg-light-300', 'dark:hover:bg-dark-800'],
+      ['hover:bg-light-300', 'dark:hover:bg-dark-900/95'],
       ['transition-colors', 'cursor-pointer'],
-      active && ['bg-light-300', 'dark:bg-dark-800'],
+      active && ['bg-light-300', 'dark:bg-dark-900/95'],
       props.className,
     )}
   >

@@ -9,6 +9,7 @@ import Loading from '~/icons/Loading';
 import { useToggle } from '~/hooks/useToggle';
 import { useDebounce } from '~/hooks/useDebounce';
 import { fetchPackageList } from '~/apis/package-list';
+import { cn } from '~/utils/cn';
 
 const Install: FC = () => {
   const packages = usePackageStore(state => state.packages);
@@ -51,7 +52,13 @@ const Install: FC = () => {
         </div>
       </div>
 
-      <div className="px-4 grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4 overflow-auto">
+      <div
+        className={cn(
+          ['px-4'],
+          ['grid', 'grid-cols-1', 'lg:grid-cols-2', 'gap-2', 'lg:gap-4'],
+          ['overflow-auto', 'scrollbar-hidden'],
+        )}
+      >
         {packages.map(item => (
           <PackagePreview key={item.name} npmPackage={item} />
         ))}
