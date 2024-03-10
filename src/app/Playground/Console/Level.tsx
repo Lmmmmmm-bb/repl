@@ -9,7 +9,7 @@ interface LevelProps {
 
 const Level: FC<LevelProps> = ({ level }) => (
   <Badge
-    className="capitalize w-14 justify-center"
+    className="capitalize w-14 justify-center font-mono"
     variant={consoleBadgeVariantStrategy[level]}
   >
     {level}

@@ -12,28 +12,26 @@ const createMessage = (messageWithoutId: ConsoleMessageWithoutIdAndCount) => {
   return message;
 };
 
-export const appendMessage = (messageWithoutId: ConsoleMessageWithoutIdAndCount) => {
-  const { messages } = useConsoleStore.getState();
-  useConsoleStore.setState({
-    messages: [...messages, createMessage(messageWithoutId)],
-  });
-};
-
 export const clearMessage = () => {
   useConsoleStore.setState({ messages: [] });
 };
 
-export const addDuplicateMessage = (messageWithoutId: ConsoleMessageWithoutIdAndCount) => {
+export const appendMessage = (
+  messageWithoutId: ConsoleMessageWithoutIdAndCount,
+  duplicate = false,
+) => {
   const { messages } = useConsoleStore.getState();
   const last = messages[messages.length - 1];
 
-  if (last) {
+  if (duplicate && last) {
     const message: ConsoleMessage = { ...last, count: last.count + 1 };
     const sliceLastMessages = messages.slice(0, -1);
     useConsoleStore.setState({
       messages: [...sliceLastMessages, message],
     });
   } else {
-    appendMessage(createMessage(messageWithoutId));
+    useConsoleStore.setState({
+      messages: [...messages, createMessage(messageWithoutId)],
+    });
   }
 };
