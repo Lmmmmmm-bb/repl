@@ -1,4 +1,7 @@
 import * as monaco from 'monaco-editor';
+import { resetModels } from './model';
+import { resetCoreLib } from './core-lib';
+import { resetExtraLib } from './extra-lib';
 import { type VirtualFile, getVirtualFileLanguage } from '~/virtual-file';
 
 export const registerLib = (content: string, path: string) => {
@@ -24,4 +27,10 @@ export const getOrCreateMonacoModel = (file: VirtualFile) => {
     getVirtualFileLanguage(file.filename),
     uri,
   );
+};
+
+export const resetMonaco = () => {
+  resetModels();
+  resetCoreLib();
+  resetExtraLib();
 };

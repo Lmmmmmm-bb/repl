@@ -17,7 +17,7 @@ import WelcomeRaw from '~/templates/Welcome?raw';
 import WelcomeCSSRaw from '~/templates/Welcome.css?raw';
 import { decompress } from '~/utils/compress';
 
-export const initialFiles: Record<string, VirtualFile> = {
+const defaultVirtualFiles: Record<string, VirtualFile> = {
   [MAIN_FILE]: {
     hidden: true,
     filename: MAIN_FILE,
@@ -46,15 +46,16 @@ export const initialFiles: Record<string, VirtualFile> = {
   },
 };
 
+export const defaultVirtualFileStore: VirtualFileStore = {
+  files: defaultVirtualFiles,
+  activeFile: defaultVirtualFiles[ENTRY_FILE],
+};
+
 export const restoreVirtualFileStore = (): VirtualFileStore => {
   const hash = location.hash.slice(1);
-  const initialStore: VirtualFileStore = {
-    files: initialFiles,
-    activeFile: initialFiles[ENTRY_FILE],
-  };
 
   if (!hash.length) {
-    return initialStore;
+    return { ...defaultVirtualFileStore };
   }
 
   try {
@@ -65,6 +66,6 @@ export const restoreVirtualFileStore = (): VirtualFileStore => {
       activeFile: restoreFiles.files[ENTRY_FILE],
     };
   } catch (error) {
-    return initialStore;
+    return { ...defaultVirtualFileStore };
   }
 };

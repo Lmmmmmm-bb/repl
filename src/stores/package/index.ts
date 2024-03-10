@@ -2,15 +2,15 @@ import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import { useVirtualFileStore } from '../virtual-file';
 import { getImportMap } from './utils';
-import { restorePackageStore } from './init';
+import { defaultPackageStore, restorePackageStore } from './init';
 import type { CorePackage, Package, PackageStore } from './types';
 import { compress } from '~/utils/compress';
 
-export const initPackageStore = restorePackageStore();
+export const initialPackageStore = restorePackageStore();
 
 export const usePackageStore = create(
   subscribeWithSelector<PackageStore>(
-    () => ({ ...initPackageStore }),
+    () => ({ ...initialPackageStore }),
   ),
 );
 
@@ -57,6 +57,17 @@ export const removeExtraPackage = (lib: Package) => {
 
   const disposeLib = extraPackageDisposal.get(lib.name);
   disposeLib && extraPackageDisposal.delete(lib.name) && disposeLib();
+};
+
+export const resetPackageStore = () => {
+  const { corePackageDisposal, extraPackageDisposal } = usePackageStore.getState();
+
+  corePackageDisposal.forEach(disposal => disposal());
+  corePackageDisposal.clear();
+  extraPackageDisposal.forEach(disposal => disposal());
+  extraPackageDisposal.clear();
+
+  usePackageStore.setState({ ...defaultPackageStore });
 };
 
 export { CorePackage, Package, getImportMap };

@@ -1,7 +1,8 @@
 import { registerLib } from './utils';
 import type { Package } from '~/stores/package';
 import { fetchPackageFileRaw } from '~/apis/package-raw';
-import { initPackageStore, usePackageStore } from '~/stores/package';
+import { initialPackageStore, usePackageStore } from '~/stores/package';
+import { defaultPackageStore } from '~/stores/package/init';
 
 export const registerExtraPackageToMonaco = async (lib: Package) => {
   const { extraPackageDisposal } = usePackageStore.getState();
@@ -28,7 +29,13 @@ export const initExtraLib = () => {
     'file:///node_modules/client.d.ts',
   );
 
-  initPackageStore
+  initialPackageStore
+    .extraPackages
+    .forEach(item => registerExtraPackageToMonaco(item));
+};
+
+export const resetExtraLib = () => {
+  defaultPackageStore
     .extraPackages
     .forEach(item => registerExtraPackageToMonaco(item));
 };

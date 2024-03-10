@@ -1,11 +1,31 @@
 import type { FC } from 'react';
-import Button from '~/components/ui/Button';
 import Clean from '~/icons/Clean';
+import { resetMonaco } from '~/monaco';
+import Button from '~/components/ui/Button';
+import { resetPackageStore } from '~/stores/package';
+import { resetVirtualFileStore } from '~/stores/virtual-file';
 
-const Reset: FC = () => (
-  <Button title="Reset to default" variant="ghost" size="icon">
-    <Clean className="size-5" />
-  </Button>
-);
+const Reset: FC = () => {
+  const handleReset = () => {
+    // eslint-disable-next-line no-alert
+    if (confirm('Are you sure you want to reset playground. It can NOT be undone.')) {
+      resetPackageStore();
+      resetVirtualFileStore();
+      resetMonaco();
+      history.replaceState({}, '', location.pathname);
+    }
+  };
+
+  return (
+    <Button
+      size="icon"
+      variant="ghost"
+      title="Reset to default"
+      onClick={handleReset}
+    >
+      <Clean className="size-5" />
+    </Button>
+  );
+};
 
 export default Reset;
