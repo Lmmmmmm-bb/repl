@@ -1,4 +1,4 @@
-import { type FC, useState } from 'react';
+import { type FC, Fragment, useState } from 'react';
 import { fetchPackageVersionList } from '~/apis/package-version-list';
 import Button from '~/components/ui/Button';
 import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger } from '~/components/ui/Select';
@@ -45,7 +45,6 @@ const CorePackage: FC<CorePackageProps> = ({ lib }) => {
 
   return (
     <Select
-      key={lib.name}
       value={lib.version === 'latest' ? versionList[0] : lib.version}
       onOpenChange={handleOpenChange}
       onValueChange={handleVersionChange}
@@ -67,16 +66,12 @@ const CorePackage: FC<CorePackageProps> = ({ lib }) => {
             const isLatest = index === 0;
 
             return (
-              <>
-                <SelectItem
-                  className="font-mono"
-                  key={item}
-                  value={item}
-                >
+              <Fragment key={item}>
+                <SelectItem className="font-mono" value={item}>
                   {isLatest ? `${item} (latest)` : item}
                 </SelectItem>
                 {isLatest && <SelectSeparator />}
-              </>
+              </Fragment>
             );
           })
           : <SelectItem disabled value="empty">No version</SelectItem>}
