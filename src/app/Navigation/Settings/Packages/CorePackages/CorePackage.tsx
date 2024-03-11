@@ -45,7 +45,7 @@ const CorePackage: FC<CorePackageProps> = ({ lib }) => {
 
   return (
     <Select
-      value={lib.version === 'latest' ? versionList[0] : lib.version}
+      value={lib.version}
       onOpenChange={handleOpenChange}
       onValueChange={handleVersionChange}
     >
@@ -67,7 +67,7 @@ const CorePackage: FC<CorePackageProps> = ({ lib }) => {
 
             return (
               <Fragment key={item}>
-                <SelectItem className="font-mono" value={item}>
+                <SelectItem className="font-mono" value={isLatest ? 'latest' : item}>
                   {isLatest ? `${item} (latest)` : item}
                 </SelectItem>
                 {isLatest && <SelectSeparator />}
