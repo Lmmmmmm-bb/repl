@@ -80,9 +80,12 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
 
   useEffect(() => {
     clearMessage();
-    toggleIsSandboxMounting.on();
-    refreshSandbox();
+    if (isVersionMatch) {
+      toggleIsSandboxMounting.on();
+      refreshSandbox();
+    }
   }, [
+    isVersionMatch,
     extraPackages,
     corePackages,
     toggleIsSandboxMounting,
@@ -91,8 +94,8 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
 
   useEffect(() => {
     // will run twice in dev mode
-    compiler();
-  }, [compiler]);
+    isVersionMatch && compiler();
+  }, [compiler, isVersionMatch]);
 
   useEffect(() => {
     sendSandboxMessage({ type: 'THEME_CHANGE', data: theme });
