@@ -10,6 +10,9 @@ const config = {
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
   ],
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   theme: {
     container: {
       center: true,

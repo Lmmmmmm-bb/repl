@@ -36,15 +36,17 @@ const TabItem = forwardRef<HTMLLIElement, PropsWithChildren<TabItemProps>>(({
         ['flex', 'items-center', 'gap-1'],
         ['hover:bg-light-600', 'dark:hover:bg-dark-800'],
         ['border-r-[1px]', 'cursor-pointer'],
-        active && [
+        [
           'after:absolute',
           'after:bottom-0',
           'after:left-0',
           'after:right-0',
-          'after:h-[2px]',
+          'after:h-0',
           'after:bg-current',
           'after:rounded-t',
+          'after:transition-all',
         ],
+        active && ['after:h-[2px]'],
         className,
       )}
     >
@@ -53,7 +55,7 @@ const TabItem = forwardRef<HTMLLIElement, PropsWithChildren<TabItemProps>>(({
         <Button
           size="icon"
           variant="ghost"
-          className="w-4 h-4"
+          className="size-4"
           onClick={handleClickClose}
         >
           <Close />

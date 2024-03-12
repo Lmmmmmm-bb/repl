@@ -15,20 +15,21 @@ const Settings: FC = () => {
     <Dialog>
       <DialogTrigger asChild>
         <Button title="Open playground settings" variant="ghost" size="icon">
-          <SettingsIcon className="w-5 h-5" />
+          <SettingsIcon className="size-5" />
         </Button>
       </DialogTrigger>
 
       <DialogContent
         className={cn(
-          ['w-full', 'max-w-screen-lg', 'h-full', 'max-h-[70vh]'],
+          ['w-full', 'max-w-[90vw]', 'lg:max-w-screen-lg'],
+          ['h-full', 'max-h-[90vh]', 'lg:max-h-[70vh]'],
           ['p-0', 'overflow-hidden'],
         )}
       >
-        <div className="flex overflow-hidden">
+        <div className="flex flex-col lg:flex-row overflow-hidden">
           <Side activePanel={activePanel} onPanelChange={setActivePanel} />
 
-          <div className="flex-[3]">
+          <div className="flex-[3] overflow-hidden">
             {activePanel === SettingPanel.Package && <Packages />}
             {activePanel === SettingPanel.Install && <Install />}
           </div>

@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import ThemeSwitcher from './ThemeSwitcher';
+import Theme from './Theme';
 import Share from './Share';
 import Settings from './Settings';
 import Reset from './Reset';
@@ -16,11 +16,11 @@ const Navigation: FC = () => (
     ['flex', 'lg:flex-col', 'items-center', 'justify-between'],
   )}
   >
-    <React title="React Playground" className="w-8 h-8 lg:w-12 lg:h-12 text-brand" />
+    <React title="React Playground" className="size-8 lg:size-12 text-brand" />
 
     <div className="flex lg:flex-col gap-2">
       <Information />
-      <ThemeSwitcher />
+      <Theme />
       <Reset />
       <Share />
       <Settings />

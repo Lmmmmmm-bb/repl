@@ -1,6 +1,7 @@
-import { type FC, useState } from 'react';
+import { type FC, Fragment, useState } from 'react';
 import { fetchPackageVersionList } from '~/apis/package-version-list';
-import { Select, SelectContent, SelectItem, SelectTrigger } from '~/components/ui/Select';
+import Button from '~/components/ui/Button';
+import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger } from '~/components/ui/Select';
 import { useToggle } from '~/hooks/useToggle';
 import Loading from '~/icons/Loading';
 import { registerCorePackageToMonaco } from '~/monaco';
@@ -44,31 +45,35 @@ const CorePackage: FC<CorePackageProps> = ({ lib }) => {
 
   return (
     <Select
-      key={lib.name}
-      value={lib.version === 'latest' ? versionList[0] : lib.version}
+      value={lib.version}
       onOpenChange={handleOpenChange}
       onValueChange={handleVersionChange}
     >
       <SelectTrigger
-        hiddenIcon
+        asChild
         className="w-fit cursor-pointer font-mono"
         title={`${lib.name} version is ${lib.version}`}
       >
-        {loading && <Loading className="h-4 w-4 mr-1 animate-spin" />}
-        {lib.name}
+        <Button variant="outline">
+          {loading && <Loading className="size-4 mr-1 animate-spin" />}
+          {lib.name}
+        </Button>
       </SelectTrigger>
 
       <SelectContent>
         {versionList.length
-          ? versionList.map((item, index) => (
-            <SelectItem
-              className="font-mono text-xs"
-              key={item}
-              value={item}
-            >
-              {index === 0 ? `${item} (latest)` : item}
-            </SelectItem>
-          ))
+          ? versionList.map((item, index) => {
+            const isLatest = index === 0;
+
+            return (
+              <Fragment key={item}>
+                <SelectItem className="font-mono" value={isLatest ? 'latest' : item}>
+                  {isLatest ? `${item} (latest)` : item}
+                </SelectItem>
+                {isLatest && <SelectSeparator />}
+              </Fragment>
+            );
+          })
           : <SelectItem disabled value="empty">No version</SelectItem>}
       </SelectContent>
     </Select>

@@ -3,11 +3,7 @@ import PackageInstall from './PackageInstall';
 import PackageLink from './PackageLink';
 import PackageUninstall from './PackageUninstall';
 import { cn } from '~/utils/cn';
-import Link from '~/icons/Link';
-import GitHub from '~/icons/GitHub';
-import Npm from '~/icons/Npm';
 import Cube from '~/icons/Cube';
-import Bug from '~/icons/Bug';
 import Calendar from '~/icons/Calendar';
 import type { Package } from '~/stores/package';
 import { usePackageStore } from '~/stores/package';
@@ -50,14 +46,14 @@ const PackagePreview: FC<PackagePreviewProps> = ({ npmPackage }) => {
             className="ml-auto text-green-600"
             title={`${isCorePackage ? '[Core Package] ' : ''}${npmPackage.name} has been installed`}
           >
-            {isCorePackage ? <CheckFilled className="w-5 h-5" /> : <Check className="w-5 h-5" />}
+            {isCorePackage ? <CheckFilled className="size-5" /> : <Check className="size-5" />}
           </span>
         )}
       </span>
 
       {npmPackage.description && (
         <p
-          className="text-sm line-clamp-3 leading-tight opacity-40"
+          className="text-sm line-clamp-2 lg:line-clamp-3 leading-tight opacity-40"
           title={npmPackage.description}
         >
           {npmPackage.description}
@@ -69,7 +65,7 @@ const PackagePreview: FC<PackagePreviewProps> = ({ npmPackage }) => {
           title="Latest version"
           className="flex items-center gap-2 font-mono"
         >
-          <Cube className="w-5 h-5" />
+          <Cube className="size-5" />
           {storePackage && storePackage.version !== npmPackage.version
             ? `${npmPackage.version} (installed ${storePackage.version})`
             : npmPackage.version}
@@ -80,37 +76,13 @@ const PackagePreview: FC<PackagePreviewProps> = ({ npmPackage }) => {
             title="Latest version publish date"
             className="flex items-center gap-2 font-mono"
           >
-            <Calendar className="w-5 h-5" />
+            <Calendar className="size-5" />
             {new Date(npmPackage.date).toLocaleString()}
           </span>
         )}
 
         <div className="flex gap-2 items-center justify-between">
-          <div className="flex gap-2">
-            {npmPackage.links.homepage && (
-              <PackageLink title="Open package homepage" href={npmPackage.links.homepage}>
-                <Link className="w-5 h-5" />
-              </PackageLink>
-            )}
-
-            {npmPackage.links.npm && (
-              <PackageLink title="Open in npm" href={npmPackage.links.npm}>
-                <Npm className="w-5 h-5" />
-              </PackageLink>
-            )}
-
-            {npmPackage.links.repository && (
-              <PackageLink title="Open in GitHub" href={npmPackage.links.repository}>
-                <GitHub className="w-5 h-5" />
-              </PackageLink>
-            )}
-
-            {npmPackage.links.bugs && (
-              <PackageLink title="Report issue" href={npmPackage.links.bugs}>
-                <Bug className="w-5 h-5" />
-              </PackageLink>
-            )}
-          </div>
+          <PackageLink npmPackage={npmPackage} />
 
           {!isCorePackage
           && (isPackageInstalled

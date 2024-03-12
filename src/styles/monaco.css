@@ -2,3 +2,7 @@
   width: 22px;
   height: 22px;
 }
+
+.monaco-editor .line-numbers {
+  user-select: none;
+}

@@ -26,8 +26,8 @@ const Container: FC<PropsWithChildren<ContainerProps>> & ContainerComponent = ({
     <div
       className={cn(
         ['h-8', 'px-2'],
-        ['flex', 'items-center', 'justify-between', 'gap-2'],
-        ['bg-light-200', 'dark:bg-dark-600'],
+        ['flex', 'flex-shrink-0', 'items-center', 'justify-between', 'gap-2'],
+        ['bg-light-200', 'dark:bg-dark-800'],
         ['text-xs', 'border-b-[1px]'],
         action && ['pr-0'],
       )}

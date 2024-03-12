@@ -6,7 +6,7 @@ const Editor: FC = () => {
 
   return (
     <div
-      className="relative w-full h-full overflow-hidden"
+      className="relative size-full overflow-hidden"
       ref={containerRef}
     />
   );

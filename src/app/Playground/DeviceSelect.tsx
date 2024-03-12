@@ -7,8 +7,10 @@ import {
   SelectTrigger,
 } from '~/components/ui/Select';
 import Devices from '~/icons/Devices';
+import Container from '~/components/Container';
 import { cn } from '~/utils/cn';
-import { buttonVariants } from '~/components/ui/Button/config';
+
+const { Action } = Container;
 
 interface DeviceSelectProps {
   value: keyof typeof DEVICE_SIZE;
@@ -17,23 +19,12 @@ interface DeviceSelectProps {
 
 const DeviceSelect: FC<DeviceSelectProps> = ({ value, onChange }) => (
   <Select value={value} onValueChange={onChange}>
-    <SelectTrigger
-      hiddenIcon
-      title="Select device"
-      className={cn(
-        buttonVariants({ variant: 'ghost' }),
-        ['h-full', 'w-fit', 'p-2'],
-        ['border-0', 'border-l', 'rounded-none'],
-        ['opacity-60', 'hover:opacity-80'],
-        ['transition-opacity'],
-        value !== 'Default' && ['opacity-80'],
-      )}
-    >
-      <div className="text-xs flex items-center gap-1">
-        <Devices className="w-5 h-5" />
+    <Action asChild className={cn('gap-1', value !== 'Default' && 'opacity-80')}>
+      <SelectTrigger title="Select device" className="h-full">
+        <Devices className="size-5" />
         {value !== 'Default' && value}
-      </div>
-    </SelectTrigger>
+      </SelectTrigger>
+    </Action>
 
     <SelectContent>
       {Object.keys(DEVICE_SIZE).map((deviceName) => {

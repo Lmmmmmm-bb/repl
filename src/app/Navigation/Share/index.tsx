@@ -28,8 +28,8 @@ const Share: FC = () => {
       onClick={handleCopy}
     >
       {copied
-        ? <Check className="w-5 h-5 text-green-600" />
-        : <ShareIcon className="w-5 h-5" />}
+        ? <Check className="size-5 text-green-600" />
+        : <ShareIcon className="size-5" />}
     </Button>
   );
 };

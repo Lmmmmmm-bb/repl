@@ -5,13 +5,14 @@ import { useCompilerWorker } from './useCompilerWorker';
 import { useSandbox } from './useSandbox';
 import { sandboxAttr } from './config';
 import type { ConsolePayload } from './types';
+import Mounting from './Mounting';
+import VersionNotMatch from './VersionNotMatch';
 import { useThemeStore } from '~/stores/theme';
 import { useVirtualFileStore } from '~/stores/virtual-file';
 import { usePackageStore } from '~/stores/package';
 import { useElementSize } from '~/hooks/useElementSize';
 import { cn } from '~/utils/cn';
 import { useToggle } from '~/hooks/useToggle';
-import Loading from '~/icons/Loading';
 import { isLegacyReactDOM } from '~/stores/package/utils';
 import { useDebounce } from '~/hooks/useDebounce';
 
@@ -23,10 +24,16 @@ interface SandboxProps {
 const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
   const theme = useThemeStore(state => state.theme);
   const files = useVirtualFileStore(state => state.files);
-  const packageStore = usePackageStore(state => ({
-    corePackages: state.corePackages,
-    extraPackages: state.extraPackages,
-  }));
+  const { isVersionMatch, corePackages, extraPackages } = usePackageStore((state) => {
+    const [react] = state.corePackages.filter(item => item.name === 'react');
+    const [reactDOM] = state.corePackages.filter(item => item.name === 'react-dom');
+    const isVersionMatch = react.version === reactDOM.version;
+    return {
+      isVersionMatch,
+      corePackages: state.corePackages,
+      extraPackages: state.extraPackages,
+    };
+  });
 
   const [isSandboxMounting, toggleIsSandboxMounting] = useToggle();
 
@@ -57,32 +64,41 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
   const { sendWorkerMessage } = useCompilerWorker((event: MessageEvent) => {
     const payload = event.data;
     payload.type === 'COMPILER_DONE' && sendSandboxMessage(payload);
-    payload.type === 'COMPILER_ERROR' && appendMessage({ type: 'error', data: [payload.data] });
+    if (payload.type === 'COMPILER_ERROR') {
+      toggleIsSandboxMounting.off();
+      appendMessage({ type: 'error', data: [payload.data] });
+    }
   });
 
   const compiler = useDebounce(
     useCallback(
-      () => sendWorkerMessage({ files, isLegacy: isLegacyReactDOM() }),
+      () => {
+        clearMessage();
+        sendWorkerMessage({ files, isLegacy: isLegacyReactDOM() });
+      },
       [files, sendWorkerMessage],
     ),
-    100,
+    150,
   );
 
   useEffect(() => {
     clearMessage();
-    toggleIsSandboxMounting.on();
-    refreshSandbox();
+    if (isVersionMatch) {
+      toggleIsSandboxMounting.on();
+      refreshSandbox();
+    }
   }, [
-    packageStore.extraPackages,
-    packageStore.corePackages,
-    refreshSandbox,
+    isVersionMatch,
+    extraPackages,
+    corePackages,
     toggleIsSandboxMounting,
+    refreshSandbox,
   ]);
 
   useEffect(() => {
     // will run twice in dev mode
-    compiler();
-  }, [compiler]);
+    isVersionMatch && compiler();
+  }, [compiler, isVersionMatch]);
 
   useEffect(() => {
     sendSandboxMessage({ type: 'THEME_CHANGE', data: theme });
@@ -118,26 +134,18 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
         !isDefaultDevice && ['p-8', 'grid', 'place-content-center'],
       )}
     >
-      {isSandboxMounting && (
-        <div
-          className={cn(
-            ['absolute', 'inset-0'],
-            ['flex', 'flex-col', 'items-center', 'justify-center', 'gap-2'],
-            ['backdrop-blur'],
-          )}
-        >
-          <Loading className="w-6 h-6 animate-spin" />
-          Mounting Playground
-        </div>
-      )}
+      {isSandboxMounting && isVersionMatch && <Mounting />}
+      {!isVersionMatch && <VersionNotMatch />}
 
       <iframe
         style={sandboxStyle}
         ref={sandboxRef}
         sandbox={sandboxAttr}
         className={cn(
-          ['w-full', 'h-full'],
-          !isDefaultDevice && ['border', 'rounded-md', 'overflow-hidden'],
+          ['size-full'],
+          !isDefaultDevice
+          && isVersionMatch
+          && ['border', 'rounded-md', 'overflow-hidden'],
         )}
         onLoad={compiler}
       />

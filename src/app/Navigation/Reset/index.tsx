@@ -4,7 +4,7 @@ import Clean from '~/icons/Clean';
 
 const Reset: FC = () => (
   <Button title="Reset to default" variant="ghost" size="icon">
-    <Clean className="w-5 h-5" />
+    <Clean className="size-5" />
   </Button>
 );
 

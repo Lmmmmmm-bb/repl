@@ -12,8 +12,9 @@ import { cn } from '~/utils/cn';
 const Select = SelectPrimitive.Root;
 const SelectGroup = SelectPrimitive.Group;
 const SelectValue = SelectPrimitive.Value;
+const SelectTrigger = SelectPrimitive.Trigger;
 
-const SelectTrigger = forwardRef<
+const SelectTriggerWithIcon = forwardRef<
   ElementRef<typeof SelectPrimitive.Trigger>,
   ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & {
     hiddenIcon?: boolean;
@@ -36,12 +37,12 @@ const SelectTrigger = forwardRef<
     {children}
     {!hiddenIcon && (
       <SelectPrimitive.Icon asChild>
-        <CaretSortIcon className="h-4 w-4 opacity-50" />
+        <CaretSortIcon className="size-4 opacity-50" />
       </SelectPrimitive.Icon>
     )}
   </SelectPrimitive.Trigger>
 ));
-SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
+SelectTriggerWithIcon.displayName = `${SelectPrimitive.Trigger.displayName}WithIcon`;
 
 const SelectScrollUpButton = forwardRef<
   ElementRef<typeof SelectPrimitive.ScrollUpButton>,
@@ -150,9 +151,9 @@ const SelectItem = forwardRef<
     )}
     {...props}
   >
-    <span className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
+    <span className="absolute right-2 flex size-3.5 items-center justify-center">
       <SelectPrimitive.ItemIndicator>
-        <CheckIcon className="h-4 w-4" />
+        <CheckIcon className="size-4" />
       </SelectPrimitive.ItemIndicator>
     </span>
     <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
@@ -177,6 +178,7 @@ export {
   SelectGroup,
   SelectValue,
   SelectTrigger,
+  SelectTriggerWithIcon,
   SelectContent,
   SelectLabel,
   SelectItem,

@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import type { ChangeEvent, FC } from 'react';
 import PackagePreview from '../PackagePreview';
-import CorePackage from './CorePackage';
+import CorePackages from './CorePackages';
 import { Input } from '~/components/ui/Input';
 import { Label } from '~/components/ui/Label';
 import Search from '~/icons/Search';
 import { usePackageStore } from '~/stores/package';
+import { cn } from '~/utils/cn';
 
 const Packages: FC = () => {
-  const packageStore = usePackageStore();
+  const extraPackages = usePackageStore(state => state.extraPackages);
 
   const [inputValue, setInputValue] = useState('');
 
@@ -19,10 +20,10 @@ const Packages: FC = () => {
 
   return (
     <div className="h-full pb-4 flex flex-col overflow-hidden">
-      <div className="h-20 px-4 flex flex-shrink-0 items-center">
+      <div className="h-16 lg:h-20 px-4 flex flex-shrink-0 items-center">
         <div className="relative w-full">
           <Label htmlFor="filter-package">
-            <Search className="w-4 h-4 absolute left-2.5 top-2.5 opacity-80" />
+            <Search className="size-4 absolute left-2.5 top-2.5 opacity-80" />
           </Label>
           <Input
             id="filter-package"
@@ -34,15 +35,16 @@ const Packages: FC = () => {
         </div>
       </div>
 
-      <div className="px-4 flex gap-2 flex-wrap">
-        {packageStore.corePackages.map(lib => (
-          <CorePackage key={lib.name} lib={lib} />
-        ))}
-      </div>
+      <CorePackages />
 
-      <div className="mt-4 px-4 grid grid-cols-2 gap-4 overflow-auto">
-        {packageStore
-          .extraPackages
+      <div
+        className={cn(
+          ['mt-2', 'lg:mt-4', 'px-4'],
+          ['grid', 'grid-cols-1', 'lg:grid-cols-2', 'gap-2', 'lg:gap-4'],
+          ['overflow-auto', 'scrollbar-hidden'],
+        )}
+      >
+        {extraPackages
           .filter(item => item.name.toLowerCase().includes(inputValue.toLowerCase()))
           .map(item => <PackagePreview key={item.name} npmPackage={item} />)}
       </div>
