@@ -1,9 +1,14 @@
 import { type FC, useEffect, useRef } from 'react';
 import { useConsoleStore } from '../store';
+import type { ConsoleSelectType } from '../types';
 import Message from './Message';
 import { cn } from '~/utils/cn';
 
-const Console: FC = () => {
+interface ConsoleProps {
+  filterType: ConsoleSelectType;
+}
+
+const Console: FC<ConsoleProps> = ({ filterType }) => {
   const ref = useRef<HTMLDivElement>(null);
   const messages = useConsoleStore(state => state.messages);
 
@@ -21,9 +26,11 @@ const Console: FC = () => {
         ['overflow-auto', 'scrollbar-hidden', 'scroll-smooth'],
       )}
     >
-      {messages.map(message => (
-        <Message key={message.id} message={message} />
-      ))}
+      {messages
+        .filter(item => filterType === 'all' || item.type === filterType)
+        .map(item => (
+          <Message key={item.id} message={item} />
+        ))}
     </div>
   );
 };

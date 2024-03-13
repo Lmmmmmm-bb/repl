@@ -12,3 +12,5 @@ export const DEVICE_SIZE = {
   'iPad Pro': [1024, 1366] as const,
   'Surface Pro 7': [912, 1368] as const,
 };
+
+export const CONSOLE_LEVEL = ['all', 'log', 'info', 'warn', 'error'] as const;
