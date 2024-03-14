@@ -47,25 +47,30 @@ const transformScriptImport = (file: VirtualFile, files: Record<string, VirtualF
     ),
   );
 
-export const esmImportTransformPlugin = (files: Record<string, VirtualFile>) => ({
-  visitor: {
-    ImportDeclaration(babel: any) {
-      const importValue: string = babel.node.source.value;
-      if (importValue.startsWith('./')) {
-        const importFile = getVirtualFileByImportPath(importValue, files);
-        if (!importFile) {
-          return;
-        }
-
-        const ext = getVirtualFileExt(importFile.filename);
-        if (ext === 'css') {
-          babel.node.source.value = transformCSSImport(importFile);
-        } else if (ext === 'json') {
-          babel.node.source.value = transformJsonImport(importFile);
-        } else {
-          babel.node.source.value = transformScriptImport(importFile, files);
-        }
+export const esmImportTransformPlugin = (files: Record<string, VirtualFile>) => {
+  const declarationTransform = (path: any) => {
+    const importValue: string = path.node.source.value;
+    if (importValue.startsWith('./')) {
+      const importFile = getVirtualFileByImportPath(importValue, files);
+      if (!importFile) {
+        return;
       }
+
+      const ext = getVirtualFileExt(importFile.filename);
+      if (ext === 'css') {
+        path.node.source.value = transformCSSImport(importFile);
+      } else if (ext === 'json') {
+        path.node.source.value = transformJsonImport(importFile);
+      } else {
+        path.node.source.value = transformScriptImport(importFile, files);
+      }
+    }
+  };
+
+  return {
+    visitor: {
+      ImportDeclaration: declarationTransform,
+      ExportNamedDeclaration: declarationTransform,
     },
-  },
-});
+  };
+};
