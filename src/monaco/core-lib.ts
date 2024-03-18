@@ -2,11 +2,12 @@ import { registerLib } from './utils';
 import { fetchPackageFiles } from '~/apis/package-metadata';
 import { fetchPackageFileRaw } from '~/apis/package-raw';
 import { fetchPackageVersionList } from '~/apis/package-version-list';
-import { type CorePackage, initPackageStore, usePackageStore } from '~/stores/package';
+import { type CorePackage, initialPackageStore, usePackageStore } from '~/stores/package';
+import { defaultPackageStore } from '~/stores/package/init';
 
-const beforeRegisterCorePackage = async () => {
+const beforeRegisterCorePackage = async (packages: CorePackage[]) => {
   const corePackagesWithVersion: CorePackage[] = await Promise.all(
-    initPackageStore.corePackages.map(async (lib) => {
+    packages.map(async (lib) => {
       const versions = await fetchPackageVersionList(lib.name);
       const latestVersion = versions.tags.latest || versions.versions[0];
       return { ...lib, version: latestVersion };
@@ -45,7 +46,15 @@ export const registerCorePackageToMonaco = async (lib: CorePackage) => {
 
 const EXCLUDE_PACKAGE_NAME = ['react', 'react-dom'];
 export const initCoreLib = async () => {
-  const corePackagesWithVersion = await beforeRegisterCorePackage();
+  const corePackagesWithVersion = await beforeRegisterCorePackage(initialPackageStore.corePackages);
+
+  corePackagesWithVersion
+    .filter(item => !EXCLUDE_PACKAGE_NAME.includes(item.name))
+    .forEach(item => registerCorePackageToMonaco(item));
+};
+
+export const resetCoreLib = async () => {
+  const corePackagesWithVersion = await beforeRegisterCorePackage(defaultPackageStore.corePackages);
 
   corePackagesWithVersion
     .filter(item => !EXCLUDE_PACKAGE_NAME.includes(item.name))
