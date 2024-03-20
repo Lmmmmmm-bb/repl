@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import type { CSSProperties, FC } from 'react';
-import { addDuplicateMessage, appendMessage, clearMessage } from '../store';
+import { appendMessage, clearMessage } from '../store';
 import { useCompilerWorker } from './useCompilerWorker';
 import { useSandbox } from './useSandbox';
 import { sandboxAttr } from './config';
@@ -114,9 +114,7 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
           type: consolePayload.level,
           data: consolePayload.data,
         };
-        consolePayload.duplicate
-          ? addDuplicateMessage(message)
-          : appendMessage(message);
+        appendMessage(message, consolePayload.duplicate);
       }
     };
     window.addEventListener('message', handleMessageEvent);
