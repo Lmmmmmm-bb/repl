@@ -14,3 +14,6 @@ export const DEVICE_SIZE = {
 };
 
 export const CONSOLE_LEVEL = ['all', 'log', 'info', 'warn', 'error'] as const;
+
+export const ROOT_RESIZE_GROUP_SAVE_ID = 'root-resize-group';
+export const PREVIEW_RESIZE_GROUP_SAVE_ID = 'preview-resize-group';

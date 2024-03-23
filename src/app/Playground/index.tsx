@@ -6,7 +6,7 @@ import FileTabs from './FileTabs';
 import Sandbox from './Sandbox';
 import Format from './Format';
 import DeviceSelect from './DeviceSelect';
-import { DEVICE_SIZE } from './config';
+import { DEVICE_SIZE, PREVIEW_RESIZE_GROUP_SAVE_ID, ROOT_RESIZE_GROUP_SAVE_ID } from './config';
 import Console from './Console';
 import Clear from './Clear';
 import ConsoleLevelFilter from './ConsoleLevelFilter';
@@ -31,6 +31,7 @@ const Playground: FC = () => {
 
   return (
     <ResizablePanelGroup
+      autoSaveId={ROOT_RESIZE_GROUP_SAVE_ID}
       ref={resizableRef}
       direction={isDesktopScreen ? 'horizontal' : 'vertical'}
     >
@@ -44,7 +45,10 @@ const Playground: FC = () => {
       <ResizableHandle onDoubleClick={handleResetLayout} />
 
       <ResizablePanel>
-        <ResizablePanelGroup direction="vertical">
+        <ResizablePanelGroup
+          direction="vertical"
+          autoSaveId={PREVIEW_RESIZE_GROUP_SAVE_ID}
+        >
           <ResizablePanel>
             <Container
               title="Preview"
