@@ -19,7 +19,7 @@ const VersionNotMatch: FC = () => {
   return (
     <div
       className={cn(
-        ['absolute', 'inset-0'],
+        ['absolute', 'inset-0', 'z-10'],
         ['flex', 'flex-col', 'items-center', 'justify-center', 'gap-2'],
         ['backdrop-blur'],
       )}
