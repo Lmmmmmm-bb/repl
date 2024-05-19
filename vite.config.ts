@@ -1,9 +1,26 @@
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
+import og from 'vite-plugin-open-graph';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    og({
+      basic: {
+        title: 'React Playground',
+        url: 'https://repl.lmmmmmm.dev',
+        image: 'https://repl.lmmmmmm.dev/og.png',
+        description: 'An interactive React playground',
+      },
+      twitter: {
+        title: 'React Playground',
+        imageAlt: 'React REPL',
+        image: 'https://repl.lmmmmmm.dev/og.png',
+        description: 'An interactive React playground',
+      },
+    }),
+  ],
   resolve: {
     alias: {
       '~': resolve(__dirname, 'src'),
