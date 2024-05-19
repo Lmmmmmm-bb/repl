@@ -16,7 +16,14 @@ const Navigation: FC = () => (
     ['flex', 'lg:flex-col', 'items-center', 'justify-between'],
   )}
   >
-    <React title="React Playground" className="size-8 lg:size-12 text-brand" />
+    <a
+      target="_blank"
+      rel="noreferrer"
+      title="GitHub Repo"
+      href="https://github.com/Lmmmmmm-bb/repl"
+    >
+      <React title="React Playground" className="size-8 lg:size-12 text-brand" />
+    </a>
 
     <div className="flex lg:flex-col gap-2">
       <Information />
