@@ -43,8 +43,8 @@
     "@shikijs/monaco": "^1.2.4",
     "@types/babel__standalone": "^7.1.7",
     "@types/node": "^20.12.4",
-    "@types/react": "^18.2.74",
-    "@types/react-dom": "^18.2.24",
+    "@types/react": "npm:types-react@beta",
+    "@types/react-dom": "npm:types-react-dom@beta",
     "@typescript-eslint/eslint-plugin": "^7.5.0",
     "@typescript-eslint/parser": "^7.5.0",
     "@vitejs/plugin-react": "^4.2.1",
@@ -61,6 +61,10 @@
     "typescript": "^5.4.4",
     "vite": "^5.2.8",
     "vite-plugin-open-graph": "^2.0.4"
+  },
+  "overrides": {
+    "@types/react": "npm:types-react@beta",
+    "@types/react-dom": "npm:types-react-dom@beta"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
