@@ -1,11 +1,9 @@
 import { useEffect, useRef } from 'react';
 import type { editor } from 'monaco-editor';
-import { getOrCreateMonacoModel, monaco, monacoOptions } from '~/monaco';
-import { updateFileContent, useVirtualFileStore } from '~/stores/virtual-file';
+import { monaco, monacoOptions } from '~/monaco';
+import { updateFileContent } from '~/stores/virtual-file';
 
 export const useEditor = () => {
-  const { activeFile } = useVirtualFileStore();
-
   const containerRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<editor.IStandaloneCodeEditor>();
 
@@ -31,15 +29,8 @@ export const useEditor = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (!editorRef.current || !activeFile) {
-      return;
-    }
-
-    const model = getOrCreateMonacoModel(activeFile);
-    editorRef.current.setModel(model);
-    editorRef.current.focus();
-  }, [activeFile]);
-
-  return { containerRef };
+  return {
+    editorRef,
+    containerRef,
+  };
 };
