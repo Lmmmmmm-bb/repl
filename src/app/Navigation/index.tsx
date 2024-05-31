@@ -10,7 +10,7 @@ import React from '~/icons/React';
 
 const Navigation: FC = () => (
   <div className={cn(
-    ['fixed', 'left-0', 'top-0', 'bottom-0', '-z-10'],
+    ['fixed', 'left-0', 'top-0', 'bottom-0'],
     ['w-full', 'h-12', 'lg:w-20', 'lg:h-full'],
     ['px-4', 'lg:px-2', 'py-2', 'lg:py-4'],
     ['flex', 'lg:flex-col', 'items-center', 'justify-between'],
