@@ -31,8 +31,8 @@
     "monaco-editor": "^0.47.0",
     "nanoid": "^5.0.6",
     "prettier": "^3.2.5",
-    "react": "19.0.0-beta-26f2496093-20240514",
-    "react-dom": "19.0.0-beta-26f2496093-20240514",
+    "react": "19.0.0-rc-eb259b5d3b-20240605",
+    "react-dom": "19.0.0-rc-eb259b5d3b-20240605",
     "react-resizable-panels": "^2.0.16",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
@@ -43,8 +43,8 @@
     "@shikijs/monaco": "^1.2.4",
     "@types/babel__standalone": "^7.1.7",
     "@types/node": "^20.12.4",
-    "@types/react": "npm:types-react@beta",
-    "@types/react-dom": "npm:types-react-dom@beta",
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc",
     "@typescript-eslint/eslint-plugin": "^7.5.0",
     "@typescript-eslint/parser": "^7.5.0",
     "@vitejs/plugin-react": "^4.2.1",
@@ -63,8 +63,8 @@
     "vite-plugin-open-graph": "^2.0.4"
   },
   "overrides": {
-    "@types/react": "npm:types-react@beta",
-    "@types/react-dom": "npm:types-react-dom@beta"
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
