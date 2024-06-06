@@ -8,12 +8,14 @@ export default defineConfig({
     react(),
     og({
       basic: {
+        siteName: 'React Playground',
         title: 'React Playground',
         url: 'https://repl.lmmmmmm.dev',
         image: 'https://repl.lmmmmmm.dev/og.png',
         description: 'An interactive React playground',
       },
       twitter: {
+        card: 'summary_large_image',
         title: 'React Playground',
         imageAlt: 'React REPL',
         image: 'https://repl.lmmmmmm.dev/og.png',
