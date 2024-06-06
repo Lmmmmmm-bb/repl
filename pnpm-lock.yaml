@@ -29,6 +29,9 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.0.2
         version: 1.0.2(react@19.0.0-rc-eb259b5d3b-20240605)(types-react@19.0.0-rc.0)
+      '@shikijs/monaco':
+        specifier: ^1.2.4
+        version: 1.2.4
       babel-plugin-react-compiler:
         specifier: 0.0.0-experimental-938cd9a-20240601
         version: 0.0.0-experimental-938cd9a-20240601
@@ -65,6 +68,9 @@ importers:
       react-resizable-panels:
         specifier: ^2.0.16
         version: 2.0.16(react-dom@19.0.0-rc-eb259b5d3b-20240605(react@19.0.0-rc-eb259b5d3b-20240605))(react@19.0.0-rc-eb259b5d3b-20240605)
+      shiki:
+        specifier: ^1.2.4
+        version: 1.2.4
       tailwind-merge:
         specifier: ^2.2.2
         version: 2.2.2
@@ -78,9 +84,6 @@ importers:
       '@antfu/eslint-config':
         specifier: ^2.12.1
         version: 2.12.1(@vue/compiler-sfc@3.4.15)(eslint-plugin-react-hooks@4.6.0(eslint@8.57.0))(eslint-plugin-react-refresh@0.4.6(eslint@8.57.0))(eslint-plugin-react@7.34.1(eslint@8.57.0))(eslint@8.57.0)(typescript@5.4.4)
-      '@shikijs/monaco':
-        specifier: ^1.2.4
-        version: 1.2.4
       '@types/babel__standalone':
         specifier: ^7.1.7
         version: 7.1.7
@@ -123,9 +126,6 @@ importers:
       postcss:
         specifier: ^8.4.38
         version: 8.4.38
-      shiki:
-        specifier: ^1.2.4
-        version: 1.2.4
       simple-git-hooks:
         specifier: ^2.11.1
         version: 2.11.1
