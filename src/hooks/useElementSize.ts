@@ -1,6 +1,6 @@
 import { type RefObject, useEffect, useRef, useState } from 'react';
 
-export const useElementSize = (elRef: RefObject<HTMLElement>) => {
+export const useElementSize = (elRef: RefObject<HTMLElement | null>) => {
   const [elementSize, setElementSize] = useState({ width: 0, height: 0 });
   const observerRef = useRef<ResizeObserver | null>(null);
 
