@@ -5,7 +5,7 @@ import { updateFileContent } from '~/stores/virtual-file';
 
 export const useEditor = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const editorRef = useRef<editor.IStandaloneCodeEditor>();
+  const editorRef = useRef<editor.IStandaloneCodeEditor>(null);
 
   useEffect(() => {
     if (!containerRef.current) {
@@ -25,7 +25,7 @@ export const useEditor = () => {
 
     return () => {
       editorRef.current && editorRef.current.dispose();
-      editorRef.current = undefined;
+      editorRef.current = null;
     };
   }, []);
 

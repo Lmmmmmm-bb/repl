@@ -1,14 +1,20 @@
 import antfu from '@antfu/eslint-config';
 
+import reactCompiler from 'eslint-plugin-react-compiler';
+
 export default antfu(
   {
     react: true,
   },
   {
     files: ['**/*.tsx'],
+    plugins: {
+      'react-compiler': reactCompiler,
+    },
     rules: {
       'react/prop-types': 'off',
       'react/self-closing-comp': 'error',
+      'react-compiler/react-compiler': 'error',
     },
   },
   {
