@@ -1,27 +1,26 @@
-import {
-  type HTMLAttributes,
-  type MouseEvent,
-  type PropsWithChildren,
-  forwardRef,
+import type {
+  ComponentProps,
+  FC,
+  MouseEvent,
 } from 'react';
 import Button from '../ui/Button';
 import Close from '~/icons/Close';
 import { cn } from '~/utils/cn';
 
-interface TabItemProps extends HTMLAttributes<HTMLLIElement> {
+interface TabItemProps {
   active?: boolean;
   closable?: boolean;
   onCloseClick?: () => void;
 }
 
-const TabItem = forwardRef<HTMLLIElement, PropsWithChildren<TabItemProps>>(({
+const TabItem: FC<ComponentProps<'li'> & TabItemProps> = ({
   className,
   active,
   closable,
   children,
   onCloseClick,
   ...props
-}, ref) => {
+}) => {
   const handleClickClose = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     onCloseClick && onCloseClick();
@@ -29,7 +28,6 @@ const TabItem = forwardRef<HTMLLIElement, PropsWithChildren<TabItemProps>>(({
 
   return (
     <li
-      ref={ref}
       {...props}
       className={cn(
         ['px-4', 'h-full', 'min-w-fit', 'relative'],
@@ -63,7 +61,7 @@ const TabItem = forwardRef<HTMLLIElement, PropsWithChildren<TabItemProps>>(({
       )}
     </li>
   );
-});
+};
 
 TabItem.displayName = 'TabItem';
 

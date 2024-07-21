@@ -1,35 +1,28 @@
-import { type ComponentProps, forwardRef } from 'react';
+import type { ComponentProps, FC } from 'react';
 import * as ResizablePrimitive from 'react-resizable-panels';
-import type { ImperativePanelGroupHandle } from 'react-resizable-panels';
 
 import { cn } from '~/utils/cn';
 
-const ResizablePanelGroup = forwardRef<
-  ImperativePanelGroupHandle,
-  ComponentProps<typeof ResizablePrimitive.PanelGroup>
->(({
-  className,
-  ...props
-}, ref) => (
-  <ResizablePrimitive.PanelGroup
-    ref={ref}
-    className={cn(
-      ['size-full'],
-      ['flex', 'data-[panel-group-direction=vertical]:flex-col'],
-      className,
-    )}
-    {...props}
-  />
-));
+const ResizablePanelGroup: FC<ComponentProps<typeof ResizablePrimitive.PanelGroup>>
+ = ({ className, ...props }) => (
+   <ResizablePrimitive.PanelGroup
+     className={cn(
+       ['size-full'],
+       ['flex', 'data-[panel-group-direction=vertical]:flex-col'],
+       className,
+     )}
+     {...props}
+   />
+ );
 
 ResizablePanelGroup.displayName = 'ResizablePanelGroup';
 
 const ResizablePanel = ResizablePrimitive.Panel;
 
-const ResizableHandle = ({
+const ResizableHandle: FC<ComponentProps<typeof ResizablePrimitive.PanelResizeHandle>> = ({
   className,
   ...props
-}: ComponentProps<typeof ResizablePrimitive.PanelResizeHandle>) => (
+}) => (
   <ResizablePrimitive.PanelResizeHandle
     className={cn(
       ['relative', 'flex', 'items-center', 'justify-center', 'transition-colors', 'rounded-lg'],
