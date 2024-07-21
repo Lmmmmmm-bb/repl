@@ -36,7 +36,7 @@ const PackageInstall: FC<PackageInstallProps> = ({ npmPackage }) => {
       .then((response) => {
         const versions = response
           .versions
-          .filter(version => /^(\d+)\.(\d+)\.(\d+)$/.test(version));
+          .filter(version => /^\d+\.\d+\.\d+$/.test(version));
         setVersionList(versions.slice(1, 20));
       })
       .finally(() => toggleLoading.off());
@@ -85,15 +85,15 @@ const PackageInstall: FC<PackageInstallProps> = ({ npmPackage }) => {
               ))
             )
           : (
-            <Button
-              size="sm"
-              variant="ghost"
-              className="w-full text-sm opacity-50"
-              onClick={handleLoadVersion}
-            >
-              {loading && <Loading className="size-4 mr-1 animate-spin" />}
-              Load more
-            </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                className="w-full text-sm opacity-50"
+                onClick={handleLoadVersion}
+              >
+                {loading && <Loading className="size-4 mr-1 animate-spin" />}
+                Load more
+              </Button>
             )}
 
       </SelectContent>

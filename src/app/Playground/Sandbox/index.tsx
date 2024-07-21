@@ -138,6 +138,7 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
       <iframe
         style={sandboxStyle}
         ref={sandboxRef}
+        // eslint-disable-next-line react-dom/no-missing-iframe-sandbox
         sandbox={sandboxAttr}
         className={cn(
           ['size-full'],

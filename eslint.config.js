@@ -1,6 +1,7 @@
 import antfu from '@antfu/eslint-config';
 
 import reactCompiler from 'eslint-plugin-react-compiler';
+import stylisticJsx from '@stylistic/eslint-plugin-jsx';
 
 export default antfu(
   {
@@ -10,11 +11,12 @@ export default antfu(
     files: ['**/*.tsx'],
     plugins: {
       'react-compiler': reactCompiler,
+      '@stylistic/jsx': stylisticJsx,
     },
     rules: {
       'react/prop-types': 'off',
-      'react/self-closing-comp': 'error',
       'react-compiler/react-compiler': 'error',
+      'style/jsx-self-closing-comp': 'error',
     },
   },
   {
@@ -22,6 +24,7 @@ export default antfu(
       'antfu/top-level-function': 'off',
 
       'curly': ['error', 'all'],
+      'ts/no-unused-expressions': 'off',
 
       'style/semi': ['error', 'always'],
       'style/member-delimiter-style': ['error', {}],

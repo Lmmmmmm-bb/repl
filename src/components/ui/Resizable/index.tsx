@@ -5,22 +5,22 @@ import type { ImperativePanelGroupHandle } from 'react-resizable-panels';
 import { cn } from '~/utils/cn';
 
 const ResizablePanelGroup = forwardRef<
-    ImperativePanelGroupHandle,
-    ComponentProps<typeof ResizablePrimitive.PanelGroup>
-  >(({
-    className,
-    ...props
-  }, ref) => (
-    <ResizablePrimitive.PanelGroup
-      ref={ref}
-      className={cn(
-        ['size-full'],
-        ['flex', 'data-[panel-group-direction=vertical]:flex-col'],
-        className,
-      )}
-      {...props}
-    />
-  ));
+  ImperativePanelGroupHandle,
+  ComponentProps<typeof ResizablePrimitive.PanelGroup>
+>(({
+  className,
+  ...props
+}, ref) => (
+  <ResizablePrimitive.PanelGroup
+    ref={ref}
+    className={cn(
+      ['size-full'],
+      ['flex', 'data-[panel-group-direction=vertical]:flex-col'],
+      className,
+    )}
+    {...props}
+  />
+));
 
 ResizablePanelGroup.displayName = 'ResizablePanelGroup';
 

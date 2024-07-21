@@ -7,7 +7,7 @@ export const useToggle = (initial = false) => {
   const off = useCallback(() => setState(false), []);
   const set = useCallback((nextState: boolean) => setState(_state => nextState ?? !_state), []);
 
-  const toggle = useMemo(() => ({ on, off, set }), []);
+  const toggle = useMemo(() => ({ on, off, set }), [off, on, set]);
 
   return [state, toggle] as const;
 };

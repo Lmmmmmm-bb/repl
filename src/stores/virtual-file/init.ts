@@ -65,7 +65,7 @@ export const restoreVirtualFileStore = (): VirtualFileStore => {
       files: restoreFiles.files,
       activeFile: restoreFiles.files[ENTRY_FILE],
     };
-  } catch (error) {
+  } catch {
     return { ...defaultVirtualFileStore };
   }
 };
