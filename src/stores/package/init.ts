@@ -31,7 +31,7 @@ export const restorePackageStore = (): PackageStore => {
       corePackageDisposal: new Map(),
       extraPackageDisposal: new Map(),
     };
-  } catch (error) {
+  } catch {
     return { ...defaultPackageStore };
   }
 };

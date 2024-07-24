@@ -21,6 +21,7 @@ const Hello: FC = () => {
       <span className="desc">Interactive online React playground</span>
 
       <button
+        type="button"
         className="action"
         onClick={() => setCount(count + 1)}
       >

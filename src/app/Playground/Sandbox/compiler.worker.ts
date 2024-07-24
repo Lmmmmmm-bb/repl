@@ -14,6 +14,7 @@ globalThis.addEventListener('message', (event: MessageEvent) => {
   } catch (error) {
     if (error instanceof Error) {
       // remove message prefix filenames only keep the last
+      // eslint-disable-next-line regexp/no-super-linear-backtracking
       const message = error.message.replace(/^.*\/(.*: .*)/, '$1');
       globalThis.postMessage({ type: 'COMPILER_ERROR', data: message });
     }

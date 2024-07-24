@@ -24,7 +24,7 @@ const CorePackage: FC<CorePackageProps> = ({ lib }) => {
       .then((response) => {
         const versions = response
           .versions
-          .filter(version => /^(17|18)\.(\d+)\.(\d+)$/.test(version));
+          .filter(version => /^(?:17|18)\.\d+\.\d+$/.test(version));
         setVersionList(versions);
       });
   };

@@ -13,12 +13,12 @@ export const useErrorMessage = () => {
       toggleOpen.on();
       setErrorMessage(message);
     },
-    [],
+    [toggleOpen],
   );
 
   const clearMessage = useCallback(
     () => toggleOpen.off(),
-    [],
+    [toggleOpen],
   );
 
   return {

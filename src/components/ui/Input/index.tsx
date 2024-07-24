@@ -1,14 +1,13 @@
-import { forwardRef } from 'react';
+import type { ComponentProps, FC } from 'react';
 
 import { cn } from '~/utils/cn';
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
 
-const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => (
+const Input: FC<ComponentProps<'input'>>
+  = ({ className, type, ...props }) => (
     <input
-      ref={ref}
       type={type}
       spellCheck={false}
       autoComplete="off"
@@ -23,8 +22,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       )}
       {...props}
     />
-  ),
-);
+  );
 
 Input.displayName = 'Input';
 

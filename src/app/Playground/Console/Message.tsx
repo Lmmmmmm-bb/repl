@@ -25,9 +25,9 @@ const Message: FC<MessageProps> = ({ message }) => (
         ['text-sm', 'overflow-hidden'],
       )}
     >
-      {message.data.map((item, index) => (
+      {message.data.map(item => (
         <span
-          key={index}
+          key={item}
           className={cn(
             ['break-words', 'overflow-hidden'],
             ['text-wrap', 'leading-[22px]', 'whitespace-pre', 'font-mono'],

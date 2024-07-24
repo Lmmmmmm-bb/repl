@@ -80,21 +80,21 @@ const NewFile: FC = () => {
         <Tabs.Item title="New file" ref={addTabItemRef} onClick={handleAddFile}>
           {pending
             ? (
-              <>
-                {isValidFilename(inputValue)
-                  ? virtualFileExtIconStrategy[getVirtualFileExt(inputValue)]
-                  : <File className="size-4 opacity-60" />}
-                <input
-                  spellCheck={false}
-                  placeholder="input filename..."
-                  className="w-24 outline-none bg-transparent"
-                  ref={inputRef}
-                  value={inputValue}
-                  onBlur={handleAddFileDone}
-                  onKeyDown={handleInputKeyDown}
-                  onChange={e => setInputValue(e.target.value)}
-                />
-              </>
+                <>
+                  {isValidFilename(inputValue)
+                    ? virtualFileExtIconStrategy[getVirtualFileExt(inputValue)]
+                    : <File className="size-4 opacity-60" />}
+                  <input
+                    spellCheck={false}
+                    placeholder="input filename..."
+                    className="w-24 outline-none bg-transparent"
+                    ref={inputRef}
+                    value={inputValue}
+                    onBlur={handleAddFileDone}
+                    onKeyDown={handleInputKeyDown}
+                    onChange={e => setInputValue(e.target.value)}
+                  />
+                </>
               )
             : <Plus className="size-4" />}
         </Tabs.Item>
