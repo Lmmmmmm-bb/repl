@@ -14,7 +14,12 @@ const Settings: FC = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button title="Open playground settings" variant="ghost" size="icon">
+        <Button
+          title="Open playground settings"
+          variant="ghost"
+          size="icon"
+          data-umami-event="Settings"
+        >
           <SettingsIcon className="size-5" />
         </Button>
       </DialogTrigger>

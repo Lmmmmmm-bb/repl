@@ -21,6 +21,7 @@ const Navigation: FC = () => (
       rel="noreferrer"
       title="GitHub Repo"
       href="https://github.com/Lmmmmmm-bb/repl"
+      data-umami-event="GitHub Repo"
     >
       <React title="React Playground" className="size-8 lg:size-12 text-brand" />
     </a>

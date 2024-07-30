@@ -13,7 +13,13 @@ const Theme: FC = () => {
   };
 
   return (
-    <Button title="Toggle dark mode" variant="ghost" size="icon" onClick={handleChangeTheme}>
+    <Button
+      title="Toggle dark mode"
+      variant="ghost"
+      size="icon"
+      data-umami-event="Theme"
+      onClick={handleChangeTheme}
+    >
       {theme === 'light' ? <Sun className="size-5" /> : <Moon className="size-5" />}
     </Button>
   );
