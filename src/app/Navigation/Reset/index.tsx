@@ -21,6 +21,7 @@ const Reset: FC = () => {
       size="icon"
       variant="ghost"
       title="Reset to default"
+      data-umami-event="Reset"
       onClick={handleReset}
     >
       <Clean className="size-5" />

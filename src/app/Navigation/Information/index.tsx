@@ -8,7 +8,12 @@ import { cn } from '~/utils/cn';
 const Information: FC = () => (
   <Popover>
     <PopoverTrigger asChild>
-      <Button title="Playground information" variant="ghost" size="icon">
+      <Button
+        title="Playground information"
+        variant="ghost"
+        size="icon"
+        data-umami-event="Information"
+      >
         <InformationIcon className="size-5" />
       </Button>
     </PopoverTrigger>

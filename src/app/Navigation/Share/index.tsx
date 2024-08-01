@@ -25,6 +25,7 @@ const Share: FC = () => {
       size="icon"
       variant="ghost"
       title="Copy sharable URL"
+      data-umami-event="Share"
       onClick={handleCopy}
     >
       {copied

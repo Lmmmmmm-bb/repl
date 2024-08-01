@@ -30,7 +30,11 @@ const Format: FC = () => {
   }, [handleFormat]);
 
   return (
-    <Action title="[⌥⇧F] Format Code" onClick={handleFormat}>
+    <Action
+      title="[⌥⇧F] Format Code"
+      data-umami-event="Format"
+      onClick={handleFormat}
+    >
       <FormatIcon className="size-5" />
     </Action>
   );
