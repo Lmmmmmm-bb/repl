@@ -40,6 +40,7 @@ const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
   const sandboxContainerRef = useRef<HTMLDivElement>(null);
   const { sandboxRef, refreshSandbox, sendSandboxMessage } = useSandbox();
 
+  // eslint-disable-next-line react-compiler/react-compiler
   const { width, height } = useElementSize(sandboxContainerRef);
   const isDefaultDevice = !sandboxWidth && !sandboxHeight;
   const sandboxStyle = useMemo<CSSProperties>(
