@@ -1,12 +1,12 @@
 import * as monaco from 'monaco-editor';
 
-import { initModels } from './model';
+import { initCoreLib } from './core-lib';
 import { initEnvWorker } from './env';
 import { initEditorEvent } from './event';
-import { initLanguages } from './language';
-import { initCoreLib } from './core-lib';
 import { initExtraLib } from './extra-lib';
 import { initHighlight } from './highlight';
+import { initLanguages } from './language';
+import { initModels } from './model';
 
 let isMonacoInitialized = false;
 export const setupMonaco = () => {

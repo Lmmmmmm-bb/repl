@@ -1,7 +1,7 @@
 import type { FC } from 'react';
-import { clearMessage } from './store';
 import Container from '~/components/Container';
 import Error from '~/icons/Error';
+import { clearMessage } from './store';
 
 const { Action } = Container;
 

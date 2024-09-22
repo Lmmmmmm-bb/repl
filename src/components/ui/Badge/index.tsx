@@ -1,7 +1,7 @@
-import type { FC } from 'react';
 import type { VariantProps } from 'class-variance-authority';
-import { badgeVariants } from './config';
+import type { FC } from 'react';
 import { cn } from '~/utils/cn';
+import { badgeVariants } from './config';
 
 export interface BadgeProps
   extends React.HTMLAttributes<HTMLDivElement>,

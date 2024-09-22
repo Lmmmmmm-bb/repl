@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 import Css from '~/icons/Css';
+import JavaScript from '~/icons/JavaScript';
 import Json from '~/icons/Json';
 import ReactIcon from '~/icons/React';
-import JavaScript from '~/icons/JavaScript';
 import TypeScript from '~/icons/TypeScript';
 import type { FileExtensionType } from '~/virtual-file';
 

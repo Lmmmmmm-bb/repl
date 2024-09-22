@@ -1,7 +1,7 @@
 import type { FC } from 'react';
-import CorePackage from './CorePackage';
 import { usePackageStore } from '~/stores/package';
 import { cn } from '~/utils/cn';
+import CorePackage from './CorePackage';
 
 const CorePackages: FC = () => {
   const corePackages = usePackageStore(state => state.corePackages);

@@ -1,9 +1,9 @@
 import { type FC, useCallback, useEffect } from 'react';
-import FormatIcon from '~/icons/Format';
-import { formatCode } from '~/utils/prettier';
 import Container from '~/components/Container';
+import FormatIcon from '~/icons/Format';
 import { getOrCreateMonacoModel, monaco } from '~/monaco';
 import { updateFileContent, useVirtualFileStore } from '~/stores/virtual-file';
+import { formatCode } from '~/utils/prettier';
 
 const { Action } = Container;
 

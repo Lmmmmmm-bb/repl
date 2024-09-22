@@ -1,8 +1,8 @@
+import type { VariantProps } from 'class-variance-authority';
 import type { ComponentProps, FC } from 'react';
 import { Slot } from '@radix-ui/react-slot';
-import type { VariantProps } from 'class-variance-authority';
-import { buttonVariants } from './config';
 import { cn } from '~/utils/cn';
+import { buttonVariants } from './config';
 
 export type ButtonProps = ComponentProps<'button'> & VariantProps<typeof buttonVariants> & { asChild?: boolean };
 

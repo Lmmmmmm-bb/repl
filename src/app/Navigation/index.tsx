@@ -1,12 +1,12 @@
 import type { FC } from 'react';
 
-import Theme from './Theme';
-import Share from './Share';
-import Settings from './Settings';
-import Reset from './Reset';
-import Information from './Information';
-import { cn } from '~/utils/cn';
 import React from '~/icons/React';
+import { cn } from '~/utils/cn';
+import Information from './Information';
+import Reset from './Reset';
+import Settings from './Settings';
+import Share from './Share';
+import Theme from './Theme';
 
 const Navigation: FC = () => (
   <div className={cn(

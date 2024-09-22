@@ -1,15 +1,15 @@
-import { useRef, useState } from 'react';
 import type { FC, KeyboardEvent } from 'react';
+import { useRef, useState } from 'react';
+import Tabs from '~/components/Tabs';
+import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/Popover';
+import { useToggle } from '~/hooks/useToggle';
+import File from '~/icons/File';
+import Plus from '~/icons/Plus';
+import { addFile } from '~/stores/virtual-file';
+import { cn } from '~/utils/cn';
+import { getVirtualFileExt, isValidFilename } from '~/virtual-file';
 import { virtualFileExtIconStrategy } from './strategy';
 import { useErrorMessage } from './useErrorMessage';
-import Tabs from '~/components/Tabs';
-import Plus from '~/icons/Plus';
-import File from '~/icons/File';
-import { getVirtualFileExt, isValidFilename } from '~/virtual-file';
-import { useToggle } from '~/hooks/useToggle';
-import { addFile } from '~/stores/virtual-file';
-import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/Popover';
-import { cn } from '~/utils/cn';
 
 const NewFile: FC = () => {
   const addTabItemRef = useRef<HTMLLIElement>(null);

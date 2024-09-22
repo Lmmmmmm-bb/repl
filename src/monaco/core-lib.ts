@@ -1,9 +1,9 @@
-import { registerLib } from './utils';
 import { fetchPackageFiles } from '~/apis/package-metadata';
 import { fetchPackageFileRaw } from '~/apis/package-raw';
 import { fetchPackageVersionList } from '~/apis/package-version-list';
 import { type CorePackage, initialPackageStore, usePackageStore } from '~/stores/package';
 import { defaultPackageStore } from '~/stores/package/init';
+import { registerLib } from './utils';
 
 const beforeRegisterCorePackage = async (packages: CorePackage[]) => {
   const corePackagesWithVersion: CorePackage[] = await Promise.all(

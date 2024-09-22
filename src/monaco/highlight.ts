@@ -1,14 +1,14 @@
-import * as monaco from 'monaco-editor';
-import { emmetCSS, emmetJSX } from 'emmet-monaco-es';
-import wasmInlined from 'shiki/wasm';
 import { shikiToMonaco } from '@shikijs/monaco';
+import { emmetCSS, emmetJSX } from 'emmet-monaco-es';
+import * as monaco from 'monaco-editor';
 import { createHighlighterCore } from 'shiki/core';
-import LangTsx from 'shiki/langs/tsx.mjs';
-import LangJsx from 'shiki/langs/jsx.mjs';
-import LangJson from 'shiki/langs/json.mjs';
 import LangCss from 'shiki/langs/css.mjs';
-import VitesseLight from 'shiki/themes/vitesse-light.mjs';
+import LangJson from 'shiki/langs/json.mjs';
+import LangJsx from 'shiki/langs/jsx.mjs';
+import LangTsx from 'shiki/langs/tsx.mjs';
 import VitesseDark from 'shiki/themes/vitesse-dark.mjs';
+import VitesseLight from 'shiki/themes/vitesse-light.mjs';
+import wasmInlined from 'shiki/wasm';
 
 const highlighter = await createHighlighterCore({
   loadWasm: wasmInlined,

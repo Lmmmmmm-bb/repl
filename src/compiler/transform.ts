@@ -1,6 +1,6 @@
 import { transform as babelTransform } from '@babel/standalone';
-import { esmImportTransformPlugin } from './plugins';
 import type { VirtualFile } from '~/virtual-file';
+import { esmImportTransformPlugin } from './plugins';
 
 const ensureReactImport = (code: string) => {
   const hasImportReact = /import\s+React/.test(code);

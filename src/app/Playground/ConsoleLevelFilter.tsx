@@ -1,10 +1,10 @@
 import type { FC } from 'react';
-import { CONSOLE_LEVEL } from './config';
 import type { ConsoleSelectType } from './types';
 import Container from '~/components/Container';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '~/components/ui/Select';
 import Filter from '~/icons/Filter';
 import { cn } from '~/utils/cn';
+import { CONSOLE_LEVEL } from './config';
 
 const { Action } = Container;
 

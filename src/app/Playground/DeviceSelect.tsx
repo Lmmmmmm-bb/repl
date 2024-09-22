@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { DEVICE_SIZE } from './config';
+import Container from '~/components/Container';
 import {
   Select,
   SelectContent,
@@ -7,8 +7,8 @@ import {
   SelectTrigger,
 } from '~/components/ui/Select';
 import Devices from '~/icons/Devices';
-import Container from '~/components/Container';
 import { cn } from '~/utils/cn';
+import { DEVICE_SIZE } from './config';
 
 const { Action } = Container;
 

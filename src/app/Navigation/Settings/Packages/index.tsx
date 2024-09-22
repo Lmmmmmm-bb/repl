@@ -1,12 +1,12 @@
-import { useState } from 'react';
 import type { ChangeEvent, FC } from 'react';
-import PackagePreview from '../PackagePreview';
-import CorePackages from './CorePackages';
+import { useState } from 'react';
 import { Input } from '~/components/ui/Input';
 import { Label } from '~/components/ui/Label';
 import Search from '~/icons/Search';
 import { usePackageStore } from '~/stores/package';
 import { cn } from '~/utils/cn';
+import PackagePreview from '../PackagePreview';
+import CorePackages from './CorePackages';
 
 const Packages: FC = () => {
   const extraPackages = usePackageStore(state => state.extraPackages);

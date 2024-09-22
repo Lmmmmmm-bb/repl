@@ -1,14 +1,14 @@
-import { type FC, useState } from 'react';
 import { SelectTrigger } from '@radix-ui/react-select';
-import { cn } from '~/utils/cn';
-import Download from '~/icons/Download';
-import Button from '~/components/ui/Button';
-import { type Package, addExtraPackage } from '~/stores/package';
-import Loading from '~/icons/Loading';
-import { useToggle } from '~/hooks/useToggle';
-import { registerExtraPackageToMonaco } from '~/monaco';
-import { Select, SelectContent, SelectItem, SelectSeparator } from '~/components/ui/Select';
+import { type FC, useState } from 'react';
 import { fetchPackageVersionList } from '~/apis/package-version-list';
+import Button from '~/components/ui/Button';
+import { Select, SelectContent, SelectItem, SelectSeparator } from '~/components/ui/Select';
+import { useToggle } from '~/hooks/useToggle';
+import Download from '~/icons/Download';
+import Loading from '~/icons/Loading';
+import { registerExtraPackageToMonaco } from '~/monaco';
+import { addExtraPackage, type Package } from '~/stores/package';
+import { cn } from '~/utils/cn';
 
 interface PackageInstallProps {
   npmPackage: Package;

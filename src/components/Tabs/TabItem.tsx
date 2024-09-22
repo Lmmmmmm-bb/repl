@@ -3,9 +3,9 @@ import type {
   FC,
   MouseEvent,
 } from 'react';
-import Button from '../ui/Button';
 import Close from '~/icons/Close';
 import { cn } from '~/utils/cn';
+import Button from '../ui/Button';
 
 interface TabItemProps {
   active?: boolean;

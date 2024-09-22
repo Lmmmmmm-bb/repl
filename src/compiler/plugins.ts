@@ -1,6 +1,6 @@
-import { transform } from './transform';
 import { getVirtualFileExt, isValidFilename } from '~/virtual-file';
 import type { VirtualFile } from '~/virtual-file';
+import { transform } from './transform';
 
 const getVirtualFileByImportPath = (importValue: string, files: Record<string, VirtualFile>) => {
   const importFilename = importValue.replace(/^\.\/+/, '');

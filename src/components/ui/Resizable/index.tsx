@@ -69,7 +69,7 @@ const ResizableHandle: FC<ComponentProps<typeof ResizablePrimitive.PanelResizeHa
 );
 
 export {
-  ResizablePanelGroup,
-  ResizablePanel,
   ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
 };

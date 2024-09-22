@@ -1,9 +1,9 @@
 import type { FC } from 'react';
-import Framework from './Framework';
 import Button from '~/components/ui/Button';
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/Popover';
 import InformationIcon from '~/icons/Information';
 import { cn } from '~/utils/cn';
+import Framework from './Framework';
 
 const Information: FC = () => (
   <Popover>

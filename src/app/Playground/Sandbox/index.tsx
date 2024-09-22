@@ -1,20 +1,20 @@
-import { useCallback, useEffect, useMemo, useRef } from 'react';
 import type { CSSProperties, FC } from 'react';
-import { appendMessage, clearMessage } from '../store';
-import { useCompilerWorker } from './useCompilerWorker';
-import { useSandbox } from './useSandbox';
-import { sandboxAttr } from './config';
 import type { ConsolePayload } from './types';
-import Mounting from './Mounting';
-import VersionNotMatch from './VersionNotMatch';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useDebounce } from '~/hooks/useDebounce';
+import { useElementSize } from '~/hooks/useElementSize';
+import { useToggle } from '~/hooks/useToggle';
+import { usePackageStore } from '~/stores/package';
+import { isLegacyReactDOM } from '~/stores/package/utils';
 import { useThemeStore } from '~/stores/theme';
 import { useVirtualFileStore } from '~/stores/virtual-file';
-import { usePackageStore } from '~/stores/package';
-import { useElementSize } from '~/hooks/useElementSize';
 import { cn } from '~/utils/cn';
-import { useToggle } from '~/hooks/useToggle';
-import { isLegacyReactDOM } from '~/stores/package/utils';
-import { useDebounce } from '~/hooks/useDebounce';
+import { appendMessage, clearMessage } from '../store';
+import { sandboxAttr } from './config';
+import Mounting from './Mounting';
+import { useCompilerWorker } from './useCompilerWorker';
+import { useSandbox } from './useSandbox';
+import VersionNotMatch from './VersionNotMatch';
 
 interface SandboxProps {
   sandboxWidth: number;
