@@ -1,7 +1,7 @@
 import type { FC, PropsWithChildren } from 'react';
 import type { ButtonProps } from '../ui/Button';
-import Button from '../ui/Button';
 import { cn } from '~/utils/cn';
+import Button from '../ui/Button';
 
 const Action: FC<PropsWithChildren<ButtonProps>> = ({ children, className, ...props }) => (
   <Button

@@ -1,7 +1,7 @@
-import { create } from 'zustand';
-import { REPL_STORAGE_MODE } from './config';
 import type { ThemeModeType, ThemeStore } from './types';
+import { create } from 'zustand';
 import { monaco } from '~/monaco';
+import { REPL_STORAGE_MODE } from './config';
 
 const defaultTheme = localStorage.getItem(REPL_STORAGE_MODE) as ThemeModeType || 'light';
 

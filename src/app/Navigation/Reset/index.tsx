@@ -1,7 +1,7 @@
 import type { FC } from 'react';
+import Button from '~/components/ui/Button';
 import Clean from '~/icons/Clean';
 import { resetMonaco } from '~/monaco';
-import Button from '~/components/ui/Button';
 import { resetPackageStore } from '~/stores/package';
 import { resetVirtualFileStore } from '~/stores/virtual-file';
 

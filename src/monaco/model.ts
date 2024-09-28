@@ -1,7 +1,7 @@
 import * as monaco from 'monaco-editor';
-import { getOrCreateMonacoModel } from './utils';
 import { initVirtualFileStore } from '~/stores/virtual-file';
 import { defaultVirtualFileStore } from '~/stores/virtual-file/init';
+import { getOrCreateMonacoModel } from './utils';
 
 export const initModels = () => {
   Object.values(initVirtualFileStore.files)

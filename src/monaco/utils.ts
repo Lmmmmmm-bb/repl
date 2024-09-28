@@ -1,8 +1,8 @@
 import * as monaco from 'monaco-editor';
-import { resetModels } from './model';
+import { getVirtualFileLanguage, type VirtualFile } from '~/virtual-file';
 import { resetCoreLib } from './core-lib';
 import { resetExtraLib } from './extra-lib';
-import { type VirtualFile, getVirtualFileLanguage } from '~/virtual-file';
+import { resetModels } from './model';
 
 export const registerLib = (content: string, path: string) => {
   const tsDisposal = monaco.languages.typescript.typescriptDefaults.addExtraLib(content, path);

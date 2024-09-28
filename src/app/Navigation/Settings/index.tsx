@@ -1,12 +1,12 @@
 import { type FC, useState } from 'react';
-import Side from './Side';
-import Install from './Install';
-import { SettingPanel } from './types';
-import Packages from './Packages';
-import { cn } from '~/utils/cn';
 import Button from '~/components/ui/Button';
-import SettingsIcon from '~/icons/Settings';
 import { Dialog, DialogContent, DialogTrigger } from '~/components/ui/Dialog';
+import SettingsIcon from '~/icons/Settings';
+import { cn } from '~/utils/cn';
+import Install from './Install';
+import Packages from './Packages';
+import Side from './Side';
+import { SettingPanel } from './types';
 
 const Settings: FC = () => {
   const [activePanel, setActivePanel] = useState(SettingPanel.Package);

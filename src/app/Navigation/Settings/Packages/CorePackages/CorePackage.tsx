@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger } fro
 import { useToggle } from '~/hooks/useToggle';
 import Loading from '~/icons/Loading';
 import { registerCorePackageToMonaco } from '~/monaco';
-import { type CorePackage as CorePackageType, addCorePackage } from '~/stores/package';
+import { addCorePackage, type CorePackage as CorePackageType } from '~/stores/package';
 
 interface CorePackageProps {
   lib: CorePackageType;

@@ -1,16 +1,16 @@
 import type { FC } from 'react';
-import { virtualFileExtIconStrategy } from './strategy';
-import NewFile from './NewFile';
 import Tabs from '~/components/Tabs';
-import { cn } from '~/utils/cn';
-import { getVirtualFileExt } from '~/virtual-file';
+import { getOrCreateMonacoModel } from '~/monaco';
 import {
-  ENTRY_FILE,
   deleteFile,
+  ENTRY_FILE,
   setActiveFile,
   useVirtualFileStore,
 } from '~/stores/virtual-file';
-import { getOrCreateMonacoModel } from '~/monaco';
+import { cn } from '~/utils/cn';
+import { getVirtualFileExt } from '~/virtual-file';
+import NewFile from './NewFile';
+import { virtualFileExtIconStrategy } from './strategy';
 
 const FileTabs: FC = () => {
   const { files, activeFile } = useVirtualFileStore();

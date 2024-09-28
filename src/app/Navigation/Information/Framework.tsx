@@ -1,8 +1,8 @@
 import type { FC } from 'react';
-import Vite from '~/icons/Vite';
 import React from '~/icons/React';
-import Tailwind from '~/icons/Tailwind';
 import Shadcn from '~/icons/Shadcn';
+import Tailwind from '~/icons/Tailwind';
+import Vite from '~/icons/Vite';
 
 const Framework: FC = () => (
   <div className="flex items-center gap-1">

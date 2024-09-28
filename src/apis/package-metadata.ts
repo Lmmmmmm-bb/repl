@@ -1,5 +1,5 @@
-import { JSDELIVR_BASE_URL } from './config';
 import type { CorePackage } from '~/stores/package';
+import { JSDELIVR_BASE_URL } from './config';
 
 interface PackageMetadataFile {
   hash: string;

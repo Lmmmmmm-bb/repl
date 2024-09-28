@@ -1,16 +1,7 @@
-import { type FC, useRef, useState } from 'react';
 import type { ImperativePanelGroupHandle } from 'react-resizable-panels';
-
-import Editor from './Editor';
-import FileTabs from './FileTabs';
-import Sandbox from './Sandbox';
-import Format from './Format';
-import DeviceSelect from './DeviceSelect';
-import { DEVICE_SIZE, PREVIEW_RESIZE_GROUP_SAVE_ID, ROOT_RESIZE_GROUP_SAVE_ID } from './config';
-import Console from './Console';
-import Clear from './Clear';
-import ConsoleLevelFilter from './ConsoleLevelFilter';
 import type { ConsoleSelectType } from './types';
+
+import { type FC, useRef, useState } from 'react';
 import Container from '~/components/Container';
 import {
   ResizableHandle,
@@ -18,6 +9,15 @@ import {
   ResizablePanelGroup,
 } from '~/components/ui/Resizable';
 import { useMediaQuery } from '~/hooks/useMediaQuery';
+import Clear from './Clear';
+import { DEVICE_SIZE, PREVIEW_RESIZE_GROUP_SAVE_ID, ROOT_RESIZE_GROUP_SAVE_ID } from './config';
+import Console from './Console';
+import ConsoleLevelFilter from './ConsoleLevelFilter';
+import DeviceSelect from './DeviceSelect';
+import Editor from './Editor';
+import FileTabs from './FileTabs';
+import Format from './Format';
+import Sandbox from './Sandbox';
 
 const Playground: FC = () => {
   const isDesktopScreen = useMediaQuery('(min-width: 1024px)');

@@ -1,8 +1,8 @@
-import { registerLib } from './utils';
-import type { Package } from '~/stores/package';
 import { fetchPackageFileRaw } from '~/apis/package-raw';
+import type { Package } from '~/stores/package';
 import { initialPackageStore, usePackageStore } from '~/stores/package';
 import { defaultPackageStore } from '~/stores/package/init';
+import { registerLib } from './utils';
 
 export const registerExtraPackageToMonaco = async (lib: Package) => {
   const { extraPackageDisposal } = usePackageStore.getState();

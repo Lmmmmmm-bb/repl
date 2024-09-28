@@ -1,5 +1,5 @@
-import { NPM_BASE_URL } from './config';
 import type { Package } from '~/stores/package';
+import { NPM_BASE_URL } from './config';
 
 interface NpmObjects {
   package: Package;

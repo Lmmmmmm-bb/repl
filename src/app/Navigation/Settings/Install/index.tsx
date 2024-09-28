@@ -1,15 +1,15 @@
-import { useState } from 'react';
 import type { ChangeEvent, FC } from 'react';
-import PackagePreview from '../PackagePreview';
-import { setPackages, usePackageStore } from './store';
+import { useState } from 'react';
+import { fetchPackageList } from '~/apis/package-list';
 import { Input } from '~/components/ui/Input';
 import { Label } from '~/components/ui/Label';
-import Search from '~/icons/Search';
-import Loading from '~/icons/Loading';
-import { useToggle } from '~/hooks/useToggle';
 import { useDebounce } from '~/hooks/useDebounce';
-import { fetchPackageList } from '~/apis/package-list';
+import { useToggle } from '~/hooks/useToggle';
+import Loading from '~/icons/Loading';
+import Search from '~/icons/Search';
 import { cn } from '~/utils/cn';
+import PackagePreview from '../PackagePreview';
+import { setPackages, usePackageStore } from './store';
 
 const Install: FC = () => {
   const packages = usePackageStore(state => state.packages);

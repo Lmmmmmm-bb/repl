@@ -1,12 +1,13 @@
 import type { FC } from 'react';
+import Badge from '~/components/ui/Badge';
+import { DialogTitle } from '~/components/ui/Dialog';
+import AddPackage from '~/icons/AddPackage';
+import Package from '~/icons/Package';
+import Settings from '~/icons/Settings';
+import { usePackageStore } from '~/stores/package';
+import { cn } from '~/utils/cn';
 import { SettingPanel } from '../types';
 import SideItem from './SideItem';
-import { cn } from '~/utils/cn';
-import Settings from '~/icons/Settings';
-import Package from '~/icons/Package';
-import AddPackage from '~/icons/AddPackage';
-import Badge from '~/components/ui/Badge';
-import { usePackageStore } from '~/stores/package';
 
 interface SideProps {
   activePanel: SettingPanel;
@@ -18,17 +19,18 @@ const Side: FC<SideProps> = ({ activePanel, onPanelChange }) => {
 
   return (
     <div className="lg:flex-1 border-b lg:border-r lg:border-b-0">
-      <header
+      <DialogTitle
         className={cn(
           ['h-16', 'lg:h-20', 'px-4'],
           ['flex', 'items-center', 'gap-2'],
+          ['text-base', 'font-normal'],
           ['bg-light-200', 'dark:bg-dark-900'],
           ['border-b'],
         )}
       >
         <Settings className="size-5" />
         Settings
-      </header>
+      </DialogTitle>
 
       <nav className="flex lg:flex-col">
         <SideItem

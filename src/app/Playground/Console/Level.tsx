@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import type { ConsoleType } from '../types';
-import { consoleBadgeVariantStrategy } from './strategy';
 import Badge from '~/components/ui/Badge';
+import { consoleBadgeVariantStrategy } from './strategy';
 
 interface LevelProps {
   level: ConsoleType;

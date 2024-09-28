@@ -1,8 +1,8 @@
 import type { FC } from 'react';
 import type { ConsoleMessage } from '../types';
-import Level from './Level';
-import Duplicate from './Duplicate';
 import { cn } from '~/utils/cn';
+import Duplicate from './Duplicate';
+import Level from './Level';
 
 interface MessageProps {
   message: ConsoleMessage;

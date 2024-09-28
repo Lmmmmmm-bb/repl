@@ -1,7 +1,7 @@
 import antfu from '@antfu/eslint-config';
 
-import reactCompiler from 'eslint-plugin-react-compiler';
 import stylisticJsx from '@stylistic/eslint-plugin-jsx';
+import reactCompiler from 'eslint-plugin-react-compiler';
 
 export default antfu(
   {
@@ -21,6 +21,7 @@ export default antfu(
   },
   {
     rules: {
+      'antfu/no-top-level-await': 'off',
       'antfu/top-level-function': 'off',
 
       'curly': ['error', 'all'],

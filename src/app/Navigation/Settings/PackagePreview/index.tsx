@@ -1,14 +1,14 @@
 import { type FC, useMemo } from 'react';
+import Calendar from '~/icons/Calendar';
+import Check from '~/icons/Check';
+import CheckFilled from '~/icons/CheckFilled';
+import Cube from '~/icons/Cube';
+import type { Package } from '~/stores/package';
+import { usePackageStore } from '~/stores/package';
+import { cn } from '~/utils/cn';
 import PackageInstall from './PackageInstall';
 import PackageLink from './PackageLink';
 import PackageUninstall from './PackageUninstall';
-import { cn } from '~/utils/cn';
-import Cube from '~/icons/Cube';
-import Calendar from '~/icons/Calendar';
-import type { Package } from '~/stores/package';
-import { usePackageStore } from '~/stores/package';
-import Check from '~/icons/Check';
-import CheckFilled from '~/icons/CheckFilled';
 
 interface PackagePreviewProps {
   npmPackage: Package;

@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
-import './App.css';
 import Welcome from './Welcome';
+import './App.css';
 
 const App: FC = () => (
   <div className="app">

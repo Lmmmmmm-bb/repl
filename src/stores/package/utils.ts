@@ -1,5 +1,5 @@
-import { packagePathStrategy, packageRenameStrategy } from './strategy';
 import { usePackageStore } from '.';
+import { packagePathStrategy, packageRenameStrategy } from './strategy';
 
 export const isLegacyReactDOM = () => {
   const { corePackages } = usePackageStore.getState();

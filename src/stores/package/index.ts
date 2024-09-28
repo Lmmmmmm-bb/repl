@@ -1,10 +1,10 @@
+import type { CorePackage, Package, PackageStore } from './types';
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
-import { useVirtualFileStore } from '../virtual-file';
-import { getImportMap } from './utils';
-import { defaultPackageStore, restorePackageStore } from './init';
-import type { CorePackage, Package, PackageStore } from './types';
 import { compress } from '~/utils/compress';
+import { useVirtualFileStore } from '../virtual-file';
+import { defaultPackageStore, restorePackageStore } from './init';
+import { getImportMap } from './utils';
 
 export const initialPackageStore = restorePackageStore();
 
@@ -70,4 +70,4 @@ export const resetPackageStore = () => {
   usePackageStore.setState({ ...defaultPackageStore });
 };
 
-export { CorePackage, Package, getImportMap };
+export { CorePackage, getImportMap, Package };

@@ -1,8 +1,8 @@
-import { type FC, useEffect, useRef } from 'react';
-import { useConsoleStore } from '../store';
 import type { ConsoleSelectType } from '../types';
-import Message from './Message';
+import { type FC, useEffect, useRef } from 'react';
 import { cn } from '~/utils/cn';
+import { useConsoleStore } from '../store';
+import Message from './Message';
 
 interface ConsoleProps {
   filterType: ConsoleSelectType;

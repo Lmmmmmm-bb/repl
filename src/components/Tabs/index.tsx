@@ -1,6 +1,6 @@
 import type { FC, PropsWithChildren } from 'react';
-import TabItem from './TabItem';
 import { cn } from '~/utils/cn';
+import TabItem from './TabItem';
 
 interface TabsComponent {
   Item: typeof TabItem;

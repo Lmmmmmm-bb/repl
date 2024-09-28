@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
 import type { editor } from 'monaco-editor';
+import { useEffect, useRef } from 'react';
 import { monaco, monacoOptions } from '~/monaco';
 import { updateFileContent } from '~/stores/virtual-file';
 

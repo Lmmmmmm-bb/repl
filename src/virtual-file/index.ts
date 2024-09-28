@@ -1,6 +1,6 @@
-import { VALID_FILENAME_REGEX, VALID_FILE_EXT_REGEX } from './config';
-import { virtualFileLanguageStrategy } from './strategy';
 import type { FileExtensionType, FileLanguageType, VirtualFile } from './types';
+import { VALID_FILE_EXT_REGEX, VALID_FILENAME_REGEX } from './config';
+import { virtualFileLanguageStrategy } from './strategy';
 
 export const isValidFileExtension = (filename: string) => VALID_FILE_EXT_REGEX.test(filename);
 
@@ -45,7 +45,7 @@ export const getVirtualFileExt = (filename: string): FileExtensionType => {
 };
 
 export {
-  FileLanguageType,
   FileExtensionType,
+  FileLanguageType,
   VirtualFile,
 };
