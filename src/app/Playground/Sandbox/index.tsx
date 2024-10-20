@@ -1,6 +1,7 @@
 import type { CSSProperties, FC } from 'react';
 import type { ConsolePayload } from './types';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useShallow } from 'zustand/shallow';
 import { useDebounce } from '~/hooks/useDebounce';
 import { useElementSize } from '~/hooks/useElementSize';
 import { useToggle } from '~/hooks/useToggle';
@@ -24,16 +25,18 @@ interface SandboxProps {
 const Sandbox: FC<SandboxProps> = ({ sandboxWidth, sandboxHeight }) => {
   const theme = useThemeStore(state => state.theme);
   const files = useVirtualFileStore(state => state.files);
-  const { isVersionMatch, corePackages, extraPackages } = usePackageStore((state) => {
-    const [react] = state.corePackages.filter(item => item.name === 'react');
-    const [reactDOM] = state.corePackages.filter(item => item.name === 'react-dom');
-    const isVersionMatch = react.version === reactDOM.version;
-    return {
-      isVersionMatch,
-      corePackages: state.corePackages,
-      extraPackages: state.extraPackages,
-    };
-  });
+  const { isVersionMatch, corePackages, extraPackages } = usePackageStore(
+    useShallow((state) => {
+      const [react] = state.corePackages.filter(item => item.name === 'react');
+      const [reactDOM] = state.corePackages.filter(item => item.name === 'react-dom');
+      const isVersionMatch = react.version === reactDOM.version;
+      return {
+        isVersionMatch,
+        corePackages: state.corePackages,
+        extraPackages: state.extraPackages,
+      };
+    }),
+  );
 
   const [isSandboxMounting, toggleIsSandboxMounting] = useToggle();
 

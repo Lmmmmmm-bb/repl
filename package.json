@@ -38,7 +38,7 @@
     "shiki": "^1.22.0",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
-    "zustand": "^4.5.5"
+    "zustand": "^5.0.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.8.0",

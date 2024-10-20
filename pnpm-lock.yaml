@@ -78,8 +78,8 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.14)
       zustand:
-        specifier: ^4.5.5
-        version: 4.5.5(react@19.0.0-rc-1d989965-20240821)(types-react@19.0.0-rc.0)
+        specifier: ^5.0.0
+        version: 5.0.0(react@19.0.0-rc-1d989965-20240821)(types-react@19.0.0-rc.0)(use-sync-external-store@1.2.2(react@19.0.0-rc-1d989965-20240821))
     devDependencies:
       '@antfu/eslint-config':
         specifier: ^3.8.0
@@ -3662,19 +3662,22 @@ packages:
   zod@3.23.8:
     resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
 
-  zustand@4.5.5:
-    resolution: {integrity: sha512-+0PALYNJNgK6hldkgDq2vLrw5f6g/jCInz52n9RTpropGgeAf/ioFUCdtsjCqu4gNhW9D01rUQBROoRjdzyn2Q==}
-    engines: {node: '>=12.7.0'}
+  zustand@5.0.0:
+    resolution: {integrity: sha512-LE+VcmbartOPM+auOjCCLQOsQ05zUTp8RkgwRzefUk+2jISdMMFnxvyTjA4YNWr5ZGXYbVsEMZosttuxUBkojQ==}
+    engines: {node: '>=12.20.0'}
     peerDependencies:
-      '@types/react': '>=16.8'
+      '@types/react': '>=18.0.0'
       immer: '>=9.0.6'
-      react: '>=16.8'
+      react: '>=18.0.0'
+      use-sync-external-store: '>=1.2.0'
     peerDependenciesMeta:
       '@types/react':
         optional: true
       immer:
         optional: true
       react:
+        optional: true
+      use-sync-external-store:
         optional: true
 
   zwitch@2.0.4:
@@ -7660,6 +7663,7 @@ snapshots:
   use-sync-external-store@1.2.2(react@19.0.0-rc-1d989965-20240821):
     dependencies:
       react: 19.0.0-rc-1d989965-20240821
+    optional: true
 
   util-deprecate@1.0.2: {}
 
@@ -7800,11 +7804,10 @@ snapshots:
 
   zod@3.23.8: {}
 
-  zustand@4.5.5(react@19.0.0-rc-1d989965-20240821)(types-react@19.0.0-rc.0):
-    dependencies:
-      use-sync-external-store: 1.2.2(react@19.0.0-rc-1d989965-20240821)
+  zustand@5.0.0(react@19.0.0-rc-1d989965-20240821)(types-react@19.0.0-rc.0)(use-sync-external-store@1.2.2(react@19.0.0-rc-1d989965-20240821)):
     optionalDependencies:
       '@types/react': types-react@19.0.0-rc.0
       react: 19.0.0-rc-1d989965-20240821
+      use-sync-external-store: 1.2.2(react@19.0.0-rc-1d989965-20240821)
 
   zwitch@2.0.4: {}
