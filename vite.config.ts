@@ -32,6 +32,9 @@ export default defineConfig({
       '~': resolve(__dirname, 'src'),
     },
   },
+  optimizeDeps: {
+    include: ['@babel/standalone'],
+  },
   worker: {
     format: 'es',
   },
